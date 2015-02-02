@@ -48,7 +48,7 @@ public class fAccueil extends JFrame {
 
 	public fAccueil() {
 
-        listVersions = VersionsReader.getInstance().getVersions();
+		listVersions = VersionsReader.getInstance().getVersions();
 		listPatches = VersionsReader.getInstance().getPatches();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -178,7 +178,7 @@ public class fAccueil extends JFrame {
 		});
 		bGroup.add(rbStandalone);
 		contentPane.add(rbStandalone);
-		
+
 		bPatches = new JButton("Go to patches >>");
 		bPatches.setBounds(278, 153, 157, 25);
 		bPatches.addActionListener(new ActionListener() {
@@ -186,6 +186,7 @@ public class fAccueil extends JFrame {
 				goPatches(arg0, listVersions);
 			}
 		});
+		bPatches.setVisible(false);
 		contentPane.add(bPatches);
 	}
 
@@ -210,12 +211,13 @@ public class fAccueil extends JFrame {
 		lAvoid.setVisible(true);
 		lProblems.setVisible(true);
 		bInstructions.setVisible(true);
+		bPatches.setVisible(true);
 	}
 
 	private void bInstructionsActionPerformed(java.awt.event.ActionEvent evt)
 			throws FileNotFoundException {
 		instructions = new fInstructions(listVersions, startVersion, endVersion);
-		
+
 		if (rbStandalone.isSelected()) {
 			installType = "standalone";
 
@@ -237,12 +239,12 @@ public class fAccueil extends JFrame {
 			bSimulate.setEnabled(true);
 		}
 	}
-	
+
 	public void goPatches(ActionEvent evt, List<String> listVersions) {
-        List<Patch> listPatches = VersionsReader.getInstance().getPatches();
+		List<Patch> listPatches = VersionsReader.getInstance().getPatches();
 
 		patches = new fPatches(listPatches);
-		
+
 		this.setVisible(false);
 		patches.setVisible(true);
 	}
