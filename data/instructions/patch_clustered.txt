@@ -1,0 +1,49 @@
+<html><body>
+
+<div class="help-message">
+<p><strong>Please:</strong></p>
+
+<ul>
+	<li>Stop the user requests / traffic to the server (either on the front-end Apache HTTPD server or firewall/router)</li>
+	<li>Stop Jahia before backing up and running the fix applier</li>
+	<li>Backup your Jahia installation before running the fix applier (for more details about how to backup jahia please check the <a href="/files/live/sites/jahiacom/files/Resources/docs/6.6/6.62/en/Jahia6.62__Configuration-fine-tuning.pdf" title="Configuration and fine tuning Guide - Enterprise Jahia v6.6.2">Configuration and Fine tuning guide</a>)</li>
+	<li>Run a pre-production test first</li>
+</ul>
+</div>
+
+<p>&nbsp;</p>
+
+<p><br>
+&nbsp;</p>
+
+<hr>
+<h2><span style="color:#9999ff;">For a clustered installation</span></h2>
+
+<h3><span style="
+    padding:2px 10px; 
+    background-color:#9999ff;
+    color:#FFF;
+    -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+     border-radius: 5px;
+     margin-right:0.5em;
+     font-style:normal;
+     font-family: Arial, Helvetica, sans-serif;
+     ">Step 1:</span>Migration of all your nodes STARTING by the processing node</h3>
+
+<h4>1. Shut all nodes down</h4>
+
+<h4>2. Apply the step described for a standalone installation&nbsp;</h4>
+
+<h4>3. Repeat&nbsp;the previous step for each of your other cluster node</h4>
+
+<p>&nbsp;</p>
+
+<div class="help-message">Your upgrade to Jahia 6.6.2.8 in cluster is now completed.</div>
+
+<p>&nbsp;</p>
+
+<p><br>
+&nbsp;</p><div class="clear"></div><div class="clear"></div>
+
+</html></body>
