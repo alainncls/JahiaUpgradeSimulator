@@ -88,7 +88,6 @@ public enum VersionsReader {
 				}
 			}
 		}
-		System.out.println(patches.size());
 		return patches;
 	}
 }
