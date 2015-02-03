@@ -94,4 +94,8 @@ public class Patch {
             return false;
         return true;
     }
+
+	public boolean isProblem() {
+		return false;
+	}
 }
