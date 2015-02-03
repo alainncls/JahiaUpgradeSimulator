@@ -26,9 +26,14 @@ public enum InstructionsReader {
 
 	}
 
-	public static void create(String installType) throws FileNotFoundException {
+	public static void create(String installType) {
 		path = "data/instructions/patch_" + installType + ".txt";
-		readFile(); // Reading the file line by line
+		try {
+			readFile();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} // Reading the file line by line
 	}
 
 	public static InstructionsReader getInstance() {

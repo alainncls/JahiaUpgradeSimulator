@@ -8,73 +8,45 @@ import fr.smile.reader.InstructionsReader;
 import fr.smile.reader.VersionsReader;
 
 public class Simulation {
-	public String startVersion;
-	public String endVersion;
-	public int steps;
-	public int stepsV;
-	public int stepsP;
+	private String startVersion;
+	private String endVersion;
+	private int stepsA;
+	private int stepsP;
 
-	private List<String> listVersions;
     private List<Patch> listPatches;
 
 	public Simulation(String startVersion, String endVersion) {
         this.startVersion = startVersion;
         this.endVersion = endVersion;
-		this.listVersions = VersionsReader.getInstance().getVersions();
         this.listPatches = new ArrayList<>();
+        this.stepsA = this.stepsP = 0;
+        this.runSimulation();
 	}
+	
+	private void runSimulation() {
+		String currentVersion = startVersion;
+		List<Patch> pl;
+		Patch p;
+		while(!(pl=VersionsReader.getInstance().getPatches(currentVersion, endVersion)).isEmpty()){
+			p = pl.get(0);
+			listPatches.add(p);
+			currentVersion = p.getEndVersion();
+			stepsA += pl.size()-1;
+			stepsP += p.isProblem()?1:0;
+		}
+	}
+	
+	
 
-	public String compareVersions() {
+	@Override
+	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Version Initiale : ");
-
-		steps = 0;
-		stepsV = 0;
-		stepsP = 0;
-
-		int start = listVersions.indexOf(startVersion);
-		int end = listVersions.indexOf(endVersion);
-
-		for (String temp : listVersions.subList(start, end)) {
-			if (isNotSpecial(temp) || temp.equals(startVersion)) {
-
-				builder.append(temp);
-				if (isProblem(temp)) {
-					builder.append(" !!!");
-				}
-				builder.append("\n").append(temp).append(" - ");
-				steps++;
-			}
+		builder.append("Version Initiale : ").append(startVersion);
+		for(Patch p : listPatches){
+			builder.append("\n").append(p.getStartVersion()).append(" to ").append(p.getEndVersion());
+			if(p.isProblem()) builder.append(" !!!");
 		}
-		builder.append(endVersion);
-
 		return builder.toString();
-	}
-
-	public boolean isNotSpecial(String v) {
-		if (v.equals("6.6.1.0") || v.equals("6.6.0.0")) {
-			stepsV++;
-			return false;
-		}
-
-		return true;
-	}
-
-	public boolean isProblem(String v) {
-		if (!v.equals(startVersion)
-				&& (v.equals("6.6.1.2") || v.equals("6.6.1.4"))) {
-			stepsP++;
-			return true;
-		}
-
-		return false;
-	}
-
-	public String getInstructions(String installType)
-			throws FileNotFoundException {
-		InstructionsReader.create(installType);
-		InstructionsReader insRead = InstructionsReader.getInstance();
-		return insRead.getInstructions();
 	}
 
 	public void setStartVersion(String start) {
@@ -84,4 +56,41 @@ public class Simulation {
 	public void setEndVersion(String end) {
 		this.endVersion = end;
 	}
+
+	public int getSteps() {
+		return listPatches.size();
+	}
+	
+	public int getStepsA() {
+		return stepsA;
+	}
+
+	public void setStepsA(int stepsA) {
+		this.stepsA = stepsA;
+	}
+
+	public int getStepsP() {
+		return stepsP;
+	}
+
+	public void setStepsP(int stepsP) {
+		this.stepsP = stepsP;
+	}
+
+	public List<Patch> getListPatches() {
+		return listPatches;
+	}
+
+	public void setListPatches(List<Patch> listPatches) {
+		this.listPatches = listPatches;
+	}
+
+	public String getStartVersion() {
+		return startVersion;
+	}
+
+	public String getEndVersion() {
+		return endVersion;
+	}
+
 }

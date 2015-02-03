@@ -23,6 +23,7 @@ import javax.swing.border.EmptyBorder;
 
 import fr.smile.main.Patch;
 import fr.smile.main.Simulation;
+import fr.smile.reader.InstructionsReader;
 import fr.smile.reader.VersionsReader;
 
 public class fAccueil extends JFrame {
@@ -57,12 +58,10 @@ public class fAccueil extends JFrame {
 	private String endVersion;
 	private String installType;
 	private List<String> listVersions;
-	private List<Patch> listPatches;
 
 	public fAccueil() {
 
 		listVersions = VersionsReader.getInstance().getVersions();
-		listPatches = VersionsReader.getInstance().getPatches();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -196,7 +195,7 @@ public class fAccueil extends JFrame {
 		bPatches.setBounds(278, 153, 157, 25);
 		bPatches.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				goPatches(arg0, listVersions);
+				goPatches(arg0);
 			}
 		});
 		bPatches.setVisible(false);
@@ -210,12 +209,12 @@ public class fAccueil extends JFrame {
 
 		simul = new Simulation(startVersion, endVersion);
 
-		String result = simul.compareVersions();
+		String result = simul.toString();
 
 		tpResult.setText(result);
-		lPredicted.setText(Integer.toString(simul.steps) + " predicted steps");
-		lAvoid.setText(Integer.toString(simul.stepsV) + " avoided steps");
-		lProblems.setText(Integer.toString(simul.stepsP) + " steps to check");
+		lPredicted.setText(Integer.toString(simul.getSteps()) + " predicted steps");
+		lAvoid.setText(Integer.toString(simul.getStepsA()) + " avoided steps");
+		lProblems.setText(Integer.toString(simul.getStepsP()) + " steps to check");
 
 		pGreen.setVisible(true);
 		pOrange.setVisible(true);
@@ -229,36 +228,33 @@ public class fAccueil extends JFrame {
 
 	private void bInstructionsActionPerformed(java.awt.event.ActionEvent evt)
 			throws FileNotFoundException {
-		instructions = new fInstructions(listVersions, startVersion, endVersion);
+		instructions = new fInstructions();
 
 		if (rbStandalone.isSelected()) {
 			installType = "standalone";
-
 		} else {
 			installType = "clustered";
 		}
-		instructions.setInstructions(simul.getInstructions(installType));
+		InstructionsReader.create(installType);
+		InstructionsReader insRead = InstructionsReader.getInstance();
+		instructions.setInstructions(insRead.getInstructions());
 		instructions.setVisible(true);
 	}
 
-	private void rbStandaloneActionPerformed(java.awt.event.ActionEvent evt) {
+	private void rbStandaloneActionPerformed(ActionEvent evt) {
 		if (!bSimulate.isEnabled()) {
 			bSimulate.setEnabled(true);
 		}
 	}
 
-	private void rbClusteredActionPerformed(java.awt.event.ActionEvent evt) {
+	private void rbClusteredActionPerformed(ActionEvent evt) {
 		if (!bSimulate.isEnabled()) {
 			bSimulate.setEnabled(true);
 		}
 	}
 
-	public void goPatches(ActionEvent evt, List<String> listVersions) {
-		List<Patch> listPatches = VersionsReader.getInstance().getPatches();
-
-		patches = new fPatches(listPatches);
-
-		this.setVisible(false);
+	public void goPatches(ActionEvent evt) {
+		patches = new fPatches(simul.getListPatches());
 		patches.setVisible(true);
 	}
 
