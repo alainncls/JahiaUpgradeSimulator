@@ -109,9 +109,9 @@ public class fAccueil extends JFrame {
 		lblT.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblT.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblT);
-
+		
 		cbStart = new JComboBox<String>();
-		cbStart.setModel(new DefaultComboBoxModel(listVersions.toArray()));
+		cbStart.setModel(new DefaultComboBoxModel(listVersions.subList(0, listVersions.size()-1).toArray()));
 		cbStart.setBounds(161, 51, 92, 24);
 		contentPane.add(cbStart);
 
@@ -120,10 +120,18 @@ public class fAccueil extends JFrame {
 		contentPane.add(lStart);
 
 		cbEnd = new JComboBox<String>();
-		cbEnd.setModel(new DefaultComboBoxModel(listVersions.toArray()));
+		cbEnd.setModel(new DefaultComboBoxModel(listVersions.subList(1, listVersions.size()).toArray()));
 		cbEnd.setBounds(161, 87, 92, 24);
-		cbEnd.setSelectedIndex(listVersions.size()-1);
+		cbEnd.setSelectedIndex(cbEnd.getItemCount()-1);
 		contentPane.add(cbEnd);
+		
+		cbStart.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cbEnd.setModel(new DefaultComboBoxModel(listVersions.subList(cbStart.getSelectedIndex()+1, listVersions.size()).toArray()));
+				cbEnd.setSelectedIndex(cbEnd.getItemCount()-1);
+			}
+		});
 
 		lEnd = new JLabel("Target version");
 		lEnd.setBounds(12, 92, 149, 15);
@@ -189,6 +197,7 @@ public class fAccueil extends JFrame {
 		});
 		bPatches.setVisible(false);
 		contentPane.add(bPatches);
+		
 	}
 
 	private void bSimulateActionPerformed(ActionEvent evt) {
