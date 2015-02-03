@@ -246,10 +246,8 @@ public class fAccueil extends JFrame {
 		}
 	}
 
-	public void goPatches(ActionEvent evt, List<String> listVersions) {
-		List<Patch> listPatches = VersionsReader.getInstance().getPatches();
-
-		patches = new fPatches(listPatches);
+	public void goPatches(ActionEvent evt) {
+		patches = new fPatches(simul.getListPatches());
 		patches.setVisible(true);
 	}
 
