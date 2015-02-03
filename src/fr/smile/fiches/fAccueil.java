@@ -5,7 +5,11 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileFilter;
+import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
@@ -59,6 +63,8 @@ public class fAccueil extends JFrame {
 	private List<String> listVersions;
 
 	public fAccueil() {
+		
+		this.detectJahiaVersion();
 
 		listVersions = VersionsReader.getInstance().getVersions();
 
@@ -109,9 +115,10 @@ public class fAccueil extends JFrame {
 		lblT.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblT.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblT);
-		
+
 		cbStart = new JComboBox<String>();
-		cbStart.setModel(new DefaultComboBoxModel(listVersions.subList(0, listVersions.size()-1).toArray()));
+		cbStart.setModel(new DefaultComboBoxModel(listVersions.subList(0,
+				listVersions.size() - 1).toArray()));
 		cbStart.setBounds(161, 51, 92, 24);
 		contentPane.add(cbStart);
 
@@ -120,16 +127,19 @@ public class fAccueil extends JFrame {
 		contentPane.add(lStart);
 
 		cbEnd = new JComboBox<String>();
-		cbEnd.setModel(new DefaultComboBoxModel(listVersions.subList(1, listVersions.size()).toArray()));
+		cbEnd.setModel(new DefaultComboBoxModel(listVersions.subList(1,
+				listVersions.size()).toArray()));
 		cbEnd.setBounds(161, 87, 92, 24);
-		cbEnd.setSelectedIndex(cbEnd.getItemCount()-1);
+		cbEnd.setSelectedIndex(cbEnd.getItemCount() - 1);
 		contentPane.add(cbEnd);
-		
+
 		cbStart.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				cbEnd.setModel(new DefaultComboBoxModel(listVersions.subList(cbStart.getSelectedIndex()+1, listVersions.size()).toArray()));
-				cbEnd.setSelectedIndex(cbEnd.getItemCount()-1);
+				cbEnd.setModel(new DefaultComboBoxModel(listVersions.subList(
+						cbStart.getSelectedIndex() + 1, listVersions.size())
+						.toArray()));
+				cbEnd.setSelectedIndex(cbEnd.getItemCount() - 1);
 			}
 		});
 
@@ -197,7 +207,7 @@ public class fAccueil extends JFrame {
 		});
 		bPatches.setVisible(false);
 		contentPane.add(bPatches);
-		
+
 	}
 
 	private void bSimulateActionPerformed(ActionEvent evt) {
@@ -205,16 +215,18 @@ public class fAccueil extends JFrame {
 		endVersion = cbEnd.getSelectedItem().toString();
 
 		simul = new Simulation(startVersion, endVersion);
-		
-		if(simul.getError()!="") {
-			JOptionPane.showMessageDialog(null, simul.getError(), "Error", JOptionPane.ERROR_MESSAGE);
-		}else{
+
+		if (simul.getError() != "") {
+			JOptionPane.showMessageDialog(null, simul.getError(), "Error",
+					JOptionPane.ERROR_MESSAGE);
+		} else {
 			String result = simul.toString();
 
 			tpResult.setText(result);
 			lPredicted.setText(Integer.toString(simul.getSteps())
 					+ " predicted steps");
-			lAvoid.setText(Integer.toString(simul.getStepsA()) + " avoided steps");
+			lAvoid.setText(Integer.toString(simul.getStepsA())
+					+ " avoided steps");
 			lProblems.setText(Integer.toString(simul.getStepsP())
 					+ " steps to check");
 
@@ -237,8 +249,8 @@ public class fAccueil extends JFrame {
 		} else {
 			installType = "clustered";
 		}
-		InstructionsReader.create(installType);
 		InstructionsReader insRead = InstructionsReader.getInstance();
+		insRead.create(installType);
 		instructions.setInstructions(insRead.getInstructions());
 		instructions.setVisible(true);
 	}
@@ -258,6 +270,30 @@ public class fAccueil extends JFrame {
 	public void goPatches(ActionEvent evt) {
 		patches = new fPatches(simul.getListPatches());
 		patches.setVisible(true);
+	}
+
+	private void detectJahiaVersion() {
+		String context = "ROOT";
+		try{
+			File[] files = listFilesMatching(new File("./tomcat/webapps/"+context+"/WEB-INF/lib/"), "jahia-impl-\\d-{4}\\.jar");
+		}catch(Exception e) {
+			System.err.println(e.getMessage());
+			System.err.println("Fail to detect");
+		}
+		
+	}
+	
+	public File[] listFilesMatching(File root, String regex) {
+	    if(!root.isDirectory()) {
+	        throw new IllegalArgumentException(root+" is no directory.");
+	    }
+	    final Pattern p = Pattern.compile(regex); // careful: could also throw an exception!
+	    return root.listFiles(new FileFilter(){
+	        @Override
+	        public boolean accept(File file) {
+	            return p.matcher(file.getName()).matches();
+	        }
+	    });
 	}
 
 	public static void main(String[] args) {

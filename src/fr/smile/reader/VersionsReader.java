@@ -2,25 +2,32 @@ package fr.smile.reader;
 
 //**** IMPORTS ****
 
-import fr.smile.main.Patch;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import fr.smile.main.Patch;
 
 public enum VersionsReader {
 
 	INSTANCE;
 
 	// **** ATTRIBUTES ****
-	public final String path = "data/versions/versions.json";
+	public final String path = "/versions.json";
 	private List<String> listVersion;
 	private List<Patch> listPatch;
 
@@ -43,8 +50,15 @@ public enum VersionsReader {
 
 	// Method to read the file line by line (each line = a bloc)
 	public void readFile() throws IOException, ParseException {
+		InputStream is = getClass().getResourceAsStream(path);
+		StringWriter writer = new StringWriter();
+        IOUtils.copy(is, writer);
+        String json = writer.toString();
+        is.close();
+        writer.close();
+		
 		JSONParser parser = new JSONParser();
-		JSONArray a = (JSONArray) parser.parse(new FileReader(path));
+		JSONArray a = (JSONArray) parser.parse(json);
 		String version, endVersion, url, type;
 		Patch patch;
 
@@ -81,9 +95,10 @@ public enum VersionsReader {
 			if (p.getStartVersion().equals(startVersion)
 					&& p.getEndVersion().compareTo(endVersion) <= 0) {
 				if (patches.isEmpty()
-						|| patches.get(0).getEndVersion().compareTo(p.getEndVersion()) < 0) {
+						|| patches.get(0).getEndVersion()
+								.compareTo(p.getEndVersion()) < 0) {
 					patches.add(0, p);
-				}else{
+				} else {
 					patches.add(p);
 				}
 			}
