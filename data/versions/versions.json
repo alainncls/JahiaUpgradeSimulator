@@ -222,7 +222,21 @@
   },
   {
     "patches": [
+      {
+        "endVersion": "7.0.0.4",
+        "type": "Webapps/ROOT",
+        "url": "https://www.jahia.com/downloads/jahia/digitalfactory7.0.0/Enterprise-DigitalFactory7.0_7.0.0.3_r51686_to_7.0.0.4_r51888.jar"
+      },
+      {
+        "endVersion": "7.0.0.4",
+        "type": "Tomcat package",
+        "url": "https://www.jahia.com/downloads/jahia/digitalfactory7.0.0/Enterprise-DigitalFactory7.0-package_7.0.0.3_r51686_to_7.0.0.4_r51888.jar"
+      }
     ],
     "version": "7.0.0.3"
+  },
+  {
+    "patches": [],
+    "version": "7.0.0.4"
   }
 ]
