@@ -1,13 +1,14 @@
 package fr.smile.fiches;
 
-import fr.smile.main.Patch;
-import fr.smile.reader.VersionsReader;
-
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JEditorPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
 
 public class fInstructions extends JDialog {
 
@@ -21,20 +22,11 @@ public class fInstructions extends JDialog {
 	private JEditorPane epInstructions;
 	private JButton backButton;
 
-	private String startVersion;
-	private String endVersion;
-	private List<String> listVersions;
-
 	
 
-	public fInstructions(final List<String> listVersions,
-			final String startVersion, final String endVersion) {
+	public fInstructions() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 900, 600);
-
-		this.startVersion = startVersion;
-		this.endVersion = endVersion;
-		this.listVersions = listVersions;
 
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
