@@ -1,16 +1,29 @@
 package fr.smile.fiches;
 
-import fr.smile.main.Patch;
-import fr.smile.main.Simulation;
-import fr.smile.reader.VersionsReader;
-
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.util.List;
+
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import fr.smile.main.Patch;
+import fr.smile.main.Simulation;
+import fr.smile.reader.VersionsReader;
 
 public class fAccueil extends JFrame {
 	private static final long serialVersionUID = 1L;
