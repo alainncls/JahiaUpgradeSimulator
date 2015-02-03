@@ -12,6 +12,7 @@ public class Simulation {
 	private String endVersion;
 	private int stepsA;
 	private int stepsP;
+	private String error;
 
     private List<Patch> listPatches;
 
@@ -20,6 +21,7 @@ public class Simulation {
         this.endVersion = endVersion;
         this.listPatches = new ArrayList<>();
         this.stepsA = this.stepsP = 0;
+        this.error = "";
         this.runSimulation();
 	}
 	
@@ -34,13 +36,15 @@ public class Simulation {
 			stepsA += pl.size()-1;
 			stepsP += p.isProblem()?1:0;
 		}
+		if(!currentVersion.equals(endVersion)){
+			error = "Version "+endVersion+" unreachable\nMaximum upgrade available to "+currentVersion;
+		}
 	}
-	
-	
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
+		
 		builder.append("Version Initiale : ").append(startVersion);
 		for(Patch p : listPatches){
 			builder.append("\n").append(p.getStartVersion()).append(" to ").append(p.getEndVersion());
@@ -93,4 +97,12 @@ public class Simulation {
 		return endVersion;
 	}
 
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+	}
+	
 }
