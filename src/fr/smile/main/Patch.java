@@ -79,8 +79,7 @@ public class Patch {
     public String toString() {
         return "Version " + startVersion +
                 " to " + endVersion +
-                (type!=null?", " + type:"") +
-                (url!=null?", (link)":"");
+                (type!=null?", " + type:"");
     }
 
     public boolean isNeeded(String startVersion, String endVersion) {
