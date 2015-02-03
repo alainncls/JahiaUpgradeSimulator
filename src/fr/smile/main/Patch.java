@@ -10,11 +10,11 @@ public class Patch {
     private String type;
     private String url;
 
-    public String getInitVersion() {
+    public String getStartVersion() {
         return startVersion;
     }
 
-    public void setInitVersion(String startVersion) {
+    public void setStartVersion(String startVersion) {
         this.startVersion = startVersion;
     }
 
@@ -53,8 +53,8 @@ public class Patch {
             patch = new Patch();
         }
 
-        public Builder initVersion(String initVersion) {
-            patch.setInitVersion(initVersion);
+        public Builder startVersion(String initVersion) {
+            patch.setStartVersion(initVersion);
             return this;
         }
 
