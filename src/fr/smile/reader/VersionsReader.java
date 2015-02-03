@@ -3,6 +3,7 @@ package fr.smile.reader;
 //**** IMPORTS ****
 
 import fr.smile.main.Patch;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -11,6 +12,7 @@ import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public enum VersionsReader {
@@ -73,17 +75,19 @@ public enum VersionsReader {
 		return listPatch;
 	}
 
-	public Patch getBestPatch(String startVersion, String endVersion) {
-		Patch best = null;
+	public List<Patch> getPatches(String startVersion, String endVersion) {
+		List<Patch> patches = new LinkedList<>();
 		for (Patch p : listPatch) {
 			if (p.getStartVersion().equals(startVersion)
 					&& p.getEndVersion().compareTo(endVersion) <= 0) {
-				if (best == null
-						|| best.getEndVersion().compareTo(p.getEndVersion()) < 0) {
-					best = p;
+				if (patches.isEmpty()
+						|| patches.get(0).getEndVersion().compareTo(p.getEndVersion()) < 0) {
+					patches.add(0, p);
+				}else{
+					patches.add(p);
 				}
 			}
 		}
-		return best;
+		return patches;
 	}
 }

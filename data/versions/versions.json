@@ -184,6 +184,10 @@
     "version": "6.6.2.7"
   },
   {
+    "patches": [],
+    "version": "6.6.2.8"
+  },
+  {
     "patches": [
       {
         "endVersion": "7.0.0.1",
