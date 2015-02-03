@@ -1,228 +1,224 @@
 [
   {
-    "version": "6.5.1.1",
-    "patches": []
-  },
-  {
-    "version": "6.6.0.0",
-    "patches": []
-  },
-  {
-    "version": "6.6.0.1",
     "patches": [
       {
-        "initVersion": "6.5.1.1",
+        "endVersion": "6.6.0.1",
         "url": "https://www.jahia.com/downloads/jahia/jahia6.5.1.1/Enterprise-Jahia6.6_6.5.1.1_r39724_to_6.6.0.1_r41576.jar"
-      },
+      }
+    ],
+    "version": "6.5.1.1"
+  },
+  {
+    "patches": [
       {
-        "initVersion": "6.6.0.0",
+        "endVersion": "6.6.0.1",
         "url": "https://www.jahia.com/downloads/jahia/jahia6.6.0/Enterprise-Jahia6.6_6.6.0.0_r40429_to_6.6.0.1_r41576.jar"
       }
-    ]
+    ],
+    "version": "6.6.0.0"
   },
   {
-    "version": "6.6.1.0",
     "patches": [
       {
-        "initVersion": "6.6.0.1",
+        "endVersion": "6.6.1.0",
         "url": "https://www.jahia.com/downloads/jahia/jahia6.6.1/Enterprise-Jahia6.6_6.6.0.1_r41576_to_6.6.1.0_r43343.jar"
+      },{
+        "endVersion": "6.6.1.1",
+        "url": "https://www.jahia.com/downloads/jahia/jahia6.6.1/Enterprise-Jahia6.6_6.6.0.1_r41576_to_6.6.1.1_r43626.jar"
       }
-    ]
+    ],
+    "version": "6.6.0.1"
   },
   {
-    "version": "6.6.1.1",
     "patches": [
       {
-        "initVersion": "6.6.0.1",
-        "url": "https://www.jahia.com/downloads/jahia/jahia6.6.1/Enterprise-Jahia6.6_6.6.0.1_r41576_to_6.6.1.1_r43626.jar"
-      },
-      {
-        "initVersion": "6.6.1.0",
+        "endVersion": "6.6.1.1",
         "url": "https://www.jahia.com/downloads/jahia/jahia6.6.1/Enterprise-Jahia6.6_6.6.1.0_r43343_to_6.6.1.1_r43626.jar"
       }
-    ]
+    ],
+    "version": "6.6.1.0"
   },
   {
-    "version": "6.6.1.2",
     "patches": [
       {
-        "initVersion": "6.6.1.1",
+        "endVersion": "6.6.1.2",
         "url": "https://www.jahia.com/downloads/jahia/jahia6.6.1/Enterprise-Jahia6.6_6.6.1.1_r43626_to_6.6.1.2_r44162.jar"
       }
-    ]
+    ],
+    "version": "6.6.1.1"
   },
   {
-    "version": "6.6.1.3",
     "patches": [
       {
-        "initVersion": "6.6.1.2",
+        "endVersion": "6.6.1.3",
         "url": "https://www.jahia.com/downloads/jahia/jahia6.6.1/Enterprise-Jahia6.6_6.6.1.2_r44162_to_6.6.1.3_r44481.jar"
       }
-    ]
+    ],
+    "version": "6.6.1.2"
   },
   {
-    "version": "6.6.1.4",
     "patches": [
       {
-        "initVersion": "6.6.1.3",
+        "endVersion": "6.6.1.4",
         "url": "https://www.jahia.com/downloads/jahia/jahia6.6.1/Enterprise-Jahia6.6_6.6.1.3_r44481_to_6.6.1.4_r44742.jar"
       }
-    ]
+    ],
+    "version": "6.6.1.3"
   },
   {
-    "version": "6.6.1.5",
     "patches": [
       {
-        "initVersion": "6.6.1.4",
+        "endVersion": "6.6.1.5",
         "url": "https://www.jahia.com/downloads/jahia/jahia6.6.1/Enterprise-Jahia6.6_6.6.1.4_r44742_to_6.6.1.5_r45162.jar"
       }
-    ]
+    ],
+    "version": "6.6.1.4"
   },
   {
-    "version": "6.6.1.6",
     "patches": [
       {
-        "initVersion": "6.6.1.5",
+        "endVersion": "6.6.1.6",
         "url": "https://www.jahia.com/downloads/jahia/jahia6.6.1/Enterprise-Jahia6.6_6.6.1.5_r45162_to_6.6.1.6_r46004.jar"
       }
-    ]
+    ],
+    "version": "6.6.1.5"
   },
   {
-    "version": "6.6.1.7",
     "patches": [
       {
-        "initVersion": "6.6.1.6",
+        "endVersion": "6.6.1.7",
         "url": "https://www.jahia.com/downloads/jahia/jahia6.6.1/Enterprise-Jahia6.6_6.6.1.6_r46004_to_6.6.1.7_r46710.jar"
       }
-    ]
+    ],
+    "version": "6.6.1.6"
   },
   {
-    "version": "6.6.2.0",
     "patches": [
       {
-        "initVersion": "6.6.1.7",
+        "endVersion": "6.6.2.0",
         "url": "https://www.jahia.com/downloads/jahia/jahia6.6.2/Enterprise-Jahia6.6_6.6.1.7_r46710_to_6.6.2.0_r47118.jar"
       }
-    ]
+    ],
+    "version": "6.6.1.7"
   },
   {
-    "version": "6.6.2.1",
     "patches": [
       {
-        "initVersion": "6.6.2.0",
+        "endVersion": "6.6.2.1",
         "url": "https://www.jahia.com/downloads/jahia/jahia6.6.2/Enterprise-Jahia6.6_6.6.2.0_r47118_to_6.6.2.1_r47487.jar"
       }
-    ]
+    ],
+    "version": "6.6.2.0"
   },
   {
-    "version": "6.6.2.2",
     "patches": [
       {
-        "initVersion": "6.6.2.1",
+        "endVersion": "6.6.2.2",
         "url": "https://www.jahia.com/downloads/jahia/jahia6.6.2/Enterprise-Jahia6.6_6.6.2.1_r47487_to_6.6.2.2_r47825.jar"
       }
-    ]
+    ],
+    "version": "6.6.2.1"
   },
   {
-    "version": "6.6.2.3",
     "patches": [
       {
-        "initVersion": "6.6.2.2",
+        "endVersion": "6.6.2.3",
         "url": "https://www.jahia.com/downloads/jahia/jahia6.6.2/Enterprise-Jahia6.6_6.6.2.2_r47825_to_6.6.2.3_r48163.jar"
       }
-    ]
+    ],
+    "version": "6.6.2.2"
   },
   {
-    "version": "6.6.2.4",
     "patches": [
       {
-        "initVersion": "6.6.2.3",
+        "endVersion": "6.6.2.4",
         "url": "https://www.jahia.com/downloads/jahia/jahia6.6.2/Enterprise-Jahia6.6_6.6.2.3_r48163_to_6.6.2.4_r48777.jar"
       }
-    ]
+    ],
+    "version": "6.6.2.3"
   },
   {
-    "version": "6.6.2.5",
     "patches": [
       {
-        "initVersion": "6.6.2.4",
+        "endVersion": "6.6.2.5",
         "url": "https://www.jahia.com/downloads/jahia/jahia6.6.2/Enterprise-Jahia6.6_6.6.2.4_r48777_to_6.6.2.5_r49646.jar"
       }
-    ]
+    ],
+    "version": "6.6.2.4"
   },
   {
-    "version": "6.6.2.6",
     "patches": [
       {
-        "initVersion": "6.6.2.5",
+        "endVersion": "6.6.2.6",
         "url": "https://www.jahia.com/downloads/jahia/jahia6.6.2/Enterprise-Jahia6.6_6.6.2.5_r49646_to_6.6.2.6_r50210.jar"
       }
-    ]
+    ],
+    "version": "6.6.2.5"
   },
   {
-    "version": "6.6.2.7",
     "patches": [
       {
-        "initVersion": "6.6.2.6",
+        "endVersion": "6.6.2.7",
         "url": "https://www.jahia.com/downloads/jahia/jahia6.6.2/Enterprise-Jahia6.6_6.6.2.6_r50210_to_6.6.2.7_r50651.jar"
       }
-    ]
+    ],
+    "version": "6.6.2.6"
   },
   {
-    "version": "6.6.2.8",
     "patches": [
       {
-        "initVersion": "6.6.2.7",
+        "endVersion": "6.6.2.8",
         "url": "https://www.jahia.com/downloads/jahia/jahia6.6.2/Enterprise-Jahia6.6_6.6.2.7_r50651_to_6.6.2.8_r51655.jar"
-      }
-    ]
-  },
-  {
-    "version": "7.0.0.0",
-    "patches": [
-      {
-        "initVersion": "6.6.2.7",
-        "url": "https://www.jahia.com/downloads/jahia/digitalfactory7.0.0/Enterprise-DigitalFactory7.0_6.6.2.7_r50651_to_7.0.0.0_r49489.jar",
-        "type": "Webapps/ROOT"
       },
       {
-        "initVersion": "6.6.2.7",
-        "url": "https://www.jahia.com/downloads/jahia/digitalfactory7.0.0/Enterprise-DigitalFactory7.0-package_6.6.2.7_r50651_to_7.0.0.0_r49489.jar",
-        "type": "Tomcat package"
+        "endVersion": "7.0.0.0",
+        "type": "Webapps/ROOT",
+        "url": "https://www.jahia.com/downloads/jahia/digitalfactory7.0.0/Enterprise-DigitalFactory7.0_6.6.2.7_r50651_to_7.0.0.0_r49489.jar"
+      },
+      {
+        "endVersion": "7.0.0.0",
+        "type": "Tomcat package",
+        "url": "https://www.jahia.com/downloads/jahia/digitalfactory7.0.0/Enterprise-DigitalFactory7.0-package_6.6.2.7_r50651_to_7.0.0.0_r49489.jar"
       }
-    ]
+    ],
+    "version": "6.6.2.7"
   },
   {
-    "version": "7.0.0.1",
     "patches": [
       {
-        "initVersion": "7.0.0.0",
+        "endVersion": "7.0.0.1",
         "url": "https://www.jahia.com/downloads/jahia/digitalfactory7.0.0/Enterprise-DigitalFactory7.0_7.0.0.0_r49489_to_7.0.0.1_r50061.jar"
       }
-    ]
+    ],
+    "version": "7.0.0.0"
   },
   {
-    "version": "7.0.0.2",
     "patches": [
       {
-        "initVersion": "7.0.0.1",
-        "url": "https://www.jahia.com/downloads/jahia/digitalfactory7.0.0/Enterprise-DigitalFactory7.0_7.0.0.1_r50661_to_7.0.0.2_r51016.jar",
-        "type": "Webapps/ROOT"
+        "endVersion": "7.0.0.2",
+        "type": "Webapps/ROOT",
+        "url": "https://www.jahia.com/downloads/jahia/digitalfactory7.0.0/Enterprise-DigitalFactory7.0_7.0.0.1_r50661_to_7.0.0.2_r51016.jar"
       },
       {
-        "initVersion": "7.0.0.1",
-        "url": "https://www.jahia.com/downloads/jahia/digitalfactory7.0.0/Enterprise-DigitalFactory7.0-package_7.0.0.1_r50061_to_7.0.0.2_r51016.jar",
-        "type": "Tomcat package"
+        "endVersion": "7.0.0.2",
+        "type": "Tomcat package",
+        "url": "https://www.jahia.com/downloads/jahia/digitalfactory7.0.0/Enterprise-DigitalFactory7.0-package_7.0.0.1_r50061_to_7.0.0.2_r51016.jar"
       }
-    ]
+    ],
+    "version": "7.0.0.1"
   },
   {
-    "version": "7.0.0.3",
     "patches": [
       {
-        "initVersion": "7.0.0.2",
+        "endVersion": "7.0.0.3",
         "url": "https://www.jahia.com/downloads/jahia/digitalfactory7.0.0/Enterprise-DigitalFactory7.0_7.0.0.2_r51016_to_7.0.0.3_r51686.jar"
       }
-    ]
+    ],
+    "version": "7.0.0.2"
+  },
+  {
+    "patches": [
+    ],
+    "version": "7.0.0.3"
   }
 ]
