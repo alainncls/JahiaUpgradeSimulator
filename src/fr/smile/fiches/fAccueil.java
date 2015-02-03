@@ -257,8 +257,6 @@ public class fAccueil extends JFrame {
 		List<Patch> listPatches = VersionsReader.getInstance().getPatches();
 
 		patches = new fPatches(listPatches);
-
-		this.setVisible(false);
 		patches.setVisible(true);
 	}
 
