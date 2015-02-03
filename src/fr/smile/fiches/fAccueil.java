@@ -5,7 +5,6 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
@@ -14,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -21,7 +21,6 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import fr.smile.main.Patch;
 import fr.smile.main.Simulation;
 import fr.smile.reader.InstructionsReader;
 import fr.smile.reader.VersionsReader;
@@ -123,6 +122,7 @@ public class fAccueil extends JFrame {
 		cbEnd = new JComboBox<String>();
 		cbEnd.setModel(new DefaultComboBoxModel(listVersions.toArray()));
 		cbEnd.setBounds(161, 87, 92, 24);
+		cbEnd.setSelectedIndex(listVersions.size()-1);
 		contentPane.add(cbEnd);
 
 		lEnd = new JLabel("Target version");
@@ -132,12 +132,7 @@ public class fAccueil extends JFrame {
 		bSimulate = new JButton("Simulate !");
 		bSimulate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					bSimulateActionPerformed(arg0);
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				bSimulateActionPerformed(arg0);
 			}
 		});
 		bSimulate.setBounds(12, 153, 117, 25);
@@ -154,13 +149,7 @@ public class fAccueil extends JFrame {
 		bInstructions = new JButton("Instructions");
 		bInstructions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				try {
-					bInstructionsActionPerformed(arg0);
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				bInstructionsActionPerformed(arg0);
 			}
 		});
 		bInstructions.setBounds(141, 153, 125, 25);
@@ -172,8 +161,8 @@ public class fAccueil extends JFrame {
 		rbClustered = new JRadioButton();
 		rbClustered.setText("Clustered");
 		rbClustered.setBounds(157, 122, 96, 23);
-		rbClustered.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+		rbClustered.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
 				rbClusteredActionPerformed(evt);
 			}
 		});
@@ -183,8 +172,8 @@ public class fAccueil extends JFrame {
 		rbStandalone = new JRadioButton();
 		rbStandalone.setText("Standalone");
 		rbStandalone.setBounds(22, 122, 117, 23);
-		rbStandalone.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+		rbStandalone.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
 				rbStandaloneActionPerformed(evt);
 			}
 		});
@@ -202,32 +191,36 @@ public class fAccueil extends JFrame {
 		contentPane.add(bPatches);
 	}
 
-	private void bSimulateActionPerformed(java.awt.event.ActionEvent evt)
-			throws FileNotFoundException {
+	private void bSimulateActionPerformed(ActionEvent evt) {
 		startVersion = cbStart.getSelectedItem().toString();
 		endVersion = cbEnd.getSelectedItem().toString();
 
 		simul = new Simulation(startVersion, endVersion);
+		
+		if(simul.getError()!="") {
+			JOptionPane.showMessageDialog(null, simul.getError(), "Error", JOptionPane.ERROR_MESSAGE);
+		}else{
+			String result = simul.toString();
 
-		String result = simul.toString();
+			tpResult.setText(result);
+			lPredicted.setText(Integer.toString(simul.getSteps())
+					+ " predicted steps");
+			lAvoid.setText(Integer.toString(simul.getStepsA()) + " avoided steps");
+			lProblems.setText(Integer.toString(simul.getStepsP())
+					+ " steps to check");
 
-		tpResult.setText(result);
-		lPredicted.setText(Integer.toString(simul.getSteps()) + " predicted steps");
-		lAvoid.setText(Integer.toString(simul.getStepsA()) + " avoided steps");
-		lProblems.setText(Integer.toString(simul.getStepsP()) + " steps to check");
-
-		pGreen.setVisible(true);
-		pOrange.setVisible(true);
-		pRed.setVisible(true);
-		lPredicted.setVisible(true);
-		lAvoid.setVisible(true);
-		lProblems.setVisible(true);
-		bInstructions.setVisible(true);
-		bPatches.setVisible(true);
+			pGreen.setVisible(true);
+			pOrange.setVisible(true);
+			pRed.setVisible(true);
+			lPredicted.setVisible(true);
+			lAvoid.setVisible(true);
+			lProblems.setVisible(true);
+			bInstructions.setVisible(true);
+			bPatches.setVisible(true);
+		}
 	}
 
-	private void bInstructionsActionPerformed(java.awt.event.ActionEvent evt)
-			throws FileNotFoundException {
+	private void bInstructionsActionPerformed(ActionEvent evt) {
 		instructions = new fInstructions();
 
 		if (rbStandalone.isSelected()) {

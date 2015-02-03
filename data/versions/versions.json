@@ -2,8 +2,214 @@
   {
     "patches": [
       {
+        "endVersion": "6.0.0.1",
+        "url": "https://www.jahia.com/downloads/jahia/jahia6.0.0/hotfix/jahia-hotfix-6.0.0_1_r27321.zip"
+      }
+    ],
+    "version": "6.0.0.0"
+  },
+  {
+    "patches": [
+      {
+        "endVersion": "6.0.0.2",
+        "url": "https://www.jahia.com/downloads/jahia/jahia6.0.0/hotfix/jahia-hotfix-6.0.0_2_r27452.zip"
+      }
+    ],
+    "version": "6.0.0.1"
+  },
+  {
+    "patches": [
+      {
+        "endVersion": "6.0.0.3",
+        "url": "https://www.jahia.com/downloads/jahia/jahia6.0.0/hotfix/jahia-hotfix-6.0.0_3_r27953.zip"
+      }
+    ],
+    "version": "6.0.0.2"
+  },
+  {
+    "patches": [
+      {
+        "endVersion": "6.0.0.4",
+        "url": "https://www.jahia.com/downloads/jahia/jahia6.0.0/hotfix/jahia-hotfix-6.0.0_4_r28200.zip"
+      }
+    ],
+    "version": "6.0.0.3"
+  },
+  {
+    "patches": [
+      {
+        "endVersion": "6.0.1.0",
+        "url": "https://www.jahia.com/downloads/jahia/jahia6.0.0/hotfix/jahia-hotfix-6.0.1_r28889.zip"
+      }
+    ],
+    "version": "6.0.0.4"
+  },
+  {
+    "patches": [
+      {
+        "endVersion": "6.0.1.1",
+        "url": "https://www.jahia.com/downloads/jahia/jahia6.0.1/hotfix/jahia-hotfix-6.0.1_1_r29690.zip"
+      }
+    ],
+    "version": "6.0.1.0"
+  },
+  {
+    "patches": [
+      {
+        "endVersion": "6.1.0.0",
+        "url": "https://www.jahia.com/downloads/jahia/jahia6.0.1/hotfix/jahia-hotfix-6.1.0_r31127.zip"
+      }
+    ],
+    "version": "6.0.1.1"
+  },
+  {
+    "patches": [
+      {
+        "endVersion": "6.1.0.1",
+        "url": "https://www.jahia.com/downloads/jahia/jahia6.1.0/hotfix/jahia-hotfix-6.1.0_1_r31787.zip"
+      }
+    ],
+    "version": "6.1.0.0"
+  },
+  {
+    "patches": [
+      {
+        "endVersion": "6.1.0.2",
+        "url": "https://www.jahia.com/downloads/jahia/jahia6.1.0/hotfix/jahia-hotfix-6.1.0_2_r32497.zip"
+      }
+    ],
+    "version": "6.1.0.1"
+  },
+  {
+    "patches": [
+      {
+        "endVersion": "6.1.0.3",
+        "url": "https://www.jahia.com/downloads/jahia/jahia6.1.0/hotfix/jahia-hotfix-6.1.0_3_r32952.zip"
+      }
+    ],
+    "version": "6.1.0.2"
+  },
+  {
+    "patches": [
+      {
+        "endVersion": "6.1.0.4",
+        "url": "https://www.jahia.com/downloads/jahia/jahia6.1.0/hotfix/jahia-hotfix-6.1.0_4_r33714.zip"
+      }
+    ],
+    "version": "6.1.0.3"
+  },
+  {
+    "patches": [
+      {
+        "endVersion": "6.1.1.0",
+        "url": "https://www.jahia.com/downloads/jahia/jahia6.1.0/hotfix/jahia-hotfix-6.1.1_r34653.zip"
+      }
+    ],
+    "version": "6.1.0.4"
+  },
+  {
+    "patches": [
+      {
+        "endVersion": "6.1.1.1",
+        "url": "https://www.jahia.com/downloads/jahia/jahia6.1.1/hotfix/jahia-hotfix-6.1.1_1_r35016.zip"
+      }
+    ],
+    "version": "6.1.1.0"
+  },
+  {
+    "patches": [
+      {
+        "endVersion": "6.1.1.2",
+        "url": "https://www.jahia.com/downloads/jahia/jahia6.1.1/hotfix/jahia-hotfix-6.1.1_2_r36264.zip"
+      }
+    ],
+    "version": "6.1.1.1"
+  },
+  {
+    "patches": [
+      {
+        "endVersion": "6.1.1.3",
+        "url": "https://www.jahia.com/downloads/jahia/jahia6.1.1/hotfix/jahia-hotfix-6.1.1_3_r37857.zip"
+      }
+    ],
+    "version": "6.1.1.2"
+  },
+  {
+    "patches": [
+      {
+        "endVersion": "6.1.1.4",
+        "url": "https://www.jahia.com/downloads/jahia/jahia6.1.1/hotfix/jahia-hotfix-6.1.1_4_r38450.zip"
+      }
+    ],
+    "version": "6.1.1.3"
+  },
+  {
+    "patches": [
+      {
+        "endVersion": "6.1.2.0",
+        "url": "https://www.jahia.com/downloads/jahia/jahia6.1.1/hotfix/jahia-hotfix-6.1.2_r39370.zip"
+      }
+    ],
+    "version": "6.1.1.4"
+  },
+  {
+    "patches": [
+      {
+        "endVersion": "6.1.2.1",
+        "url": "https://www.jahia.com/downloads/jahia/jahia6.1.2/hotfixes/jahia-hotfix-6.1.2_1_r40508.zip"
+      }
+    ],
+    "version": "6.1.2.0"
+  },
+  {
+    "patches": [
+      {
+        "endVersion": "6.1.2.2",
+        "url": "https://www.jahia.com/downloads/jahia/jahia6.1.2/hotfixes/jahia-hotfix-6.1.2_2_r41900.zip"
+      }
+    ],
+    "version": "6.1.2.1"
+  },
+  {
+    "patches": [
+      {
+        "endVersion": "6.1.2.3",
+        "url": "https://www.jahia.com/downloads/jahia/jahia6.1.2/hotfixes/jahia-hotfix-6.1.2_3_r43818.zip"
+      }
+    ],
+    "version": "6.1.2.2"
+  },
+  {
+    "patches": [],
+    "version": "6.1.2.3"
+  },
+  {
+    "patches": [
+      {
+        "endVersion": "6.5.1.0",
+        "url": "http://jahia.com/downloads/jahia/jahia6.5.0/Fix_Applier_6.5.0.0_to_6.5.1.0.zip"
+      }
+    ],
+    "version": "6.5.0.0"
+  },
+  {
+    "patches": [
+      {
+        "endVersion": "6.5.1.1",
+        "url": "https://www.jahia.com/downloads/jahia/jahia6.5.1/Fix_Applier_6.5.1.0_to_6.5.1.1.zip"
+      }
+    ],
+    "version": "6.5.1.0"
+  },
+  {
+    "patches": [
+      {
         "endVersion": "6.6.0.1",
         "url": "https://www.jahia.com/downloads/jahia/jahia6.5.1.1/Enterprise-Jahia6.6_6.5.1.1_r39724_to_6.6.0.1_r41576.jar"
+      },
+      {
+      	"endVersion": "6.6.0.0",
+      	"url": "https://www.jahia.com/downloads/jahia/jahia6.5.1.1/Enterprise-Jahia6.6_6.5.1.1_r39724_to_6.6.0.0_r40429.jar"
       }
     ],
     "version": "6.5.1.1"
