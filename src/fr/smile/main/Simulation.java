@@ -1,11 +1,11 @@
 package fr.smile.main;
 
-import fr.smile.reader.InstructionsReader;
-import fr.smile.reader.VersionsReader;
-
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+
+import fr.smile.reader.InstructionsReader;
+import fr.smile.reader.VersionsReader;
 
 public class Simulation {
 	public String startVersion;

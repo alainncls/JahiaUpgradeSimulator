@@ -1,8 +1,5 @@
 package fr.smile.main;
 
-/**
- * Created by viaug on 02/02/15.
- */
 public class Patch {
 
     private String startVersion;
