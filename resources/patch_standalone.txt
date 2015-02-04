@@ -84,4 +84,4 @@ If the merge fails or you decide to skip it, a diff file &lt;file_name&gt;.patch
 
 <p>&nbsp;</p><div class="clear"></div><div class="clear"></div>
 
-</html></body>
+</body></html>
