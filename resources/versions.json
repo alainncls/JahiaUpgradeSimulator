@@ -4,8 +4,7 @@
       {
         "endVersion": "6.0.0.1",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.0.0/hotfix/jahia-hotfix-6.0.0_1_r27321.zip",
-        "instructions" : "<html><body><center><b>How to Install the Hotfix</b></center><br><br><i>Please read carefully the instructions before proceed.</i><br><br>Procedure to migrate :<br><ul><li>1. Remove the  following jars from webapps\\ROOT\\WEB-INF\\lib<ul><li>a. jahia-gwt-*.jar</li><li>b. jahia-impl-*.jar</li><li>c. jahia-taglib-*.jar</li></ul><li>2. Copy the content of the output folder into your webapps\\ROOT\\ folder</li><li>3. Launch Jahia</li></ul></body></html>",
-        "warning": "To be tested..."
+        "instructions" : "<html> <body> <p><center><b>How to Install the Hotfix</b></center></p> <p><i>Please read carefully the instructions before proceed.</i></p> <p>Procedure to migrate :</p> <ul> <li>1. Remove the following jars from webapps\\ROOT\\WEB-INF\\lib\\ <ul> <li>a. jahia-gwt-*.jar</li> <li>b. jahia-impl-*.jar</li> <li>c. jahia-taglib-*.jar</li> </ul> </li> <li>2. Copy the content of the output folder into your webapps\\ROOT\\ folder</li> <li>3. Launch Jahia</li> </ul> </body> </html>"
       }
     ],
     "version": "6.0.0.0"
@@ -15,8 +14,7 @@
       {
         "endVersion": "6.0.0.2",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.0.0/hotfix/jahia-hotfix-6.0.0_2_r27452.zip",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": "<html> <body> <p><center><b>How to Install the Hotfix</b></center></p> <p><i>Please read carefully the instructions before proceed.</i></p> <p>Procedure to migrate :</p> <ul> <li>1. Remove the following jars from webapps\\ROOT\\WEB-INF\\lib\\ <ul> <li>a. jahia-gwt-*.jar</li> <li>b. jahia-impl-*.jar</li> <li>c. jahia-taglib-*.jar</li> </ul> </li> <li>2. Copy the content of the output folder into your webapps\\ROOT\\ folder</li> <li>3. Launch Jahia</li> </ul> </body> </html>"
       }
     ],
     "version": "6.0.0.1"
@@ -26,8 +24,7 @@
       {
         "endVersion": "6.0.0.3",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.0.0/hotfix/jahia-hotfix-6.0.0_3_r27953.zip",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": "<html> <body> <p><center><b>How to Install the Hotfix</b></center></p> <p><i>Please read carefully the instructions before proceed.</i></p> <p>Procedure to migrate :</p> <ul> <li>1. Remove the following jars from webapps\\ROOT\\WEB-INF\\lib\\ <ul> <li>a. jahia-gwt-*.jar</li> <li>b. jahia-impl-*.jar</li> <li>c. jahia-taglib-*.jar</li> <li>d. jackrabbit-core-ext-*.</li> </ul> </li> <li>2. Modify the following configuration file: <ul> <li>* UnixDiff_applicationcontext-hibernate_xml.txt for WEB-INF\\etc\\spring\\applicationcontext-hibernate.xml</li> <li>* UnixDiff_Applicationcontext-services_xml.txt for WEB-INF\\etc\\spring\\applicationcontext-services.xml</li> <li>* UnixDiff_JahiaInternalResources_properties.txt for WEB-INF\\classes\\JahiaInternalResources.properties</li> <li>* UnixDiff_JahiaInternalTypes_properties.txt for WEB-INF\\classes\\JahiaTypesResources.properties</li> </ul> </li> <li>3. Copy the content of the output folder into your webapps\\ROOT\\ folder</li> <li>4. Launch Jahia</li> </ul> </body> </html>"
       }
     ],
     "version": "6.0.0.2"
@@ -37,8 +34,7 @@
       {
         "endVersion": "6.0.0.4",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.0.0/hotfix/jahia-hotfix-6.0.0_4_r28200.zip",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.0.0.3"
@@ -48,8 +44,7 @@
       {
         "endVersion": "6.0.1.0",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.0.0/hotfix/jahia-hotfix-6.0.1_r28889.zip",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.0.0.4"
@@ -59,8 +54,7 @@
       {
         "endVersion": "6.0.1.1",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.0.1/hotfix/jahia-hotfix-6.0.1_1_r29690.zip",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.0.1.0"
@@ -70,8 +64,7 @@
       {
         "endVersion": "6.1.0.0",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.0.1/hotfix/jahia-hotfix-6.1.0_r31127.zip",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.0.1.1"
@@ -81,8 +74,7 @@
       {
         "endVersion": "6.1.0.1",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.1.0/hotfix/jahia-hotfix-6.1.0_1_r31787.zip",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.1.0.0"
@@ -92,8 +84,7 @@
       {
         "endVersion": "6.1.0.2",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.1.0/hotfix/jahia-hotfix-6.1.0_2_r32497.zip",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.1.0.1"
@@ -103,8 +94,7 @@
       {
         "endVersion": "6.1.0.3",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.1.0/hotfix/jahia-hotfix-6.1.0_3_r32952.zip",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.1.0.2"
@@ -114,8 +104,7 @@
       {
         "endVersion": "6.1.0.4",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.1.0/hotfix/jahia-hotfix-6.1.0_4_r33714.zip",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.1.0.3"
@@ -125,8 +114,7 @@
       {
         "endVersion": "6.1.1.0",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.1.0/hotfix/jahia-hotfix-6.1.1_r34653.zip",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.1.0.4"
@@ -136,8 +124,7 @@
       {
         "endVersion": "6.1.1.1",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.1.1/hotfix/jahia-hotfix-6.1.1_1_r35016.zip",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.1.1.0"
@@ -147,8 +134,7 @@
       {
         "endVersion": "6.1.1.2",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.1.1/hotfix/jahia-hotfix-6.1.1_2_r36264.zip",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.1.1.1"
@@ -158,8 +144,7 @@
       {
         "endVersion": "6.1.1.3",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.1.1/hotfix/jahia-hotfix-6.1.1_3_r37857.zip",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.1.1.2"
@@ -169,8 +154,7 @@
       {
         "endVersion": "6.1.1.4",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.1.1/hotfix/jahia-hotfix-6.1.1_4_r38450.zip",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.1.1.3"
@@ -180,8 +164,7 @@
       {
         "endVersion": "6.1.2.0",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.1.1/hotfix/jahia-hotfix-6.1.2_r39370.zip",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.1.1.4"
@@ -191,8 +174,7 @@
       {
         "endVersion": "6.1.2.1",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.1.2/hotfixes/jahia-hotfix-6.1.2_1_r40508.zip",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.1.2.0"
@@ -202,8 +184,7 @@
       {
         "endVersion": "6.1.2.2",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.1.2/hotfixes/jahia-hotfix-6.1.2_2_r41900.zip",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.1.2.1"
@@ -213,8 +194,7 @@
       {
         "endVersion": "6.1.2.3",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.1.2/hotfixes/jahia-hotfix-6.1.2_3_r43818.zip",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.1.2.2"
@@ -228,8 +208,7 @@
       {
         "endVersion": "6.5.1.0",
         "url": "http://jahia.com/downloads/jahia/jahia6.5.0/Fix_Applier_6.5.0.0_to_6.5.1.0.zip",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.5.0.0"
@@ -239,8 +218,7 @@
       {
         "endVersion": "6.5.1.1",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.5.1/Fix_Applier_6.5.1.0_to_6.5.1.1.zip",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.5.1.0"
@@ -250,14 +228,13 @@
       {
         "endVersion": "6.6.0.1",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.5.1.1/Enterprise-Jahia6.6_6.5.1.1_r39724_to_6.6.0.1_r41576.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": "<html><boby><b>TO MIGRATE TO Jahia 6.6.0.1 YOU WILL NEED TO HAVE A NEW LICENSE FILE<b><br/><i>Please contact your account manager before starting the migration</i></body></html>",
+        "warning": "<html><boby><b>TO MIGRATE TO Jahia 6.6.0.1 YOU WILL NEED TO HAVE A NEW LICENSE FILE<b><br/><i>Please contact your account manager before starting the migration</i></body></html>"
       },
       {
       	"endVersion": "6.6.0.0",
       	"url": "http://www.jahia.com/downloads/jahia/jahia6.5.1.1/Enterprise-Jahia6.6_6.5.1.1_r39724_to_6.6.0.0_r40429.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.5.1.1"
@@ -267,8 +244,7 @@
       {
         "endVersion": "6.6.0.1",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.6.0/Enterprise-Jahia6.6_6.6.0.0_r40429_to_6.6.0.1_r41576.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.6.0.0"
@@ -278,13 +254,11 @@
       {
         "endVersion": "6.6.1.0",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.6.1/Enterprise-Jahia6.6_6.6.0.1_r41576_to_6.6.1.0_r43343.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       },{
         "endVersion": "6.6.1.1",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.6.1/Enterprise-Jahia6.6_6.6.0.1_r41576_to_6.6.1.1_r43626.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.6.0.1"
@@ -294,8 +268,7 @@
       {
         "endVersion": "6.6.1.1",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.6.1/Enterprise-Jahia6.6_6.6.1.0_r43343_to_6.6.1.1_r43626.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.6.1.0"
@@ -305,8 +278,7 @@
       {
         "endVersion": "6.6.1.2",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.6.1/Enterprise-Jahia6.6_6.6.1.1_r43626_to_6.6.1.2_r44162.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.6.1.1"
@@ -316,8 +288,7 @@
       {
         "endVersion": "6.6.1.3",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.6.1/Enterprise-Jahia6.6_6.6.1.2_r44162_to_6.6.1.3_r44481.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.6.1.2"
@@ -327,8 +298,7 @@
       {
         "endVersion": "6.6.1.4",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.6.1/Enterprise-Jahia6.6_6.6.1.3_r44481_to_6.6.1.4_r44742.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.6.1.3"
@@ -338,8 +308,7 @@
       {
         "endVersion": "6.6.1.5",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.6.1/Enterprise-Jahia6.6_6.6.1.4_r44742_to_6.6.1.5_r45162.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.6.1.4"
@@ -349,8 +318,7 @@
       {
         "endVersion": "6.6.1.6",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.6.1/Enterprise-Jahia6.6_6.6.1.5_r45162_to_6.6.1.6_r46004.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.6.1.5"
@@ -360,8 +328,7 @@
       {
         "endVersion": "6.6.1.7",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.6.1/Enterprise-Jahia6.6_6.6.1.6_r46004_to_6.6.1.7_r46710.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.6.1.6"
@@ -371,8 +338,7 @@
       {
         "endVersion": "6.6.2.0",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.6.2/Enterprise-Jahia6.6_6.6.1.7_r46710_to_6.6.2.0_r47118.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.6.1.7"
@@ -382,8 +348,7 @@
       {
         "endVersion": "6.6.2.1",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.6.2/Enterprise-Jahia6.6_6.6.2.0_r47118_to_6.6.2.1_r47487.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.6.2.0"
@@ -393,8 +358,7 @@
       {
         "endVersion": "6.6.2.2",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.6.2/Enterprise-Jahia6.6_6.6.2.1_r47487_to_6.6.2.2_r47825.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.6.2.1"
@@ -404,8 +368,7 @@
       {
         "endVersion": "6.6.2.3",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.6.2/Enterprise-Jahia6.6_6.6.2.2_r47825_to_6.6.2.3_r48163.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.6.2.2"
@@ -415,8 +378,7 @@
       {
         "endVersion": "6.6.2.4",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.6.2/Enterprise-Jahia6.6_6.6.2.3_r48163_to_6.6.2.4_r48777.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.6.2.3"
@@ -426,8 +388,7 @@
       {
         "endVersion": "6.6.2.5",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.6.2/Enterprise-Jahia6.6_6.6.2.4_r48777_to_6.6.2.5_r49646.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.6.2.4"
@@ -437,8 +398,7 @@
       {
         "endVersion": "6.6.2.6",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.6.2/Enterprise-Jahia6.6_6.6.2.5_r49646_to_6.6.2.6_r50210.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.6.2.5"
@@ -448,8 +408,7 @@
       {
         "endVersion": "6.6.2.7",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.6.2/Enterprise-Jahia6.6_6.6.2.6_r50210_to_6.6.2.7_r50651.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.6.2.6"
@@ -459,14 +418,12 @@
       {
         "endVersion": "6.6.2.8",
         "url": "http://www.jahia.com/downloads/jahia/jahia6.6.2/Enterprise-Jahia6.6_6.6.2.7_r50651_to_6.6.2.8_r51655.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       },
       {
         "endVersion": "7.0.0.0",
         "url": "http://www.jahia.com/downloads/jahia/digitalfactory7.0.0/Enterprise-DigitalFactory7.0_6.6.2.7_r50651_to_7.0.0.0_r49489.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "6.6.2.7"
@@ -480,8 +437,7 @@
       {
         "endVersion": "7.0.0.1",
         "url": "http://www.jahia.com/downloads/jahia/digitalfactory7.0.0/Enterprise-DigitalFactory7.0_7.0.0.0_r49489_to_7.0.0.1_r50061.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "7.0.0.0"
@@ -491,8 +447,7 @@
       {
         "endVersion": "7.0.0.2",
         "url": "http://www.jahia.com/downloads/jahia/digitalfactory7.0.0/Enterprise-DigitalFactory7.0_7.0.0.1_r50061_to_7.0.0.2_r51016.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "7.0.0.1"
@@ -502,8 +457,7 @@
       {
         "endVersion": "7.0.0.3",
         "url": "http://www.jahia.com/downloads/jahia/digitalfactory7.0.0/Enterprise-DigitalFactory7.0_7.0.0.2_r51016_to_7.0.0.3_r51686.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "7.0.0.2"
@@ -513,8 +467,7 @@
       {
         "endVersion": "7.0.0.4",
         "url": "http://www.jahia.com/downloads/jahia/digitalfactory7.0.0/Enterprise-DigitalFactory7.0_7.0.0.3_r51686_to_7.0.0.4_r51888.jar",
-        "instructions": "",
-        "warning": "To be tested..."
+        "instructions": ""
       }
     ],
     "version": "7.0.0.3"
