@@ -56,21 +56,19 @@ public class fAccueil extends JFrame {
 	private String startVersion;
 	private String endVersion;
 	private String detectedVersion;
-	private String installType;
 	private List<String> listVersions;
-	
+
 	private String context;
 	private String jahiaFolder;
-	
-	
+
 	public fAccueil(String[] args) {
-		
-		context = args.length>=2?args[1]:"ROOT";
-		jahiaFolder = args.length>=1?args[0]:"./";
-		if(!jahiaFolder.endsWith("/")){
+
+		context = args.length >= 2 ? args[1] : "ROOT";
+		jahiaFolder = args.length >= 1 ? args[0] : "./";
+		if (!jahiaFolder.endsWith("/")) {
 			jahiaFolder += "/";
 		}
-		
+
 		listVersions = VersionsReader.getInstance().getVersions();
 		detectedVersion = detectJahiaVersion();
 
@@ -122,11 +120,10 @@ public class fAccueil extends JFrame {
 		lblT.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblT);
 
-
 		lStart = new JLabel("Current version");
 		lStart.setBounds(12, 56, 149, 15);
 		contentPane.add(lStart);
-		
+
 		cbStart = new JComboBox<String>();
 		cbStart.setModel(new DefaultComboBoxModel(listVersions.subList(0,
 				listVersions.size() - 1).toArray()));
@@ -136,7 +133,7 @@ public class fAccueil extends JFrame {
 		lEnd = new JLabel("Target version");
 		lEnd.setBounds(12, 92, 149, 15);
 		contentPane.add(lEnd);
-		
+
 		cbEnd = new JComboBox<String>();
 		cbEnd.setModel(new DefaultComboBoxModel(listVersions.subList(1,
 				listVersions.size()).toArray()));
@@ -153,7 +150,8 @@ public class fAccueil extends JFrame {
 				cbEnd.setSelectedIndex(cbEnd.getItemCount() - 1);
 			}
 		});
-		if(detectedVersion!=null) cbStart.setSelectedItem(detectedVersion);
+		if (detectedVersion != null)
+			cbStart.setSelectedItem(detectedVersion);
 
 		bSimulate = new JButton("Simulate !");
 		bSimulate.addActionListener(new ActionListener() {
@@ -171,7 +169,6 @@ public class fAccueil extends JFrame {
 		spResult = new JScrollPane(tpResult);
 		spResult.setBounds(5, 193, 438, 66);
 		contentPane.add(spResult);
-
 
 		bGroup = new ButtonGroup();
 
@@ -207,6 +204,15 @@ public class fAccueil extends JFrame {
 		bPatches.setVisible(false);
 		contentPane.add(bPatches);
 
+		/*
+		 * Quick init for debug
+		 */
+		cbStart.setSelectedItem("6.6.2.7");
+		cbEnd.setSelectedItem("7.0.0.4");
+		rbStandalone.doClick();
+		bSimulate.doClick();
+		bPatches.doClick();
+
 	}
 
 	private void bSimulateActionPerformed(ActionEvent evt) {
@@ -236,6 +242,8 @@ public class fAccueil extends JFrame {
 			lAvoid.setVisible(true);
 			lProblems.setVisible(true);
 			bPatches.setVisible(true);
+
+			patches = new fPatches(simul.getListPatches());
 		}
 	}
 
@@ -252,37 +260,40 @@ public class fAccueil extends JFrame {
 	}
 
 	public void goPatches(ActionEvent evt) {
-		patches = new fPatches(simul.getListPatches());
 		patches.setVisible(true);
 	}
 
 	@SuppressWarnings("finally")
 	private String detectJahiaVersion() {
 		String version = null;
-		try{
-			//File[] files = listFilesMatching(new File("./"), "jahia-impl-(\\d\\.){4}jar");
-			File[] files = listFilesMatching(new File(jahiaFolder+"/tomcat/webapps/"+context+"/WEB-INF/lib/"), "jahia-impl-(\\d\\.){4}jar");
+		try {
+			// File[] files = listFilesMatching(new File("./"),
+			// "jahia-impl-(\\d\\.){4}jar");
+			File[] files = listFilesMatching(new File(jahiaFolder
+					+ "/tomcat/webapps/" + context + "/WEB-INF/lib/"),
+					"jahia-impl-(\\d\\.){4}jar");
 			version = files[0].getName().substring(11, 18);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			System.err.println("Fail to detect");
-		}finally{
+		} finally {
 			return version;
 		}
-		
+
 	}
-	
+
 	public File[] listFilesMatching(File root, String regex) {
-	    if(!root.isDirectory()) {
-	        throw new IllegalArgumentException(root+" is no directory.");
-	    }
-	    final Pattern p = Pattern.compile(regex); // careful: could also throw an exception!
-	    return root.listFiles(new FileFilter(){
-	        @Override
-	        public boolean accept(File file) {
-	            return p.matcher(file.getName()).matches();
-	        }
-	    });
+		if (!root.isDirectory()) {
+			throw new IllegalArgumentException(root + " is no directory.");
+		}
+		final Pattern p = Pattern.compile(regex); // careful: could also throw
+													// an exception!
+		return root.listFiles(new FileFilter() {
+			@Override
+			public boolean accept(File file) {
+				return p.matcher(file.getName()).matches();
+			}
+		});
 	}
 
 	public static void main(final String[] args) {
