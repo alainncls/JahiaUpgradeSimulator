@@ -59,14 +59,24 @@ public class fAccueil extends JFrame {
 	private Simulation simul;
 	private String startVersion;
 	private String endVersion;
+	private String detectedVersion;
 	private String installType;
 	private List<String> listVersions;
-
-	public fAccueil() {
+	
+	private String context;
+	private String jahiaFolder;
+	
+	
+	public fAccueil(String[] args) {
 		
-		this.detectJahiaVersion();
-
+		context = args.length>=2?args[1]:"ROOT";
+		jahiaFolder = args.length>=1?args[0]:"./";
+		if(!jahiaFolder.endsWith("/")){
+			jahiaFolder += "/";
+		}
+		
 		listVersions = VersionsReader.getInstance().getVersions();
+		detectedVersion = detectJahiaVersion();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -120,6 +130,7 @@ public class fAccueil extends JFrame {
 		cbStart.setModel(new DefaultComboBoxModel(listVersions.subList(0,
 				listVersions.size() - 1).toArray()));
 		cbStart.setBounds(161, 51, 92, 24);
+		if(detectedVersion!=null) cbStart.setSelectedItem(detectedVersion);
 		contentPane.add(cbStart);
 
 		lStart = new JLabel("Current version");
@@ -272,13 +283,18 @@ public class fAccueil extends JFrame {
 		patches.setVisible(true);
 	}
 
-	private void detectJahiaVersion() {
-		String context = "ROOT";
+	@SuppressWarnings("finally")
+	private String detectJahiaVersion() {
+		String version = null;
 		try{
-			File[] files = listFilesMatching(new File("./tomcat/webapps/"+context+"/WEB-INF/lib/"), "jahia-impl-\\d-{4}\\.jar");
+			//File[] files = listFilesMatching(new File("./"), "jahia-impl-(\\d\\.){4}jar");
+			File[] files = listFilesMatching(new File(jahiaFolder+"/tomcat/webapps/"+context+"/WEB-INF/lib/"), "jahia-impl-(\\d\\.){4}jar");
+			version = files[0].getName().substring(11, 18);
 		}catch(Exception e) {
 			System.err.println(e.getMessage());
 			System.err.println("Fail to detect");
+		}finally{
+			return version;
 		}
 		
 	}
@@ -296,11 +312,11 @@ public class fAccueil extends JFrame {
 	    });
 	}
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					fAccueil frame = new fAccueil();
+					fAccueil frame = new fAccueil(args);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
