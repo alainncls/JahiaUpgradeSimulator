@@ -54,7 +54,7 @@ public enum VersionsReader {
 		
 		JSONParser parser = new JSONParser();
 		JSONArray a = (JSONArray) parser.parse(json);
-		String version, endVersion, url, type;
+		String version, endVersion, url;
 		Patch patch;
 
 		for (Object o : a) {
@@ -68,9 +68,8 @@ public enum VersionsReader {
 				JSONObject jsonPatch = (JSONObject) p;
 				endVersion = (String) jsonPatch.get("endVersion");
 				url = (String) jsonPatch.get("url");
-				type = (String) jsonPatch.get("type");
 				patch = Patch.builder().startVersion(version)
-						.endVersion(endVersion).type(type).url(url).build();
+						.endVersion(endVersion).url(url).build();
 				listPatch.add(patch);
 			}
 		}
