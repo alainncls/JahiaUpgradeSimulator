@@ -126,17 +126,21 @@ public class fAccueil extends JFrame {
 		lblT.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblT);
 
-		cbStart = new JComboBox<String>();
-		cbStart.setModel(new DefaultComboBoxModel(listVersions.subList(0,
-				listVersions.size() - 1).toArray()));
-		cbStart.setBounds(161, 51, 92, 24);
-		if(detectedVersion!=null) cbStart.setSelectedItem(detectedVersion);
-		contentPane.add(cbStart);
 
 		lStart = new JLabel("Current version");
 		lStart.setBounds(12, 56, 149, 15);
 		contentPane.add(lStart);
+		
+		cbStart = new JComboBox<String>();
+		cbStart.setModel(new DefaultComboBoxModel(listVersions.subList(0,
+				listVersions.size() - 1).toArray()));
+		cbStart.setBounds(161, 51, 92, 24);
+		contentPane.add(cbStart);
 
+		lEnd = new JLabel("Target version");
+		lEnd.setBounds(12, 92, 149, 15);
+		contentPane.add(lEnd);
+		
 		cbEnd = new JComboBox<String>();
 		cbEnd.setModel(new DefaultComboBoxModel(listVersions.subList(1,
 				listVersions.size()).toArray()));
@@ -153,10 +157,7 @@ public class fAccueil extends JFrame {
 				cbEnd.setSelectedIndex(cbEnd.getItemCount() - 1);
 			}
 		});
-
-		lEnd = new JLabel("Target version");
-		lEnd.setBounds(12, 92, 149, 15);
-		contentPane.add(lEnd);
+		if(detectedVersion!=null) cbStart.setSelectedItem(detectedVersion);
 
 		bSimulate = new JButton("Simulate !");
 		bSimulate.addActionListener(new ActionListener() {
