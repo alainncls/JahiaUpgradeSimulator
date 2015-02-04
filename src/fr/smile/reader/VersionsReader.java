@@ -47,14 +47,16 @@ public enum VersionsReader {
 	public void readFile() throws IOException, ParseException {
 		InputStream is = getClass().getResourceAsStream(path);
 		StringWriter writer = new StringWriter();
-        IOUtils.copy(is, writer);
-        String json = writer.toString();
-        is.close();
-        writer.close();
-		
+		IOUtils.copy(is, writer);
+		String json = writer.toString();
+		is.close();
+		writer.close();
+
 		JSONParser parser = new JSONParser();
 		JSONArray a = (JSONArray) parser.parse(json);
-		String version, endVersion, url;
+
+		String version, endVersion, url, instructions, warning;
+
 		Patch patch;
 
 		for (Object o : a) {
@@ -68,8 +70,12 @@ public enum VersionsReader {
 				JSONObject jsonPatch = (JSONObject) p;
 				endVersion = (String) jsonPatch.get("endVersion");
 				url = (String) jsonPatch.get("url");
+				instructions = (String) jsonPatch.get("instructions");
+				warning = (String) jsonPatch.get("warning");
 				patch = Patch.builder().startVersion(version)
-						.endVersion(endVersion).url(url).build();
+						.endVersion(endVersion).url(url)
+						.instructions(instructions).warning(warning).build();
+
 				listPatch.add(patch);
 			}
 		}
