@@ -9,7 +9,7 @@ public class Patch {
     private String instructions;
     private String warning;
     
-    public void Patch(){
+    public Patch(){
     	startVersion = null;
     	endVersion = null;
     	type  = null;
@@ -132,6 +132,6 @@ public class Patch {
     }
 
 	public boolean isProblem() {
-		return warning==null;
+		return warning!=null;
 	}
 }

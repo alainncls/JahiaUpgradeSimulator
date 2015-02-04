@@ -20,13 +20,11 @@ import fr.smile.main.Patch;
 
 public class fPatches extends JDialog {
 
-	/**
-     *
-     */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel;
 	private JPanel listPanel;
 	private JButton backButton;
+	private fInstructions instructions;
 
 	private List<Patch> listPatches;
 
@@ -36,6 +34,8 @@ public class fPatches extends JDialog {
 		setBounds(100, 100, 900, 600);
 
 		this.listPatches = listPatches;
+		
+		instructions = new fInstructions();
 
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -68,6 +68,15 @@ public class fPatches extends JDialog {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+				}
+			});
+			
+			bInstruction.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					instructions.setInstructions(p.getInstructions());
+					instructions.setTitle("Instructions Patch "+p.toString());
+					instructions.setVisible(true);
 				}
 			});
 			listPanel.add(lPatch);
