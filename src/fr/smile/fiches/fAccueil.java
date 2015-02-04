@@ -102,15 +102,15 @@ public class fAccueil extends JFrame {
 		contentPane.add(pGreen);
 
 		lProblems = new JLabel("");
-		lProblems.setBounds(311, 126, 140, 15);
+		lProblems.setBounds(311, 126, 125, 15);
 		contentPane.add(lProblems);
 
 		lAvoid = new JLabel("");
-		lAvoid.setBounds(311, 92, 140, 15);
+		lAvoid.setBounds(311, 92, 125, 15);
 		contentPane.add(lAvoid);
 
 		lPredicted = new JLabel("");
-		lPredicted.setBounds(311, 59, 140, 15);
+		lPredicted.setBounds(311, 59, 125, 15);
 		contentPane.add(lPredicted);
 
 		pGreen.setVisible(false);
