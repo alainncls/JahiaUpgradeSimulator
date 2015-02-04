@@ -34,7 +34,7 @@ public class fPatches extends JDialog {
 		setBounds(100, 100, 900, 600);
 
 		this.listPatches = listPatches;
-		
+
 		instructions = new fInstructions();
 
 		contentPanel = new JPanel();
@@ -70,12 +70,12 @@ public class fPatches extends JDialog {
 					}
 				}
 			});
-			
+
 			bInstruction.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					instructions.setInstructions(p.getInstructions());
-					instructions.setTitle("Instructions Patch "+p.toString());
+					instructions.setTitle("Instructions Patch " + p.toString());
 					instructions.setVisible(true);
 				}
 			});
