@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileFilter;
-import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -26,7 +25,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import fr.smile.main.Simulation;
-import fr.smile.reader.InstructionsReader;
 import fr.smile.reader.VersionsReader;
 
 public class fAccueil extends JFrame {
@@ -45,7 +43,6 @@ public class fAccueil extends JFrame {
 	private JComboBox<String> cbEnd;
 	private JLabel lEnd;
 	private JButton bSimulate;
-	private JButton bInstructions;
 	private JScrollPane spResult;
 	private JTextPane tpResult;
 	private JRadioButton rbClustered;
@@ -53,7 +50,6 @@ public class fAccueil extends JFrame {
 	private ButtonGroup bGroup;
 	private JButton bPatches;
 
-	private fInstructions instructions;
 	private fPatches patches;
 
 	private Simulation simul;
@@ -176,15 +172,6 @@ public class fAccueil extends JFrame {
 		spResult.setBounds(5, 193, 438, 66);
 		contentPane.add(spResult);
 
-		bInstructions = new JButton("Instructions");
-		bInstructions.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				bInstructionsActionPerformed(arg0);
-			}
-		});
-		bInstructions.setBounds(141, 153, 125, 25);
-		bInstructions.setVisible(false);
-		contentPane.add(bInstructions);
 
 		bGroup = new ButtonGroup();
 
@@ -248,23 +235,8 @@ public class fAccueil extends JFrame {
 			lPredicted.setVisible(true);
 			lAvoid.setVisible(true);
 			lProblems.setVisible(true);
-			bInstructions.setVisible(true);
 			bPatches.setVisible(true);
 		}
-	}
-
-	private void bInstructionsActionPerformed(ActionEvent evt) {
-		instructions = new fInstructions();
-
-		if (rbStandalone.isSelected()) {
-			installType = "standalone";
-		} else {
-			installType = "clustered";
-		}
-		InstructionsReader insRead = InstructionsReader.getInstance();
-		insRead.create(installType);
-		instructions.setInstructions(insRead.getInstructions());
-		instructions.setVisible(true);
 	}
 
 	private void rbStandaloneActionPerformed(ActionEvent evt) {
