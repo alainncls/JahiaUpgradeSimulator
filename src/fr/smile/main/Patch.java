@@ -6,6 +6,17 @@ public class Patch {
     private String endVersion;
     private String type;
     private String url;
+    private String instructions;
+    private String warning;
+    
+    public void Patch(){
+    	startVersion = null;
+    	endVersion = null;
+    	type  = null;
+    	url  = null;
+    	instructions = null;
+    	warning  = null;
+    }
 
     public String getStartVersion() {
         return startVersion;
@@ -39,7 +50,23 @@ public class Patch {
         this.url = url;
     }
 
-    public static Builder builder() {
+    public String getInstructions() {
+		return instructions;
+	}
+
+	public void setInstructions(String instructions) {
+		this.instructions = instructions;
+	}
+
+	public String getWarning() {
+		return warning;
+	}
+
+	public void setWarning(String warning) {
+		this.warning = warning;
+	}
+
+	public static Builder builder() {
         return new Builder();
     }
 
@@ -70,6 +97,16 @@ public class Patch {
             return this;
         }
 
+        public Builder instructions(String instructions) {
+            patch.setInstructions(instructions);
+            return this;
+        }
+
+        public Builder warning(String warning) {
+            patch.setWarning(warning);
+            return this;
+        }
+
         public Patch build() {
             return patch;
         }
@@ -95,6 +132,6 @@ public class Patch {
     }
 
 	public boolean isProblem() {
-		return false;
+		return warning==null;
 	}
 }
