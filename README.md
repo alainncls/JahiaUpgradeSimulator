@@ -15,8 +15,11 @@ http://www.vogella.com/tutorials/EclipseWindowBuilder/article.html
 ## JSON Simple
 https://code.google.com/p/json-simple/downloads/detail?name=json-simple-1.1.1.jar&can=2&q=
 
+## Apache Commons IO
+http://commons.apache.org/proper/commons-io/download_io.cgi
+
 Utilisation
 ========
 
-- Exporter en JAR
+- Exporter le projet en JAR
 - Exécuter le JAR : java -jar JahiaUpgradeSimator.jar \[PATH_TO_JAHIA] [context]
