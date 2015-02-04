@@ -3,7 +3,9 @@
     "patches": [
       {
         "endVersion": "6.0.0.1",
-        "url": "https://www.jahia.com/downloads/jahia/jahia6.0.0/hotfix/jahia-hotfix-6.0.0_1_r27321.zip"
+        "url": "https://www.jahia.com/downloads/jahia/jahia6.0.0/hotfix/jahia-hotfix-6.0.0_1_r27321.zip",
+        "instructions" : "Ne te retourne pas !",
+        "warning": "Attention à vous !"
       }
     ],
     "version": "6.0.0.0"
