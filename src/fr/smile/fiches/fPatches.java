@@ -60,6 +60,7 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 			JButton bDownload = new JButton("Download");
 			JCheckBox cbCheck = new JCheckBox();
 			JLabel lPatch = new JLabel(p.toString());
+			lPatch.setSize(300, lPatch.getHeight());
 
 			bDownload.addActionListener(new ActionListener() {
 				@Override
