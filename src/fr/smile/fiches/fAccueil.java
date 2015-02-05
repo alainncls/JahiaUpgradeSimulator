@@ -204,14 +204,6 @@ public class fAccueil extends JFrame {
 		bPatches.setVisible(false);
 		contentPane.add(bPatches);
 
-		/*
-		 * Quick init for debug
-		 */
-		cbStart.setSelectedItem("6.6.2.7");
-		cbEnd.setSelectedItem("7.0.0.4");
-		rbStandalone.doClick();
-		bSimulate.doClick();
-		bPatches.doClick();
 
 	}
 
