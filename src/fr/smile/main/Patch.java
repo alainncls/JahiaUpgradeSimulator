@@ -2,11 +2,8 @@ package fr.smile.main;
 
 public class Patch {
 
-	private String startVersion;
-	private String endVersion;
-	private String url;
-	private String instructions;
-	private String warning;
+	private String startVersion, endVersion, url, instructions,
+			instructionsCluster, warning;
 
 	public Patch() {
 		startVersion = null;
@@ -56,6 +53,14 @@ public class Patch {
 		this.warning = warning;
 	}
 
+	public String getInstructionsCluster() {
+		return instructionsCluster;
+	}
+
+	public void setInstructionsCluster(String instructionsCluster) {
+		this.instructionsCluster = instructionsCluster;
+	}
+
 	public static Builder builder() {
 		return new Builder();
 	}
@@ -92,6 +97,11 @@ public class Patch {
 			return this;
 		}
 
+		public Builder instructionsCluster(String instructionsCluster) {
+			patch.setInstructionsCluster(instructionsCluster);
+			return this;
+		}
+
 		public Patch build() {
 			return patch;
 		}
@@ -100,18 +110,6 @@ public class Patch {
 	@Override
 	public String toString() {
 		return "Version " + startVersion + " to " + endVersion;
-	}
-
-	public boolean isNeeded(String startVersion, String endVersion) {
-		if (startVersion.compareTo(this.startVersion) > 0)
-			return false;
-		if (startVersion.compareTo(this.endVersion) > 0)
-			return false;
-		if (endVersion.compareTo(this.endVersion) < 0)
-			return false;
-		if (endVersion.compareTo(this.startVersion) < 0)
-			return false;
-		return true;
 	}
 
 	public boolean isProblem() {

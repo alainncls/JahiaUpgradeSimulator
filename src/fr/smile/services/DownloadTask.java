@@ -1,4 +1,4 @@
-package fr.smile.reader;
+package fr.smile.services;
 
 import java.io.File;
 import java.io.IOException;
