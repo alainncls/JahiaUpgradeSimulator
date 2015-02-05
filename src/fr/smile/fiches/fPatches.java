@@ -87,7 +87,7 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 				warning.setBackground(Color.ORANGE);
 				warning.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						JOptionPane.showMessageDialog(null, new JLabel(p.getWarning()));
+						JOptionPane.showMessageDialog(null, new JLabel("<html><body style='width: 400px'>"+p.getWarning()+"</body></html>"));
 					}
 				});
 				listPanel.add(warning);
