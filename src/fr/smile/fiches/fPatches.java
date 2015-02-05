@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
@@ -29,6 +30,8 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 	private JButton backButton;
 	private JButton download;
 	private JCheckBox cdownload;
+	private JButton warning;
+	
 	private fInstructions instructions;
 
 	private List<Patch> listPatches;
@@ -53,8 +56,8 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 
 		listPanel = new JPanel();
 		listPanel.setBounds(5, 5, 881, 517);
-		// listPanel.setLayout(new GridLayout(listPatches.size(), 3, 5, 5));
 		listPanel.setLayout(new SpringLayout());
+		
 		for (final Patch p : this.listPatches) {
 			JButton bInstruction = new JButton("Instructions");
 			JButton bDownload = new JButton("Download");
@@ -78,6 +81,19 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 				}
 			});
 			listPanel.add(lPatch);
+			
+			if(p.isProblem()){
+				warning = new JButton("Warning !");
+				warning.setBackground(Color.ORANGE);
+				warning.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						JOptionPane.showMessageDialog(null, new JLabel(p.getWarning()));
+					}
+				});
+				listPanel.add(warning);
+			}else{
+				listPanel.add(new JLabel());
+			}
 			listPanel.add(bInstruction);
 			listPanel.add(bDownload);
 			listPanel.add(cbCheck);
@@ -85,10 +101,13 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 			checkBoxMap.put(p, cbCheck);
 			buttonMap.put(p, bDownload);
 		}
-		SpringUtilities.makeCompactGrid(listPanel,// parent
-				listPatches.size(), 4, // rows, cols
+		
+		SpringUtilities.makeCompactGridRight(listPanel,// parent
+				listPatches.size(), 5, // rows, cols
 				5, 5, // initX, initY
-				5, 5); // xPad, yPad
+				5, 5,
+				1); // xPad, yPad
+
 
 		JScrollPane scrollPane = new JScrollPane(listPanel,
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
