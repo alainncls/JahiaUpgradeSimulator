@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
@@ -36,7 +35,7 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 	private Map<Patch, JCheckBox> checkBoxMap;
 	private Map<Patch, JButton> buttonMap;
 
-	public fPatches(List<Patch> listPatches) {
+	public fPatches(List<Patch> listPatches, final Boolean clustered) {
 
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 900, 600);
@@ -72,7 +71,11 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 			bInstruction.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					instructions.setInstructions(p.getInstructions());
+					if(clustered){
+						instructions.setInstructions(p.getInstructionsCluster()+"<br/><br/><hr/><br/><br/"+p.getInstructions());
+					}else{
+						instructions.setInstructions(p.getInstructions());
+					}
 					instructions.setTitle("Instructions Patch " + p.toString());
 					instructions.setVisible(true);
 				}

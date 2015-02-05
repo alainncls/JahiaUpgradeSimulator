@@ -222,7 +222,7 @@ public class fAccueil extends JFrame {
 			if(patches!=null){
 				patches.setVisible(false);
 			}
-			patches = new fPatches(simul.getListPatches());
+			patches = new fPatches(simul.getListPatches(), rbClustered.isSelected());
 		}
 	}
 
