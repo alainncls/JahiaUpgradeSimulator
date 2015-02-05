@@ -1,7 +1,6 @@
 package fr.smile.fiches;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -16,9 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
-import javax.swing.Spring;
 import javax.swing.SpringLayout;
-import javax.swing.SpringLayout.Constraints;
 import javax.swing.border.EmptyBorder;
 
 import fr.smile.main.Patch;
@@ -33,7 +30,6 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 	private JPanel listPanel;
 	private JButton bBack, bDownload, bWarning;
 	private JCheckBox cdownload;
-	private JSeparator separator;
 
 	private fInstructions instructions;
 
@@ -114,22 +110,6 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 				5, 5, // initX, initY
 				5, 5, // xPad, yPad
 				1); //column décalage
-		
-		int i=1;
-		for (final Patch p : listPatches) {
-			if(p.isProblem()){
-				Constraints c = ((SpringLayout)listPanel.getLayout()).getConstraints(listPanel.getComponent(5*i));
-				separator = new JSeparator(JSeparator.HORIZONTAL);
-				separator.setPreferredSize(new Dimension(800, 10));
-				listPanel.add(separator);
-				Constraints c2 = ((SpringLayout)listPanel.getLayout()).getConstraints(separator);
-				c2.setY(Spring.sum(c.getY(), Spring.constant(-6)));
-			}
-			i++;
-		}
-		
-		Constraints c = ((SpringLayout)listPanel.getLayout()).getConstraints(listPanel.getComponent(4));
-		System.out.println(c.getX().getValue());
 
 		JScrollPane scrollPane = new JScrollPane(listPanel,
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
