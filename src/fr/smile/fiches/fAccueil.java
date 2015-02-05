@@ -144,7 +144,7 @@ public class fAccueil extends JFrame {
 				bSimulateActionPerformed(evt);
 			}
 		});
-		bSimulate.setBounds(12, 153, 117, 25);
+		bSimulate.setBounds(12, 234, 117, 25);
 		bSimulate.setEnabled(false);
 		contentPane.add(bSimulate);
 
@@ -152,7 +152,7 @@ public class fAccueil extends JFrame {
 
 		rbClustered = new JRadioButton();
 		rbClustered.setText("Clustered");
-		rbClustered.setBounds(157, 122, 96, 23);
+		rbClustered.setBounds(157, 162, 96, 23);
 		rbClustered.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				enableSimulation(evt);
@@ -163,7 +163,7 @@ public class fAccueil extends JFrame {
 
 		rbStandalone = new JRadioButton();
 		rbStandalone.setText("Standalone");
-		rbStandalone.setBounds(22, 122, 117, 23);
+		rbStandalone.setBounds(22, 162, 117, 23);
 		rbStandalone.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				enableSimulation(evt);
@@ -173,7 +173,7 @@ public class fAccueil extends JFrame {
 		contentPane.add(rbStandalone);
 
 		bPatches = new JButton("Go to patches >>");
-		bPatches.setBounds(278, 153, 157, 25);
+		bPatches.setBounds(279, 234, 157, 25);
 		bPatches.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				goPatches(evt);
@@ -185,11 +185,11 @@ public class fAccueil extends JFrame {
 		/*
 		 * Quick init for debug
 		 */
-		cbStart.setSelectedItem("6.6.0.0");
-		cbEnd.setSelectedItem("7.0.0.4");
-		rbStandalone.doClick();
-		bSimulate.doClick();
-		bPatches.doClick();
+//		cbStart.setSelectedItem("6.6.0.0");
+//		cbEnd.setSelectedItem("7.0.0.4");
+//		rbStandalone.doClick();
+//		bSimulate.doClick();
+//		bPatches.doClick();
 
 	}
 
