@@ -232,18 +232,19 @@ public class SpringUtilities {
 	public static void makeCompactGridRight(Container parent, int rows,
 			int cols, int initialX, int initialY, int xPad, int yPad,
 			int colRight) {
-
+		
 		makeCompactGrid(parent, rows, cols, initialX, initialY, xPad, yPad);
 		
-		Spring x = Spring.constant(parent.getWidth());
+		Spring x = Spring.constant(parent.getWidth()-10);//10 for the scrollBar
+		
+		//Getting the max width of the parent component
 		x = Spring.sum(x, Spring.minus(Spring.sum(Spring.constant(xPad), Spring.constant(initialX))));
-
+		//Removing each component width from the max width to get the empty space
 		for (int c = 0; c < cols; c++) {
-			System.out.println(getConstraintsForCell(0, c, parent, cols).getWidth().getValue());
 			x = Spring.sum(x, Spring.minus(Spring.sum(getConstraintsForCell(0, c, parent, cols).getWidth(), Spring.constant(xPad))));
 		}
-
 		
+		//Moving every component from specified column to the right, using previous empty space available)
 		for (int c = colRight; c < cols; c++) {
 			for (int r = 0; r < rows; r++) {
 				SpringLayout.Constraints constraints = getConstraintsForCell(r,

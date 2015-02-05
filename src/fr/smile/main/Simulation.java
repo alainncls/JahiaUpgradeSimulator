@@ -3,7 +3,7 @@ package fr.smile.main;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.smile.reader.VersionsReader;
+import fr.smile.services.PatchService;
 
 public class Simulation {
 	private String startVersion;
@@ -27,7 +27,7 @@ public class Simulation {
 		String currentVersion = startVersion;
 		List<Patch> pl;
 		Patch p;
-		while(!(pl=VersionsReader.getInstance().getPatches(currentVersion, endVersion)).isEmpty()){
+		while(!(pl=PatchService.getInstance().getPatches(currentVersion, endVersion)).isEmpty()){
 			p = pl.get(0);
 			listPatches.add(p);
 			currentVersion = p.getEndVersion();

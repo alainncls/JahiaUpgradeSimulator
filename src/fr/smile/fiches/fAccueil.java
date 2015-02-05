@@ -25,41 +25,26 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import fr.smile.main.Simulation;
-import fr.smile.reader.VersionsReader;
+import fr.smile.services.PatchService;
 
 public class fAccueil extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+	
+	private JPanel contentPane, pRed, pOrange, pGreen;
+	private JLabel lProblems, lAvoid, lPredicted, lblT, lStart, lEnd;
 
-	private JLabel lProblems;
-	private JLabel lAvoid;
-	private JLabel lPredicted;
-	private JPanel pRed;
-	private JPanel pOrange;
-	private JPanel pGreen;
-	private JLabel lblT;
-	private JComboBox<String> cbStart;
-	private JLabel lStart;
-	private JComboBox<String> cbEnd;
-	private JLabel lEnd;
-	private JButton bSimulate;
-	private JScrollPane spResult;
-	private JTextPane tpResult;
-	private JRadioButton rbClustered;
-	private JRadioButton rbStandalone;
+	private JComboBox<String> cbStart, cbEnd;
+
+	private JButton bSimulate, bPatches;
+	
 	private ButtonGroup bGroup;
-	private JButton bPatches;
+	private JRadioButton rbClustered, rbStandalone;
 
 	private fPatches patches;
 
 	private Simulation simul;
-	private String startVersion;
-	private String endVersion;
-	private String detectedVersion;
+	private String startVersion, endVersion, detectedVersion, context, jahiaFolder;
 	private List<String> listVersions;
-
-	private String context;
-	private String jahiaFolder;
 
 	public fAccueil(String[] args) {
 
@@ -69,7 +54,7 @@ public class fAccueil extends JFrame {
 			jahiaFolder += "/";
 		}
 
-		listVersions = VersionsReader.getInstance().getVersions();
+		listVersions = PatchService.getInstance().getVersions();
 		detectedVersion = detectJahiaVersion();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -155,20 +140,13 @@ public class fAccueil extends JFrame {
 
 		bSimulate = new JButton("Simulate !");
 		bSimulate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				bSimulateActionPerformed(arg0);
+			public void actionPerformed(ActionEvent evt) {
+				bSimulateActionPerformed(evt);
 			}
 		});
 		bSimulate.setBounds(12, 153, 117, 25);
 		bSimulate.setEnabled(false);
 		contentPane.add(bSimulate);
-
-		tpResult = new JTextPane();
-		tpResult.setBackground(Color.LIGHT_GRAY);
-		tpResult.setBounds(5, 193, 438, 66);
-		spResult = new JScrollPane(tpResult);
-		spResult.setBounds(5, 193, 438, 66);
-		contentPane.add(spResult);
 
 		bGroup = new ButtonGroup();
 
@@ -177,7 +155,7 @@ public class fAccueil extends JFrame {
 		rbClustered.setBounds(157, 122, 96, 23);
 		rbClustered.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				rbClusteredActionPerformed(evt);
+				enableSimulation(evt);
 			}
 		});
 		bGroup.add(rbClustered);
@@ -188,7 +166,7 @@ public class fAccueil extends JFrame {
 		rbStandalone.setBounds(22, 122, 117, 23);
 		rbStandalone.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				rbStandaloneActionPerformed(evt);
+				enableSimulation(evt);
 			}
 		});
 		bGroup.add(rbStandalone);
@@ -197,21 +175,21 @@ public class fAccueil extends JFrame {
 		bPatches = new JButton("Go to patches >>");
 		bPatches.setBounds(278, 153, 157, 25);
 		bPatches.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				goPatches(arg0);
+			public void actionPerformed(ActionEvent evt) {
+				goPatches(evt);
 			}
 		});
-		bPatches.setVisible(false);
+		bPatches.setEnabled(false);
 		contentPane.add(bPatches);
 
 		/*
 		 * Quick init for debug
 		 */
-//		cbStart.setSelectedItem("6.6.2.7");
-//		cbEnd.setSelectedItem("7.0.0.4");
-//		rbStandalone.doClick();
-//		bSimulate.doClick();
-//		bPatches.doClick();
+		cbStart.setSelectedItem("6.6.0.0");
+		cbEnd.setSelectedItem("7.0.0.4");
+		rbStandalone.doClick();
+		bSimulate.doClick();
+		bPatches.doClick();
 
 	}
 
@@ -219,15 +197,13 @@ public class fAccueil extends JFrame {
 		startVersion = cbStart.getSelectedItem().toString();
 		endVersion = cbEnd.getSelectedItem().toString();
 
-		simul = new Simulation(startVersion, endVersion);
+		simul = new Simulation(startVersion, endVersion );
 
 		if (simul.getError() != "") {
 			JOptionPane.showMessageDialog(null, simul.getError(), "Error",
 					JOptionPane.ERROR_MESSAGE);
 		} else {
-			String result = simul.toString();
 
-			tpResult.setText(result);
 			lPredicted.setText(Integer.toString(simul.getSteps())
 					+ " predicted steps");
 			lAvoid.setText(Integer.toString(simul.getStepsA())
@@ -241,19 +217,16 @@ public class fAccueil extends JFrame {
 			lPredicted.setVisible(true);
 			lAvoid.setVisible(true);
 			lProblems.setVisible(true);
-			bPatches.setVisible(true);
-
+			bPatches.setEnabled(true);
+			
+			if(patches!=null){
+				patches.setVisible(false);
+			}
 			patches = new fPatches(simul.getListPatches());
 		}
 	}
 
-	private void rbStandaloneActionPerformed(ActionEvent evt) {
-		if (!bSimulate.isEnabled()) {
-			bSimulate.setEnabled(true);
-		}
-	}
-
-	private void rbClusteredActionPerformed(ActionEvent evt) {
+	private void enableSimulation(ActionEvent evt) {
 		if (!bSimulate.isEnabled()) {
 			bSimulate.setEnabled(true);
 		}
@@ -279,7 +252,6 @@ public class fAccueil extends JFrame {
 		} finally {
 			return version;
 		}
-
 	}
 
 	public File[] listFilesMatching(File root, String regex) {

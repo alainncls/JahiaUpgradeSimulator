@@ -1,4 +1,4 @@
-package fr.smile.reader;
+package fr.smile.services;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

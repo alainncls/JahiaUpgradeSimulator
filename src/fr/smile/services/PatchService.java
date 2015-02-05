@@ -1,4 +1,4 @@
-package fr.smile.reader;
+package fr.smile.services;
 
 //**** IMPORTS ****
 
@@ -17,7 +17,7 @@ import org.json.simple.parser.ParseException;
 
 import fr.smile.main.Patch;
 
-public enum VersionsReader {
+public enum PatchService {
 
 	INSTANCE;
 
@@ -27,7 +27,7 @@ public enum VersionsReader {
 	private List<Patch> listPatch;
 
 	// **** BUILDER ****
-	private VersionsReader() {
+	private PatchService() {
 		listVersion = new ArrayList<>();
 		listPatch = new ArrayList<>();
 		try {
@@ -39,7 +39,7 @@ public enum VersionsReader {
 		}
 	}
 
-	public static VersionsReader getInstance() {
+	public static PatchService getInstance() {
 		return INSTANCE;
 	}
 
@@ -55,7 +55,7 @@ public enum VersionsReader {
 		JSONParser parser = new JSONParser();
 		JSONArray a = (JSONArray) parser.parse(json);
 
-		String version, endVersion, url, instructions, warning;
+		String version, endVersion, url, instructions, instructionsCluster, warning;
 
 		Patch patch;
 
@@ -71,9 +71,10 @@ public enum VersionsReader {
 				endVersion = (String) jsonPatch.get("endVersion");
 				url = (String) jsonPatch.get("url");
 				instructions = (String) jsonPatch.get("instructions");
+				instructionsCluster = (String) jsonPatch.get("instructionsCluster");
 				warning = (String) jsonPatch.get("warning");
 				patch = Patch.builder().startVersion(version)
-						.endVersion(endVersion).url(url)
+						.endVersion(endVersion).url(url).instructionsCluster(instructionsCluster)
 						.instructions(instructions).warning(warning).build();
 
 				listPatch.add(patch);
