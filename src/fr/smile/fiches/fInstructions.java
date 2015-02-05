@@ -55,7 +55,7 @@ public class fInstructions extends JDialog {
 	}
 
 	public void setInstructions(String ins) {
-		epInstructions.setText(ins);
+		epInstructions.setText("<html><body>"+ins+"</body></html>");
 		epInstructions.setCaretPosition(0);
 	}
 }
