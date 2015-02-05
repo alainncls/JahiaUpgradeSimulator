@@ -1,6 +1,6 @@
 <html><body>
 
-<div class="help-message">
+<div class=\"help-message\">
     <p><strong>Please:</strong></p>
 
     <ul>
@@ -11,9 +11,9 @@
     </ul>
 </div>
 <hr>
-<h2 style="color:#0099FF;">For a standalone installation</h2>
+<h2 style=\"color:#0099FF;\">For a standalone installation</h2>
 
-<h3><span style="padding:2px 10px; background-color:#0099FF;color:#FFF;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;margin-right:0.5em;font-style:normal;font-family: Arial, Helvetica, sans-serif;">Step 1:</span>Jahia Core &amp; Modules Migration</h3>
+<h3><span style=\"padding:2px 10px; background-color:#0099FF;color:#FFF;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;margin-right:0.5em;font-style:normal;font-family: Arial, Helvetica, sans-serif;\">Step 1:</span>Jahia Core &amp; Modules Migration</h3>
 
 <p>The first step of the migration is to copy the fix applier on your production server.</p>
 
@@ -35,21 +35,21 @@
 
 <p>In case you have externalized your configuration (jar file or folder), you will need to apply the modification relative to jahia.properties and jahia.advanced.properties manually at the appropriate place.</p>
 
-<div class="warning-message">Please review your log before starting the next step to ensure you haven't missed a file that needs to be manually merged.</div>
+<div class=\"warning-message\">Please review your log before starting the next step to ensure you haven't missed a file that needs to be manually merged.</div>
 
 <h4>3. Clean the following Tomcat folder</h4>
 
 <p>The fix applier now handles the cleaning of the tomcat folders automatically but depending on the OS and some permissions you may need to clean it manually.</p>
 
-<div class="warning-message">Remove the content of your folders &lt;JAHIA_INSTALLATION&gt;/tomcat/temp and &lt;JAHIA_INSTALLATION&gt;/tomcat/work</div>
+<div class=\"warning-message\">Remove the content of your folders &lt;JAHIA_INSTALLATION&gt;/tomcat/temp and &lt;JAHIA_INSTALLATION&gt;/tomcat/work</div>
 
 <h4>4. Clean the ressource folder</h4>
 
 <p>Starting from 6.6.2.2&nbsp; fix applier handles the cleaning of the /webapps/&lt;your context&gt;/resources folder automatically but depending on the OS and some permissions you may need to clean it manually.</p>
 
-<div class="warning-message">Remove the content of your folder&nbsp; &lt;JAHIA_INSTALLATION&gt;/tomcat/webapps/ROOT/resources or &lt;JAHIA_INSTALLATION&gt;/tomcat/webapps/&lt;your context&gt;/resources if you didn't use the default ROOT context.</div>
+<div class=\"warning-message\">Remove the content of your folder&nbsp; &lt;JAHIA_INSTALLATION&gt;/tomcat/webapps/ROOT/resources or &lt;JAHIA_INSTALLATION&gt;/tomcat/webapps/&lt;your context&gt;/resources if you didn't use the default ROOT context.</div>
 
 <h4>5. Start JAHIA</h4>
 
-<div class="help-message">Your upgrade is now completed</div>
+<div class=\"help-message\">Your upgrade is now completed</div>
 </body></html>
