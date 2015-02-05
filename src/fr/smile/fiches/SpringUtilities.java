@@ -33,7 +33,9 @@ package fr.smile.fiches;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 
+import javax.swing.JSeparator;
 import javax.swing.Spring;
 import javax.swing.SpringLayout;
 
@@ -232,19 +234,25 @@ public class SpringUtilities {
 	public static void makeCompactGridRight(Container parent, int rows,
 			int cols, int initialX, int initialY, int xPad, int yPad,
 			int colRight) {
-		
+
 		makeCompactGrid(parent, rows, cols, initialX, initialY, xPad, yPad);
-		
-		Spring x = Spring.constant(parent.getWidth()-10);//10 for the scrollBar
-		
-		//Getting the max width of the parent component
-		x = Spring.sum(x, Spring.minus(Spring.sum(Spring.constant(xPad), Spring.constant(initialX))));
-		//Removing each component width from the max width to get the empty space
+
+		// 10 for the scrollBar
+		Spring x = Spring.constant(parent.getWidth() - 10);
+
+		// Getting the max width of the parent component
+		x = Spring.sum(x,
+				Spring.sum(Spring.constant(-xPad), Spring.constant(-initialX)));
+		// Removing each component width from the max width to get the empty
+		// space
 		for (int c = 0; c < cols; c++) {
-			x = Spring.sum(x, Spring.minus(Spring.sum(getConstraintsForCell(0, c, parent, cols).getWidth(), Spring.constant(xPad))));
+			x = Spring.sum(x, Spring.minus(Spring.sum(
+					getConstraintsForCell(0, c, parent, cols).getWidth(),
+					Spring.constant(xPad))));
 		}
-		
-		//Moving every component from specified column to the right, using previous empty space available)
+
+		// Moving every component from specified column to the right, using
+		// previous empty space available)
 		for (int c = colRight; c < cols; c++) {
 			for (int r = 0; r < rows; r++) {
 				SpringLayout.Constraints constraints = getConstraintsForCell(r,
@@ -253,5 +261,17 @@ public class SpringUtilities {
 			}
 		}
 
+		// Add Separators
+		for (int r = 0; r < rows; r++) {
+			SpringLayout.Constraints c = getConstraintsForCell(r, 0, parent,
+					cols);
+			JSeparator separator = new JSeparator(JSeparator.HORIZONTAL);
+			separator.setPreferredSize(new Dimension(parent.getWidth(), 10));
+			parent.add(separator);
+			SpringLayout.Constraints c2 = ((SpringLayout) parent.getLayout())
+					.getConstraints(separator);
+			c2.setY(Spring.sum(c.getY(),
+					Spring.sum(c.getHeight(), Spring.constant(-1))));
+		}
 	}
 }
