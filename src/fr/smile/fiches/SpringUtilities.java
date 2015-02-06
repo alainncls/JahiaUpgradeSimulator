@@ -233,7 +233,7 @@ public class SpringUtilities {
 
 	public static void makeCompactGridRight(Container parent, int rows,
 			int cols, int initialX, int initialY, int xPad, int yPad,
-			int colRight) {
+			int nbColsRight) {
 
 		makeCompactGrid(parent, rows, cols, initialX, initialY, xPad, yPad);
 
@@ -253,7 +253,7 @@ public class SpringUtilities {
 
 		// Moving every component from specified column to the right, using
 		// previous empty space available)
-		for (int c = colRight; c < cols; c++) {
+		for (int c = cols-nbColsRight; c < cols; c++) {
 			for (int r = 0; r < rows; r++) {
 				SpringLayout.Constraints constraints = getConstraintsForCell(r,
 						c, parent, cols);

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.JButton;
@@ -18,30 +17,27 @@ import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
 import fr.smile.main.Patch;
-import fr.smile.services.DownloadService;
-import fr.smile.services.DownloadTask;
-import fr.smile.services.RunnableCompleteListener;
+import fr.smile.main.Simulation;
 
-public class fPatches extends JDialog implements RunnableCompleteListener {
+public class fPatches extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel;
 	private JPanel listPanel;
-	private JButton bBack, bDownload, bWarning;
+	private JButton bBack, bDownload;
 	private JCheckBox cdownload;
+	private JLabel lReboot;
 
 	private fInstructions instructions;
 
-	private Map<Patch, JCheckBox> checkBoxMap;
-	private Map<Patch, JButton> buttonMap;
+	private Map<JCheckBox, ActionButton> checkBoxMap;
 
-	public fPatches(List<Patch> listPatches, final Boolean clustered) {
+	public fPatches(final Simulation simu) {
 
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 900, 600);
 
 		this.checkBoxMap = new HashMap<>();
-		this.buttonMap = new HashMap<>();
 
 		instructions = new fInstructions();
 
@@ -53,27 +49,31 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 		listPanel = new JPanel();
 		listPanel.setBounds(5, 5, 881, 517);
 		listPanel.setLayout(new SpringLayout());
-
-		for (final Patch p : listPatches) {
+		
+		int index = 0;
+		int nbCols = 0;
+		for (final Patch p : simu.getListPatches()) {
+			index++;
 			JButton bInstruction = new JButton("Instructions");
-			JButton bDownload = new JButton("Download");
+			ActionButton bAction = new ActionButton(p, ActionButton.DOWNLOAD);
 			JCheckBox cbCheck = new JCheckBox();
 			JLabel lPatch = new JLabel(p.toString());
 			lPatch.setSize(300, lPatch.getHeight());
 
-			bDownload.addActionListener(new ActionListener() {
+			bAction.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					runDownload(p);
+					((ActionButton)e.getSource()).doAction();
 				}
 			});
 
 			bInstruction.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if(clustered){
-						instructions.setInstructions(p.getInstructionsCluster()+"<br/><hr/><br/"+p.getInstructions());
-					}else{
+					if (simu.getClustered()) {
+						instructions.setInstructions(p.getInstructionsCluster()
+								+ "<br/><hr/><br/" + p.getInstructions());
+					} else {
 						instructions.setInstructions(p.getInstructions());
 					}
 					instructions.setTitle("Instructions Patch " + p.toString());
@@ -83,7 +83,7 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 			listPanel.add(lPatch);
 
 			if (p.isProblem()) {
-				bWarning = new JButton("Warning !");
+				JButton bWarning = new JButton("Warning !");
 				bWarning.setBackground(Color.ORANGE);
 				bWarning.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -100,19 +100,35 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 			} else {
 				listPanel.add(new JLabel());
 			}
-			listPanel.add(bInstruction);
-			listPanel.add(bDownload);
-			listPanel.add(cbCheck);
 
-			checkBoxMap.put(p, cbCheck);
-			buttonMap.put(p, bDownload);
+			listPanel.add(bInstruction);
+			listPanel.add(bAction);
+			listPanel.add(cbCheck);
+			
+			if(index==1) {
+				nbCols = listPanel.getComponentCount();
+			}
+
+			if (p.getReboot()) {
+				int nbCompInit = listPanel.getComponentCount();
+				lReboot = new JLabel("You need to reboot your Jahia install after upgrading to "+p.getEndVersion());
+				lReboot.setBackground(Color.YELLOW);
+				lReboot.setOpaque(true);
+				listPanel.add(lReboot);
+				int added = listPanel.getComponentCount()-nbCompInit;
+				for (int i = added; i < nbCols; i++) {
+					listPanel.add(new JLabel());
+				}
+			}
+
+			checkBoxMap.put(cbCheck, bAction);
 		}
 
 		SpringUtilities.makeCompactGridRight(listPanel,// parent
-				listPatches.size(), 5, // rows, cols
+				simu.getSteps() + simu.getReboots(), nbCols, // rows, cols
 				5, 5, // initX, initY
 				5, 5, // xPad, yPad
-				1); //column décalage
+				4); // number of cols to push right
 
 		JScrollPane scrollPane = new JScrollPane(listPanel,
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -144,8 +160,8 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JCheckBox cb = (JCheckBox) e.getSource();
-				for (Patch p : checkBoxMap.keySet()) {
-					checkBoxMap.get(p).setSelected(cb.isSelected());
+				for (JCheckBox c : checkBoxMap.keySet()) {
+					c.setSelected(cb.isSelected());
 				}
 			}
 		});
@@ -156,40 +172,10 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 		this.setVisible(false);
 	}
 
-	protected void runDownload(Patch p) {
-		buttonMap.get(p).setBackground(Color.CYAN);
-		buttonMap.get(p).setText("Downloading...");
-		DownloadService.getInstance().download(p, this);
-	}
-
 	private void runDownload() {
-		JCheckBox cb;
-		for (Patch p : checkBoxMap.keySet()) {
-			cb = checkBoxMap.get(p);
-			if (cb.isSelected()) {
-				runDownload(p);
-			}
-		}
-	}
-
-	@Override
-	public void notifyComplete(Runnable runnable) {
-		DownloadTask task;
-		Patch p;
-		JCheckBox cb;
-		if (runnable.getClass() == DownloadTask.class) {
-			task = (DownloadTask) runnable;
-			p = task.getPatch();
-			if (task.getResult() == DownloadTask.OK) {
-				buttonMap.get(p).setBackground(Color.GREEN);
-				buttonMap.get(p).setText("Finish");
-				System.out.println("Download Ended : " + p.toString());
-				cb = checkBoxMap.get(p);
-				cb.setSelected(false);
-			} else {
-				buttonMap.get(p).setBackground(Color.RED);
-				buttonMap.get(p).setText("Error");
-				System.out.println("Download Fail : " + p.toString());
+		for (JCheckBox c : checkBoxMap.keySet()) {
+			if (c.isSelected()) {
+				checkBoxMap.get(c).doDownload();
 			}
 		}
 	}
