@@ -76,11 +76,8 @@ public enum PatchService {
 				instructionsCluster = (String) jsonPatch
 						.get("instructionsCluster");
 				warning = (String) jsonPatch.get("warning");
-				if (((String) jsonPatch.get("reboot")).equals("0")) {
-					reboot = false;
-				} else {
-					reboot = true;
-				}
+				reboot = ((String) jsonPatch.get("reboot")).equals("1");
+
 				patch = Patch.builder().startVersion(version)
 						.endVersion(endVersion).url(url)
 						.instructionsCluster(instructionsCluster)

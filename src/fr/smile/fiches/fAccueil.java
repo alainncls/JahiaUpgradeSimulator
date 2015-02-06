@@ -92,7 +92,7 @@ public class fAccueil extends JFrame {
 		contentPane.add(lProblems);
 
 		lReboots = new JLabel("");
-		lReboots.setBounds(286, 162, 150, 15);
+		lReboots.setBounds(286, 158, 150, 15);
 		contentPane.add(lReboots);
 
 		pGreen.setVisible(false);
