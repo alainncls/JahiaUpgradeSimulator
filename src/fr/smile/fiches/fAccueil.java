@@ -201,7 +201,8 @@ public class fAccueil extends JFrame {
 		startVersion = cbStart.getSelectedItem().toString();
 		endVersion = cbEnd.getSelectedItem().toString();
 
-		simul = new Simulation(startVersion, endVersion);
+		simul = new Simulation(startVersion, endVersion,
+				rbClustered.isSelected());
 
 		if (simul.getError() != "") {
 			JOptionPane.showMessageDialog(null, simul.getError(), "Error",
@@ -226,11 +227,8 @@ public class fAccueil extends JFrame {
 			lReboots.setVisible(true);
 			bPatches.setEnabled(true);
 
-			if (patches != null) {
-				patches.setVisible(false);
-			}
-			patches = new fPatches(simul.getListPatches(),
-					rbClustered.isSelected());
+			patches = new fPatches(simul);
+			patches.setVisible(false);
 		}
 	}
 
