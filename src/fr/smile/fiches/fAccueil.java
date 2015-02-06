@@ -19,8 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
@@ -94,7 +92,7 @@ public class fAccueil extends JFrame {
 		contentPane.add(lProblems);
 
 		lReboots = new JLabel("");
-		lReboots.setBounds(286, 162, 150, 15);
+		lReboots.setBounds(286, 158, 150, 15);
 		contentPane.add(lReboots);
 
 		pGreen.setVisible(false);
