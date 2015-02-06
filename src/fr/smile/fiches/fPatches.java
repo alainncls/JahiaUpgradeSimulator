@@ -18,23 +18,19 @@ import javax.swing.border.EmptyBorder;
 
 import fr.smile.main.Patch;
 import fr.smile.main.Simulation;
-import fr.smile.services.DownloadService;
-import fr.smile.services.DownloadTask;
-import fr.smile.services.RunnableCompleteListener;
 
-public class fPatches extends JDialog implements RunnableCompleteListener {
+public class fPatches extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel;
 	private JPanel listPanel;
-	private JButton bBack, bDownload, bWarning;
+	private JButton bBack, bDownload;
 	private JCheckBox cdownload;
 	private JLabel lReboot;
 
 	private fInstructions instructions;
 
-	private Map<Patch, JCheckBox> checkBoxMap;
-	private Map<Patch, JButton> buttonMap;
+	private Map<JCheckBox, ActionButton> checkBoxMap;
 
 	public fPatches(final Simulation simu) {
 
@@ -42,7 +38,6 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 		setBounds(100, 100, 900, 600);
 
 		this.checkBoxMap = new HashMap<>();
-		this.buttonMap = new HashMap<>();
 
 		instructions = new fInstructions();
 
@@ -60,15 +55,15 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 		for (final Patch p : simu.getListPatches()) {
 			index++;
 			JButton bInstruction = new JButton("Instructions");
-			JButton bDownload = new JButton("Download");
+			ActionButton bAction = new ActionButton(p, ActionButton.DOWNLOAD);
 			JCheckBox cbCheck = new JCheckBox();
 			JLabel lPatch = new JLabel(p.toString());
 			lPatch.setSize(300, lPatch.getHeight());
 
-			bDownload.addActionListener(new ActionListener() {
+			bAction.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					runDownload(p);
+					((ActionButton)e.getSource()).doAction();
 				}
 			});
 
@@ -88,7 +83,7 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 			listPanel.add(lPatch);
 
 			if (p.isProblem()) {
-				bWarning = new JButton("Warning !");
+				JButton bWarning = new JButton("Warning !");
 				bWarning.setBackground(Color.ORANGE);
 				bWarning.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -107,7 +102,7 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 			}
 
 			listPanel.add(bInstruction);
-			listPanel.add(bDownload);
+			listPanel.add(bAction);
 			listPanel.add(cbCheck);
 			
 			if(index==1) {
@@ -126,8 +121,7 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 				}
 			}
 
-			checkBoxMap.put(p, cbCheck);
-			buttonMap.put(p, bDownload);
+			checkBoxMap.put(cbCheck, bAction);
 		}
 
 		SpringUtilities.makeCompactGridRight(listPanel,// parent
@@ -166,8 +160,8 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JCheckBox cb = (JCheckBox) e.getSource();
-				for (Patch p : checkBoxMap.keySet()) {
-					checkBoxMap.get(p).setSelected(cb.isSelected());
+				for (JCheckBox c : checkBoxMap.keySet()) {
+					c.setSelected(cb.isSelected());
 				}
 			}
 		});
@@ -178,40 +172,10 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 		this.setVisible(false);
 	}
 
-	protected void runDownload(Patch p) {
-		buttonMap.get(p).setBackground(Color.CYAN);
-		buttonMap.get(p).setText("Downloading...");
-		DownloadService.getInstance().download(p, this);
-	}
-
 	private void runDownload() {
-		JCheckBox cb;
-		for (Patch p : checkBoxMap.keySet()) {
-			cb = checkBoxMap.get(p);
-			if (cb.isSelected()) {
-				runDownload(p);
-			}
-		}
-	}
-
-	@Override
-	public void notifyComplete(Runnable runnable) {
-		DownloadTask task;
-		Patch p;
-		JCheckBox cb;
-		if (runnable.getClass() == DownloadTask.class) {
-			task = (DownloadTask) runnable;
-			p = task.getPatch();
-			if (task.getResult() == DownloadTask.OK) {
-				buttonMap.get(p).setBackground(Color.GREEN);
-				buttonMap.get(p).setText("Finish");
-				System.out.println("Download Ended : " + p.toString());
-				cb = checkBoxMap.get(p);
-				cb.setSelected(false);
-			} else {
-				buttonMap.get(p).setBackground(Color.RED);
-				buttonMap.get(p).setText("Error");
-				System.out.println("Download Fail : " + p.toString());
+		for (JCheckBox c : checkBoxMap.keySet()) {
+			if (c.isSelected()) {
+				checkBoxMap.get(c).doDownload();
 			}
 		}
 	}
