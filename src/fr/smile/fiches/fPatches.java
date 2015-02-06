@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.JButton;
@@ -18,6 +17,7 @@ import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
 import fr.smile.main.Patch;
+import fr.smile.main.Simulation;
 import fr.smile.services.DownloadService;
 import fr.smile.services.DownloadTask;
 import fr.smile.services.RunnableCompleteListener;
@@ -29,13 +29,14 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 	private JPanel listPanel;
 	private JButton bBack, bDownload, bWarning;
 	private JCheckBox cdownload;
+	private JLabel lReboot;
 
 	private fInstructions instructions;
 
 	private Map<Patch, JCheckBox> checkBoxMap;
 	private Map<Patch, JButton> buttonMap;
 
-	public fPatches(List<Patch> listPatches, final Boolean clustered) {
+	public fPatches(final Simulation simu) {
 
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 900, 600);
@@ -53,8 +54,11 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 		listPanel = new JPanel();
 		listPanel.setBounds(5, 5, 881, 517);
 		listPanel.setLayout(new SpringLayout());
-
-		for (final Patch p : listPatches) {
+		
+		int index = 0;
+		int nbCols = 0;
+		for (final Patch p : simu.getListPatches()) {
+			index++;
 			JButton bInstruction = new JButton("Instructions");
 			JButton bDownload = new JButton("Download");
 			JCheckBox cbCheck = new JCheckBox();
@@ -71,9 +75,10 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 			bInstruction.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if(clustered){
-						instructions.setInstructions(p.getInstructionsCluster()+"<br/><hr/><br/"+p.getInstructions());
-					}else{
+					if (simu.getClustered()) {
+						instructions.setInstructions(p.getInstructionsCluster()
+								+ "<br/><hr/><br/" + p.getInstructions());
+					} else {
 						instructions.setInstructions(p.getInstructions());
 					}
 					instructions.setTitle("Instructions Patch " + p.toString());
@@ -100,19 +105,36 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 			} else {
 				listPanel.add(new JLabel());
 			}
+
 			listPanel.add(bInstruction);
 			listPanel.add(bDownload);
 			listPanel.add(cbCheck);
+			
+			if(index==1) {
+				nbCols = listPanel.getComponentCount();
+			}
+
+			if (p.getReboot()) {
+				int nbCompInit = listPanel.getComponentCount();
+				lReboot = new JLabel("You need to reboot your Jahia install after upgrading to "+p.getEndVersion());
+				lReboot.setBackground(Color.YELLOW);
+				lReboot.setOpaque(true);
+				listPanel.add(lReboot);
+				int added = listPanel.getComponentCount()-nbCompInit;
+				for (int i = added; i < nbCols; i++) {
+					listPanel.add(new JLabel());
+				}
+			}
 
 			checkBoxMap.put(p, cbCheck);
 			buttonMap.put(p, bDownload);
 		}
 
 		SpringUtilities.makeCompactGridRight(listPanel,// parent
-				listPatches.size(), 5, // rows, cols
+				simu.getSteps() + simu.getReboots(), nbCols, // rows, cols
 				5, 5, // initX, initY
 				5, 5, // xPad, yPad
-				1); //column décalage
+				4); // number of cols to push right
 
 		JScrollPane scrollPane = new JScrollPane(listPanel,
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
