@@ -67,29 +67,29 @@ public class fAccueil extends JFrame {
 
 		pRed = new JPanel();
 		pRed.setBackground(Color.RED);
-		pRed.setBounds(272, 123, 21, 21);
+		pRed.setBounds(247, 125, 21, 21);
 		contentPane.add(pRed);
 
 		pOrange = new JPanel();
 		pOrange.setBackground(Color.ORANGE);
-		pOrange.setBounds(272, 89, 21, 21);
+		pOrange.setBounds(247, 91, 21, 21);
 		contentPane.add(pOrange);
 
 		pGreen = new JPanel();
 		pGreen.setBackground(Color.GREEN);
-		pGreen.setBounds(272, 56, 21, 21);
+		pGreen.setBounds(247, 58, 21, 21);
 		contentPane.add(pGreen);
 
 		lProblems = new JLabel("");
-		lProblems.setBounds(311, 126, 125, 15);
+		lProblems.setBounds(286, 128, 150, 15);
 		contentPane.add(lProblems);
 
 		lAvoid = new JLabel("");
-		lAvoid.setBounds(311, 92, 125, 15);
+		lAvoid.setBounds(286, 94, 150, 15);
 		contentPane.add(lAvoid);
 
 		lPredicted = new JLabel("");
-		lPredicted.setBounds(311, 59, 125, 15);
+		lPredicted.setBounds(286, 61, 150, 15);
 		contentPane.add(lPredicted);
 
 		pGreen.setVisible(false);
@@ -106,23 +106,23 @@ public class fAccueil extends JFrame {
 		contentPane.add(lblT);
 
 		lStart = new JLabel("Current version");
-		lStart.setBounds(12, 56, 149, 15);
+		lStart.setBounds(12, 58, 117, 15);
 		contentPane.add(lStart);
 
 		cbStart = new JComboBox<String>();
 		cbStart.setModel(new DefaultComboBoxModel(listVersions.subList(0,
 				listVersions.size() - 1).toArray()));
-		cbStart.setBounds(161, 51, 92, 24);
+		cbStart.setBounds(137, 53, 92, 24);
 		contentPane.add(cbStart);
 
 		lEnd = new JLabel("Target version");
-		lEnd.setBounds(12, 92, 149, 15);
+		lEnd.setBounds(12, 94, 117, 15);
 		contentPane.add(lEnd);
 
 		cbEnd = new JComboBox<String>();
 		cbEnd.setModel(new DefaultComboBoxModel(listVersions.subList(1,
 				listVersions.size()).toArray()));
-		cbEnd.setBounds(161, 87, 92, 24);
+		cbEnd.setBounds(137, 89, 92, 24);
 		cbEnd.setSelectedIndex(cbEnd.getItemCount() - 1);
 		contentPane.add(cbEnd);
 
