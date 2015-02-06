@@ -11,6 +11,7 @@ public class Simulation {
 	private int stepsA;
 	private int stepsP;
 	private String error;
+	private int reboots;
 
     private List<Patch> listPatches;
 
@@ -20,6 +21,7 @@ public class Simulation {
         this.listPatches = new ArrayList<>();
         this.stepsA = this.stepsP = 0;
         this.error = "";
+        this.reboots = 0;
         this.runSimulation();
 	}
 	
@@ -33,10 +35,21 @@ public class Simulation {
 			currentVersion = p.getEndVersion();
 			stepsA += pl.size()-1;
 			stepsP += p.isProblem()?1:0;
+			if(p.getReboot()){
+				reboots++;
+			}
 		}
 		if(!currentVersion.equals(endVersion)){
 			error = "Version "+endVersion+" unreachable\nMaximum upgrade available to "+currentVersion;
 		}
+	}
+
+	public int getReboots() {
+		return reboots;
+	}
+
+	public void setReboots(int reboots) {
+		this.reboots = reboots;
 	}
 
 	@Override

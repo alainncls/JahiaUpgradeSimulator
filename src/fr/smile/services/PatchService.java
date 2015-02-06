@@ -56,6 +56,7 @@ public enum PatchService {
 		JSONArray a = (JSONArray) parser.parse(json);
 
 		String version, endVersion, url, instructions, instructionsCluster, warning;
+		Boolean reboot;
 
 		Patch patch;
 
@@ -66,16 +67,25 @@ public enum PatchService {
 			listVersion.add(version);
 
 			JSONArray patches = (JSONArray) jsonVersion.get("patches");
+
 			for (Object p : patches) {
 				JSONObject jsonPatch = (JSONObject) p;
 				endVersion = (String) jsonPatch.get("endVersion");
 				url = (String) jsonPatch.get("url");
 				instructions = (String) jsonPatch.get("instructions");
-				instructionsCluster = (String) jsonPatch.get("instructionsCluster");
+				instructionsCluster = (String) jsonPatch
+						.get("instructionsCluster");
 				warning = (String) jsonPatch.get("warning");
+				if (((String) jsonPatch.get("reboot")).equals("0")) {
+					reboot = false;
+				} else {
+					reboot = true;
+				}
 				patch = Patch.builder().startVersion(version)
-						.endVersion(endVersion).url(url).instructionsCluster(instructionsCluster)
-						.instructions(instructions).warning(warning).build();
+						.endVersion(endVersion).url(url)
+						.instructionsCluster(instructionsCluster)
+						.instructions(instructions).warning(warning)
+						.reboot(reboot).build();
 
 				listPatch.add(patch);
 			}
