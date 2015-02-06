@@ -38,6 +38,10 @@ public class Patch {
 	}
 
 	public String getInstructions() {
+		if(instructions==null){
+			return "<div style=\"padding: 10px 10px 10px 35px; border: 1px solid #F90; background: #F5533D;\">"
+					+ "<p>Erreur, no instruction found...</p></div>";
+		}
 		return instructions;
 	}
 
@@ -54,6 +58,10 @@ public class Patch {
 	}
 
 	public String getInstructionsCluster() {
+		if(instructionsCluster==null){
+			return "<div style=\"padding: 10px 10px 10px 35px; border: 1px solid #F90; background: #F5533D;\">"
+					+ "<p>Erreur, no instruction for clustered installation found...</p></div>";
+		}
 		return instructionsCluster;
 	}
 

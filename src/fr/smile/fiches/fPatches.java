@@ -72,7 +72,7 @@ public class fPatches extends JDialog implements RunnableCompleteListener {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					if(clustered){
-						instructions.setInstructions(p.getInstructionsCluster()+"<br/><br/><hr/><br/><br/"+p.getInstructions());
+						instructions.setInstructions(p.getInstructionsCluster()+"<br/><hr/><br/"+p.getInstructions());
 					}else{
 						instructions.setInstructions(p.getInstructions());
 					}
