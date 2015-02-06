@@ -1,5 +1,7 @@
 # Created by https://www.gitignore.io
 
+patches/
+
 ### Eclipse ###
 *.pydevproject
 .metadata

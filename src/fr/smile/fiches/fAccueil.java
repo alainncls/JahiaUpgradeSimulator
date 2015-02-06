@@ -29,21 +29,22 @@ import fr.smile.services.PatchService;
 
 public class fAccueil extends JFrame {
 	private static final long serialVersionUID = 1L;
-	
+
 	private JPanel contentPane, pRed, pOrange, pGreen;
-	private JLabel lProblems, lAvoid, lPredicted, lblT, lStart, lEnd;
+	private JLabel lProblems, lAvoid, lPredicted, lblT, lStart, lEnd, lReboots;
 
 	private JComboBox<String> cbStart, cbEnd;
 
 	private JButton bSimulate, bPatches;
-	
+
 	private ButtonGroup bGroup;
 	private JRadioButton rbClustered, rbStandalone;
 
 	private fPatches patches;
 
 	private Simulation simul;
-	private String startVersion, endVersion, detectedVersion, context, jahiaFolder;
+	private String startVersion, endVersion, detectedVersion, context,
+			jahiaFolder;
 	private List<String> listVersions;
 
 	public fAccueil(String[] args) {
@@ -80,23 +81,28 @@ public class fAccueil extends JFrame {
 		pGreen.setBounds(247, 58, 21, 21);
 		contentPane.add(pGreen);
 
-		lProblems = new JLabel("");
-		lProblems.setBounds(286, 128, 150, 15);
-		contentPane.add(lProblems);
+		lPredicted = new JLabel("");
+		lPredicted.setBounds(286, 61, 150, 15);
+		contentPane.add(lPredicted);
 
 		lAvoid = new JLabel("");
 		lAvoid.setBounds(286, 94, 150, 15);
 		contentPane.add(lAvoid);
 
-		lPredicted = new JLabel("");
-		lPredicted.setBounds(286, 61, 150, 15);
-		contentPane.add(lPredicted);
+		lProblems = new JLabel("");
+		lProblems.setBounds(286, 128, 150, 15);
+		contentPane.add(lProblems);
+
+		lReboots = new JLabel("");
+		lReboots.setBounds(286, 162, 150, 15);
+		contentPane.add(lReboots);
 
 		pGreen.setVisible(false);
 		pOrange.setVisible(false);
 		pRed.setVisible(false);
 		lPredicted.setVisible(false);
 		lAvoid.setVisible(false);
+		lReboots.setVisible(false);
 		lProblems.setVisible(false);
 
 		lblT = new JLabel("Jahia Upgrade Simulator");
@@ -152,7 +158,7 @@ public class fAccueil extends JFrame {
 
 		rbClustered = new JRadioButton();
 		rbClustered.setText("Clustered");
-		rbClustered.setBounds(157, 162, 96, 23);
+		rbClustered.setBounds(157, 158, 96, 23);
 		rbClustered.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				enableSimulation(evt);
@@ -163,7 +169,7 @@ public class fAccueil extends JFrame {
 
 		rbStandalone = new JRadioButton();
 		rbStandalone.setText("Standalone");
-		rbStandalone.setBounds(22, 162, 117, 23);
+		rbStandalone.setBounds(22, 158, 117, 23);
 		rbStandalone.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				enableSimulation(evt);
@@ -185,11 +191,11 @@ public class fAccueil extends JFrame {
 		/*
 		 * Quick init for debug
 		 */
-//		cbStart.setSelectedItem("6.6.0.0");
-//		cbEnd.setSelectedItem("7.0.0.4");
-//		rbStandalone.doClick();
-//		bSimulate.doClick();
-//		bPatches.doClick();
+		// cbStart.setSelectedItem("6.6.0.0");
+		// cbEnd.setSelectedItem("7.0.0.4");
+		// rbStandalone.doClick();
+		// bSimulate.doClick();
+		// bPatches.doClick();
 
 	}
 
@@ -197,7 +203,7 @@ public class fAccueil extends JFrame {
 		startVersion = cbStart.getSelectedItem().toString();
 		endVersion = cbEnd.getSelectedItem().toString();
 
-		simul = new Simulation(startVersion, endVersion );
+		simul = new Simulation(startVersion, endVersion);
 
 		if (simul.getError() != "") {
 			JOptionPane.showMessageDialog(null, simul.getError(), "Error",
@@ -210,6 +216,8 @@ public class fAccueil extends JFrame {
 					+ " avoided steps");
 			lProblems.setText(Integer.toString(simul.getStepsP())
 					+ " steps to check");
+			lReboots.setText(Integer.toString(simul.getReboots())
+					+ " reboots needed");
 
 			pGreen.setVisible(true);
 			pOrange.setVisible(true);
@@ -217,12 +225,14 @@ public class fAccueil extends JFrame {
 			lPredicted.setVisible(true);
 			lAvoid.setVisible(true);
 			lProblems.setVisible(true);
+			lReboots.setVisible(true);
 			bPatches.setEnabled(true);
-			
-			if(patches!=null){
+
+			if (patches != null) {
 				patches.setVisible(false);
 			}
-			patches = new fPatches(simul.getListPatches(), rbClustered.isSelected());
+			patches = new fPatches(simul.getListPatches(),
+					rbClustered.isSelected());
 		}
 	}
 

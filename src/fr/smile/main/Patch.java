@@ -4,6 +4,7 @@ public class Patch {
 
 	private String startVersion, endVersion, url, instructions,
 			instructionsCluster, warning;
+	private Boolean reboot;
 
 	public Patch() {
 		startVersion = null;
@@ -11,6 +12,15 @@ public class Patch {
 		url = null;
 		instructions = null;
 		warning = null;
+		reboot = null;
+	}
+
+	public Boolean getReboot() {
+		return reboot;
+	}
+
+	public void setReboot(Boolean reboot) {
+		this.reboot = reboot;
 	}
 
 	public String getStartVersion() {
@@ -107,6 +117,11 @@ public class Patch {
 
 		public Builder instructionsCluster(String instructionsCluster) {
 			patch.setInstructionsCluster(instructionsCluster);
+			return this;
+		}
+		
+		public Builder reboot(Boolean reboot) {
+			patch.setReboot(reboot);
 			return this;
 		}
 
