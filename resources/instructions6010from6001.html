@@ -1,0 +1,35 @@
+<h2>Procedure to migrate from jahia-hotfix-6.0.0_1_r27321 to Jahia_EE_V6_SP1_r28889 :</h2>
+<ul>
+	<B>1. Remove the  following jars from webapps\ROOT\WEB-INF\lib\</B>
+	<li>jahia-gwt-*.jar </li>
+	<li>jahia-impl-*.jar </li>
+	<li>jahia-taglib-*.jar </li>
+	<li>jahia-api-*.jar </li>
+	<li>jackrabbit-core-ext-*.jar </li>
+	<li>jackrabbit-server-ext-*.jar </li>
+</ul>
+<B>and from webapps\ROOT\WEB-INF\var\shared_templates</B>
+<ul>
+	<li>web-templates-6.0-*.jar </li>
+	<li>test-templates-6.0*.jar </li>
+	<li>core-templates-6.0*.jar </li>
+</ul>
+
+<B>2. Modify the following configuration file: </B>
+<ul>
+	<li>UnixDiff_web_xml.txt AND UnixDiff_web2_xml.txt for WEB-INF\web.xml</li>
+	<li>UnixDiff_applicationcontext-hibernate_xml.txt for WEB-INF\etc\spring\applicationcontext-hibernate.xml</li>
+	<li> UnixDiff_Applicationcontext-services_xml.txt AND UnixDiff_Applicationcontext-services2_xml.txt AND UnixDiff_Applicationcontext-services3_xml.txt for WEB-INF\etc\spring\applicationcontext-services.xml</li>
+	<li>UnixDiff_applicationcontext-administration_xml.txt for WEB-INF\etc\spring\applicationcontext-administration.xml</li>
+	<li> UnixDiff_applicationcontext-notification_xml.txt for WEB-INF\etc\spring\applicationcontext-notification.xml</li>
+	<li> UnixDiff_ehcache-jahia_cluster_xml.txt for WEB-INF\etc\classes\ehcache-jahia_cluster.xml</li>
+</ul>
+
+
+<ul>
+	<B>3. Copy the content of the output folder into your webapps\ROOT\ folder</B>
+</ul>
+
+<ul>
+	<B>4. Launch Jahia</B>
+</ul>
