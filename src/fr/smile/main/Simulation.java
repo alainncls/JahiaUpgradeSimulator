@@ -13,6 +13,7 @@ public class Simulation {
 	private String error;
 	private int reboots;
 	private Boolean clustered;
+	private int duration;
 
 	private List<Patch> listPatches;
 
@@ -23,6 +24,7 @@ public class Simulation {
 		this.stepsA = this.stepsP = this.reboots = 0;
 		this.error = "";
 		this.clustered = clustered;
+		this.duration = 0;
 		this.runSimulation();
 	}
 
@@ -46,6 +48,7 @@ public class Simulation {
 					+ " unreachable\nMaximum upgrade available to "
 					+ currentVersion;
 		}
+		duration = (int) Math.ceil(getSteps() * 0.2 * 1.8);
 	}
 
 	@Override
@@ -60,6 +63,14 @@ public class Simulation {
 				builder.append(" !!!");
 		}
 		return builder.toString();
+	}
+	
+	public int getDuration() {
+		return duration;
+	}
+
+	public void setDuration(int duration) {
+		this.duration = duration;
 	}
 
 	public Boolean getClustered() {

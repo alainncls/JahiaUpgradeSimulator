@@ -34,12 +34,13 @@ public class fAccueil extends JFrame {
 
 	private JComboBox<String> cbStart, cbEnd;
 
-	private JButton bSimulate, bPatches;
+	private JButton bSimulate, bPatches, bChiffrage;
 
 	private ButtonGroup bGroup;
 	private JRadioButton rbClustered, rbStandalone;
 
 	private fPatches patches;
+	private fChiffrage chiffrage;
 
 	private Simulation simul;
 	private String startVersion, endVersion, detectedVersion, context,
@@ -58,6 +59,7 @@ public class fAccueil extends JFrame {
 		 * Quick init for test
 		 */
 		//jahiaFolder = "/home/viaug/projets/jahia-6.6.1.0/";
+		jahiaFolder = "/home/alnic/projets/jahia/";
 		
 		JahiaConfigService.getInstance().setFolder(jahiaFolder);
 		JahiaConfigService.getInstance().setContext(context);
@@ -161,6 +163,16 @@ public class fAccueil extends JFrame {
 		bSimulate.setBounds(12, 234, 117, 25);
 		bSimulate.setEnabled(false);
 		contentPane.add(bSimulate);
+		
+		bChiffrage = new JButton("Chiffrage");
+		bChiffrage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				bChiffrageActionPerformed(evt);
+			}
+		});
+		bChiffrage.setBounds(130, 234, 117, 25);
+		bChiffrage.setEnabled(false);
+		contentPane.add(bChiffrage);
 
 		bGroup = new ButtonGroup();
 
@@ -236,9 +248,12 @@ public class fAccueil extends JFrame {
 			lProblems.setVisible(true);
 			lReboots.setVisible(true);
 			bPatches.setEnabled(true);
+			bChiffrage.setEnabled(true);
 
 			patches = new fPatches(simul);
 			patches.setVisible(false);
+			chiffrage = new fChiffrage(simul);
+			chiffrage.setVisible(false);
 		}
 	}
 
@@ -250,6 +265,10 @@ public class fAccueil extends JFrame {
 
 	public void goPatches(ActionEvent evt) {
 		patches.setVisible(true);
+	}
+	
+	public void bChiffrageActionPerformed(ActionEvent evt) {
+		chiffrage.setVisible(true);
 	}
 
 	public static void main(final String[] args) {
