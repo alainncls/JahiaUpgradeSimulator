@@ -7,9 +7,11 @@ import javax.swing.JButton;
 import fr.smile.main.Patch;
 import fr.smile.services.DownloadService;
 import fr.smile.services.DownloadTask;
-import fr.smile.services.RunnableCompleteListener;
+import fr.smile.services.PatchService;
+import fr.smile.services.PatchTask;
+import fr.smile.services.RunnableListener;
 
-public class ActionButton extends JButton implements RunnableCompleteListener {
+public class ActionButton extends JButton implements RunnableListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -20,13 +22,18 @@ public class ActionButton extends JButton implements RunnableCompleteListener {
 	public static final int DONE = 4;
 	public static final int ERROR_DOWNLOAD = 5;
 	public static final int ERROR_APPLY = 6;
+	public static final int WAITING = 7;
 
 	private int status;
 	private Patch patch;
 
-	public ActionButton(Patch patch, int status) {
+	public ActionButton(Patch patch) {
 		this.patch = patch;
-		setStatus(status);
+		if( DownloadService.getInstance().exist(patch)){
+			setStatus(APPLY);
+		}else{
+			setStatus(DOWNLOAD);
+		}
 	}
 
 	public int getStatus() {
@@ -67,6 +74,11 @@ public class ActionButton extends JButton implements RunnableCompleteListener {
 			setText("Error, try again");
 			setEnabled(true);
 			break;
+		case WAITING:
+			setBackground(Color.YELLOW);
+			setText("Waiting..");
+			setEnabled(false);
+			break;
 		default:
 			break;
 		}
@@ -98,33 +110,42 @@ public class ActionButton extends JButton implements RunnableCompleteListener {
 	public void doDownload() {
 		if (status != DOWNLOAD)
 			return;
+		setStatus(WAITING);
 		DownloadService.getInstance().download(patch, this);
-		setStatus(DOWNLOADING);
 	}
 
 	public void doApply() {
 		if (status != APPLY)
 			return;
-		setStatus(APPLYING);
+		setStatus(WAITING);
+		PatchService.getInstance().apply(patch, this);
 	}
 
 	@Override
 	public void notifyComplete(Runnable runnable) {
-		DownloadTask task;
 		if (runnable instanceof DownloadTask) {
-			task = (DownloadTask) runnable;
+			DownloadTask task = (DownloadTask) runnable;
 			if (task.getResult() == DownloadTask.OK) {
 				setStatus(APPLY);
 			} else {
 				setStatus(ERROR_DOWNLOAD);
 			}
-//		} else if (runnable instanceof ApplierTask) {
-//			if (task.getResult() == ApplierTask.OK) {
-//				setStatus(DONE);
-//			} else {
-//				setStatus(ERROR_APPLY);
-//			}
+		} else if (runnable instanceof PatchTask) {
+			PatchTask task = (PatchTask) runnable;
+			if (task.getResult() == PatchTask.OK) {
+				setStatus(DONE);
+			} else {
+				setStatus(ERROR_APPLY);
+			}
 		}
 	}
-
+	
+	@Override
+	public void notifyStart(Runnable runnable) {
+		if (runnable instanceof DownloadTask) {
+			setStatus(DOWNLOADING);
+		} else if (runnable instanceof PatchTask) {
+			setStatus(APPLYING);
+		}
+	}
 }

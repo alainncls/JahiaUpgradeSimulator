@@ -78,6 +78,10 @@ public class Patch {
 	public void setInstructionsCluster(String instructionsCluster) {
 		this.instructionsCluster = instructionsCluster;
 	}
+	
+	public String getName() {
+		return url.substring(url.lastIndexOf("/") + 1);
+	}
 
 	public static Builder builder() {
 		return new Builder();

@@ -55,7 +55,7 @@ public class fPatches extends JDialog {
 		for (final Patch p : simu.getListPatches()) {
 			index++;
 			JButton bInstruction = new JButton("Instructions");
-			ActionButton bAction = new ActionButton(p, ActionButton.DOWNLOAD);
+			ActionButton bAction = new ActionButton(p);
 			JCheckBox cbCheck = new JCheckBox();
 			JLabel lPatch = new JLabel(p.toString());
 			lPatch.setSize(300, lPatch.getHeight());

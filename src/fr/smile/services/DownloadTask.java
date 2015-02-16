@@ -12,16 +12,18 @@ import fr.smile.main.Patch;
 
 public class DownloadTask implements Runnable {
 
-	private final Set<RunnableCompleteListener> listeners = new CopyOnWriteArraySet<RunnableCompleteListener>();
+	private final Set<RunnableListener> listeners = new CopyOnWriteArraySet<RunnableListener>();
 	
 	public static final Integer OK = 0;
 	public static final Integer ERROR = 1;
 	
 	private Patch patch;
+	private String path;
 	private Integer result;
 
-	public DownloadTask(Patch patch) {
+	public DownloadTask(Patch patch, String path) {
 		this.patch = patch;
+		this.path = path;
 		result = OK;
 	}
 	
@@ -32,36 +34,50 @@ public class DownloadTask implements Runnable {
 	public Patch getPatch() {
 		return patch;
 	}
+	
+	public String getPath() {
+		return path;
+	}
 
 	@Override
 	public void run() {
 		try {
+			notifyStart();
 			download();
 		} finally {
-			notifyListeners();
+			notifyComplete();
 		}
 	}
 
 	private void download() {
 		try {
-			String name = "./patches/" + patch.getUrl().substring(patch.getUrl().lastIndexOf("/") + 1);
-			FileUtils.copyURLToFile(new URL(patch.getUrl()), new File(name), 10000, 10000);
+			File file = new File(path + patch.getName());
+			URL url = new URL(patch.getUrl());
+			FileUtils.copyURLToFile(url, file, 10000, 10000);			
 		} catch (IOException e) {
 			result = ERROR;
 		}
 	}
 
-	public final void addListener(final RunnableCompleteListener listener) {
+	public final void addListener(final RunnableListener listener) {
 		listeners.add(listener);
 	}
 
-	public final void removeListener(final RunnableCompleteListener listener) {
+	public final void removeListener(final RunnableListener listener) {
 		listeners.remove(listener);
 	}
 
-	private final void notifyListeners() {
-		for (RunnableCompleteListener listener : listeners) {
+	private final void notifyComplete() {
+		System.out.println("Download ended : "+patch.toString());
+		for (RunnableListener listener : listeners) {
 			listener.notifyComplete(this);
+		}
+	}
+	
+	private final void notifyStart() {
+		System.out.println("Download started : "+patch.toString());
+		for (RunnableListener listener : listeners) {
+			listener.notifyStart(this);
 		}
 	}
 }

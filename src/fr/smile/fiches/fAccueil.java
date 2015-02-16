@@ -23,6 +23,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import fr.smile.main.Simulation;
+import fr.smile.services.JahiaConfigService;
 import fr.smile.services.PatchService;
 
 public class fAccueil extends JFrame {
@@ -45,16 +46,25 @@ public class fAccueil extends JFrame {
 			jahiaFolder;
 	private List<String> listVersions;
 
-	public fAccueil(String[] args) {
+	public fAccueil(String[] args) { // context jahiaFolder
 
 		context = args.length >= 2 ? args[1] : "ROOT";
 		jahiaFolder = args.length >= 1 ? args[0] : "./";
 		if (!jahiaFolder.endsWith("/")) {
 			jahiaFolder += "/";
 		}
+		
+		/*
+		 * Quick init for test
+		 */
+		//jahiaFolder = "/home/viaug/projets/jahia-6.6.1.0/";
+		
+		JahiaConfigService.getInstance().setFolder(jahiaFolder);
+		JahiaConfigService.getInstance().setContext(context);
+		JahiaConfigService.getInstance().detectJahiaVersion();
 
 		listVersions = PatchService.getInstance().getVersions();
-		detectedVersion = detectJahiaVersion();
+		detectedVersion = JahiaConfigService.getInstance().getVersion();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -189,7 +199,7 @@ public class fAccueil extends JFrame {
 		/*
 		 * Quick init for debug
 		 */
-		// cbStart.setSelectedItem("6.6.0.0");
+		// cbStart.setSelectedItem("6.6.2.6");
 		// cbEnd.setSelectedItem("7.0.0.4");
 		// rbStandalone.doClick();
 		// bSimulate.doClick();
@@ -240,38 +250,6 @@ public class fAccueil extends JFrame {
 
 	public void goPatches(ActionEvent evt) {
 		patches.setVisible(true);
-	}
-
-	@SuppressWarnings("finally")
-	private String detectJahiaVersion() {
-		String version = null;
-		try {
-			// File[] files = listFilesMatching(new File("./"),
-			// "jahia-impl-(\\d\\.){4}jar");
-			File[] files = listFilesMatching(new File(jahiaFolder
-					+ "/tomcat/webapps/" + context + "/WEB-INF/lib/"),
-					"jahia-impl-(\\d\\.){4}jar");
-			version = files[0].getName().substring(11, 18);
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
-			System.err.println("Fail to detect");
-		} finally {
-			return version;
-		}
-	}
-
-	public File[] listFilesMatching(File root, String regex) {
-		if (!root.isDirectory()) {
-			throw new IllegalArgumentException(root + " is no directory.");
-		}
-		final Pattern p = Pattern.compile(regex); // careful: could also throw
-													// an exception!
-		return root.listFiles(new FileFilter() {
-			@Override
-			public boolean accept(File file) {
-				return p.matcher(file.getName()).matches();
-			}
-		});
 	}
 
 	public static void main(final String[] args) {
