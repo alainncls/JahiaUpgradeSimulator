@@ -68,14 +68,12 @@ public class DownloadTask implements Runnable {
 	}
 
 	private final void notifyComplete() {
-		System.out.println("Download ended : "+patch.toString());
 		for (RunnableListener listener : listeners) {
 			listener.notifyComplete(this);
 		}
 	}
 	
 	private final void notifyStart() {
-		System.out.println("Download started : "+patch.toString());
 		for (RunnableListener listener : listeners) {
 			listener.notifyStart(this);
 		}
