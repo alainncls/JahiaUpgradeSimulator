@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import fr.smile.main.Patch;
 import fr.smile.services.DownloadService;
 import fr.smile.services.DownloadTask;
+import fr.smile.services.JahiaConfigService;
 import fr.smile.services.PatchService;
 import fr.smile.services.PatchTask;
 import fr.smile.services.RunnableListener;
@@ -29,9 +30,12 @@ public class ActionButton extends JButton implements RunnableListener {
 
 	public ActionButton(Patch patch) {
 		this.patch = patch;
-		if( DownloadService.getInstance().exist(patch)){
+		String version = JahiaConfigService.getInstance().getVersion();
+		if (version != null && version.compareTo(patch.getStartVersion()) > 0) {
+			setStatus(DONE);
+		} else if (DownloadService.getInstance().exist(patch)) {
 			setStatus(APPLY);
-		}else{
+		} else {
 			setStatus(DOWNLOAD);
 		}
 	}
@@ -66,7 +70,7 @@ public class ActionButton extends JButton implements RunnableListener {
 		case DONE:
 			setBackground(Color.GREEN);
 			setText("Done !");
-			setEnabled(true);
+			setEnabled(false);
 			break;
 		case ERROR_DOWNLOAD:
 		case ERROR_APPLY:
@@ -108,14 +112,14 @@ public class ActionButton extends JButton implements RunnableListener {
 	}
 
 	public void doDownload() {
-		if (status != DOWNLOAD)
+		if (status != DOWNLOAD && status != ERROR_DOWNLOAD)
 			return;
 		setStatus(WAITING);
 		DownloadService.getInstance().download(patch, this);
 	}
 
 	public void doApply() {
-		if (status != APPLY)
+		if (status != APPLY && status != ERROR_APPLY)
 			return;
 		setStatus(WAITING);
 		PatchService.getInstance().apply(patch, this);
@@ -126,25 +130,31 @@ public class ActionButton extends JButton implements RunnableListener {
 		if (runnable instanceof DownloadTask) {
 			DownloadTask task = (DownloadTask) runnable;
 			if (task.getResult() == DownloadTask.OK) {
+				System.out.println("Complete download : "+patch.toString());
 				setStatus(APPLY);
 			} else {
+				System.err.println("Error download : "+patch.toString());
 				setStatus(ERROR_DOWNLOAD);
 			}
 		} else if (runnable instanceof PatchTask) {
 			PatchTask task = (PatchTask) runnable;
 			if (task.getResult() == PatchTask.OK) {
+				System.out.println("Complete patch : "+patch.toString());
 				setStatus(DONE);
 			} else {
+				System.err.println("Error patch : "+patch.toString());
 				setStatus(ERROR_APPLY);
 			}
 		}
 	}
-	
+
 	@Override
 	public void notifyStart(Runnable runnable) {
 		if (runnable instanceof DownloadTask) {
+			System.out.println("Begin download : "+patch.toString());
 			setStatus(DOWNLOADING);
 		} else if (runnable instanceof PatchTask) {
+			System.out.println("Begin patch : " + patch.toString());
 			setStatus(APPLYING);
 		}
 	}
