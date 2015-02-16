@@ -8,6 +8,8 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.apache.commons.io.IOUtils;
 import org.json.simple.JSONArray;
@@ -22,12 +24,14 @@ public enum PatchService {
 	INSTANCE;
 
 	// **** ATTRIBUTES ****
-	public final String path = "/versions.json";
+	public static final String path = "/versions.json";
 	private List<String> listVersion;
 	private List<Patch> listPatch;
+	private ExecutorService pool;
 
 	// **** BUILDER ****
 	private PatchService() {
+		pool = Executors.newSingleThreadExecutor();
 		listVersion = new ArrayList<>();
 		listPatch = new ArrayList<>();
 		try {
@@ -112,5 +116,11 @@ public enum PatchService {
 			}
 		}
 		return patches;
+	}
+
+	public void apply(Patch patch, RunnableListener listener) {
+		PatchTask task = new PatchTask(patch);
+		task.addListener(listener);
+		pool.execute(task);
 	}
 }
