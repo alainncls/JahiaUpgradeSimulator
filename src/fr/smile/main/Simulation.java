@@ -14,6 +14,8 @@ public class Simulation {
 	private int reboots;
 	private Boolean clustered;
 	private int duration;
+	private int cost;
+	private final int TJM = 750;
 
 	private List<Patch> listPatches;
 
@@ -25,6 +27,7 @@ public class Simulation {
 		this.error = "";
 		this.clustered = clustered;
 		this.duration = 0;
+		this.cost = 0;
 		this.runSimulation();
 	}
 
@@ -49,6 +52,7 @@ public class Simulation {
 					+ currentVersion;
 		}
 		duration = (int) Math.ceil(getSteps() * 0.2 * 1.8);
+		cost = duration * TJM;
 	}
 
 	@Override
@@ -64,7 +68,26 @@ public class Simulation {
 		}
 		return builder.toString();
 	}
-	
+
+	public String getChiffrage() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("<div style=\"padding: 10px 10px 10px 10px !important; border: 1px solid #9C9; background: no-repeat scroll 5px 50% #CFFFCC;\">");
+		builder.append("<p><ul><li>Durée estimée de la migration = " + getDuration()
+				+ " JH</li>");
+		builder.append("<p><li>Coût estimé de la migration = " + getCost() + " €</li></ul></p>");
+		builder.append("</div>");
+
+		return builder.toString();
+	}
+
+	public int getCost() {
+		return cost;
+	}
+
+	public void setCost(int cost) {
+		this.cost = cost;
+	}
+
 	public int getDuration() {
 		return duration;
 	}
