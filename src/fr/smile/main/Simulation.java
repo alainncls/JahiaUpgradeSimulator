@@ -71,7 +71,7 @@ public class Simulation {
 
 	public String getChiffrage() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("<div style=\"padding: 10px 10px 10px 10px !important; border: 1px solid #9C9; background: no-repeat scroll 5px 50% #CFFFCC;\">");
+		builder.append("<div style=\"padding: 10px 10px 10px 35px; border: 1px solid #F90; background: #CFFFCC;\">");
 		builder.append("<p><ul><li>Durée estimée de la migration = " + getDuration()
 				+ " JH</li>");
 		builder.append("<p><li>Coût estimé de la migration = " + getCost() + " €</li></ul></p>");
