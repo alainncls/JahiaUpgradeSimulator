@@ -66,16 +66,11 @@ public class fPatches extends JDialog {
 					((ActionButton)e.getSource()).doAction();
 				}
 			});
-
+			
 			bInstruction.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if (simu.getClustered()) {
-						instructions.setInstructions(p.getInstructionsCluster()
-								+ "<br/><hr/><br/" + p.getInstructions());
-					} else {
-						instructions.setInstructions(p.getInstructions());
-					}
+					instructions.setInstructions(p.getInstructions(simu.getClustered()));
 					instructions.setTitle("Instructions Patch " + p.toString());
 					instructions.setVisible(true);
 				}
@@ -100,8 +95,11 @@ public class fPatches extends JDialog {
 			} else {
 				listPanel.add(new JLabel());
 			}
-
-			listPanel.add(bInstruction);
+			if(p.getInstructions(simu.getClustered())!=null){
+				listPanel.add(bInstruction);
+			}else{
+				listPanel.add(new JLabel());
+			}
 			listPanel.add(bAction);
 			listPanel.add(cbCheck);
 			
