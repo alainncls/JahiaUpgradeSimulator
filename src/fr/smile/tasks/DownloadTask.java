@@ -1,4 +1,4 @@
-package fr.smile.services;
+package fr.smile.tasks;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,6 +8,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 import org.apache.commons.io.FileUtils;
 
+import fr.smile.listeners.RunnableListener;
 import fr.smile.main.Patch;
 
 public class DownloadTask implements Runnable {

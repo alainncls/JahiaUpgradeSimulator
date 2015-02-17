@@ -1,4 +1,4 @@
-package fr.smile.services;
+package fr.smile.tasks;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 import org.apache.commons.io.IOUtils;
+
+import fr.smile.listeners.RunnableListener;
 
 public class ShowStreamTask implements Runnable {
 
