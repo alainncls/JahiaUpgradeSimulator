@@ -16,6 +16,8 @@ public class fInstructions extends JDialog {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static final String PREFIX = "<html><body>";
+	private static final String SUFFIX = "</body></html>";
 	private final JPanel contentPanel;
 
 	private JScrollPane spInstructions;
@@ -55,7 +57,7 @@ public class fInstructions extends JDialog {
 	}
 
 	public void setInstructions(String ins) {
-		epInstructions.setText("<html><body>"+ins+"</body></html>");
+		epInstructions.setText(PREFIX+ins+SUFFIX);
 		epInstructions.setCaretPosition(0);
 	}
 }

@@ -5,6 +5,7 @@ public class Patch {
 	private String startVersion, endVersion, url, instructions,
 			instructionsCluster, warning;
 	private Boolean reboot;
+	private Float complexity;
 
 	public Patch() {
 		startVersion = null;
@@ -13,6 +14,7 @@ public class Patch {
 		instructions = null;
 		warning = null;
 		reboot = null;
+		complexity = 0.2f;
 	}
 
 	public Boolean getReboot() {
@@ -79,8 +81,26 @@ public class Patch {
 		this.instructionsCluster = instructionsCluster;
 	}
 	
+	public Float getComplexity() {
+		return complexity;
+	}
+
+	public void setComplexity(Float complexity) {
+		this.complexity = complexity;
+	}
+
 	public String getName() {
 		return url.substring(url.lastIndexOf("/") + 1);
+	}
+	
+	public String getInstructions(boolean cluster) {
+		if(instructionsCluster==null && instructions==null){
+			return null;
+		}
+		if(cluster){
+			return getInstructionsCluster() + "<br/><hr/><br/>" + getInstructions();
+		}
+		return getInstructions();
 	}
 
 	public static Builder builder() {
@@ -126,6 +146,11 @@ public class Patch {
 		
 		public Builder reboot(Boolean reboot) {
 			patch.setReboot(reboot);
+			return this;
+		}
+		
+		public Builder complexity(Float complexity) {
+			patch.setComplexity(complexity);
 			return this;
 		}
 
