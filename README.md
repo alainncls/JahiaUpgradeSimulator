@@ -1,4 +1,4 @@
-# JahiaUpgradeSimulator v0.2
+# JahiaUpgradeSimulator v0.3
 
 Prérequis
 ========
