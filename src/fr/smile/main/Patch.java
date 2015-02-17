@@ -50,7 +50,7 @@ public class Patch {
 	public String getInstructions() {
 		if(instructions==null){
 			return "<div style=\"padding: 10px 10px 10px 35px; border: 1px solid #F90; background: #F5533D;\">"
-					+ "<p>Erreur, no instruction found...</p></div>";
+					+ "<p>Error, no instruction found...</p></div>";
 		}
 		return instructions;
 	}
