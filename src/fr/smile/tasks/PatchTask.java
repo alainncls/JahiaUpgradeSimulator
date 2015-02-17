@@ -1,11 +1,13 @@
-package fr.smile.services;
+package fr.smile.tasks;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
+import fr.smile.listeners.RunnableListener;
 import fr.smile.main.Patch;
+import fr.smile.services.JahiaConfigService;
 
 public class PatchTask implements Runnable {
 

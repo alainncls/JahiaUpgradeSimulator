@@ -4,13 +4,13 @@ import java.awt.Color;
 
 import javax.swing.JButton;
 
+import fr.smile.listeners.RunnableListener;
 import fr.smile.main.Patch;
 import fr.smile.services.DownloadService;
-import fr.smile.services.DownloadTask;
 import fr.smile.services.JahiaConfigService;
 import fr.smile.services.PatchService;
-import fr.smile.services.PatchTask;
-import fr.smile.services.RunnableListener;
+import fr.smile.tasks.DownloadTask;
+import fr.smile.tasks.PatchTask;
 
 public class ActionButton extends JButton implements RunnableListener {
 

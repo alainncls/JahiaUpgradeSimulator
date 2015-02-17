@@ -5,7 +5,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import fr.smile.listeners.RunnableListener;
 import fr.smile.main.Patch;
+import fr.smile.tasks.DownloadTask;
 
 public enum DownloadService {
 

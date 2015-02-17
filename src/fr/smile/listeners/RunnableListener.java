@@ -1,4 +1,4 @@
-package fr.smile.services;
+package fr.smile.listeners;
 
 public interface RunnableListener {
 	void notifyComplete(final Runnable runnable);
