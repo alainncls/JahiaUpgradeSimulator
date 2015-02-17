@@ -5,6 +5,7 @@ public class Patch {
 	private String startVersion, endVersion, url, instructions,
 			instructionsCluster, warning;
 	private Boolean reboot;
+	private Float complexity;
 
 	public Patch() {
 		startVersion = null;
@@ -13,6 +14,7 @@ public class Patch {
 		instructions = null;
 		warning = null;
 		reboot = null;
+		complexity = 0.2f;
 	}
 
 	public Boolean getReboot() {
@@ -70,7 +72,7 @@ public class Patch {
 	public String getInstructionsCluster() {
 		if(instructionsCluster==null){
 			return "<div style=\"padding: 10px 10px 10px 35px; border: 1px solid #F90; background: #F5533D;\">"
-					+ "<p>Erreur, no instruction for clustered installation found...</p></div>";
+					+ "<p>Erreur, no instruction found for clustered installation...</p></div>";
 		}
 		return instructionsCluster;
 	}
@@ -79,8 +81,26 @@ public class Patch {
 		this.instructionsCluster = instructionsCluster;
 	}
 	
+	public Float getComplexity() {
+		return complexity;
+	}
+
+	public void setComplexity(Float complexity) {
+		this.complexity = complexity;
+	}
+
 	public String getName() {
 		return url.substring(url.lastIndexOf("/") + 1);
+	}
+	
+	public String getInstructions(boolean cluster) {
+		if(instructionsCluster==null && instructions==null){
+			return null;
+		}
+		if(cluster){
+			return getInstructionsCluster() + "<br/><hr/><br/>" + getInstructions();
+		}
+		return getInstructions();
 	}
 
 	public static Builder builder() {
@@ -126,6 +146,11 @@ public class Patch {
 		
 		public Builder reboot(Boolean reboot) {
 			patch.setReboot(reboot);
+			return this;
+		}
+		
+		public Builder complexity(Float complexity) {
+			patch.setComplexity(complexity);
 			return this;
 		}
 
