@@ -46,7 +46,7 @@ public class fChiffrage extends JDialog {
 		});
 		contentPanel.add(backButton);
 
-		epChiffrage = new JEditorPane("text/html", "Durée estimée de la migration = " + simulation.getDuration() + " JH<br/>" + "Coût estimé de la migration = " + simulation.getDuration() * 750 + " €");
+		epChiffrage = new JEditorPane("text/html", simulation.getChiffrage());
 		epChiffrage.setEditable(false);
 		spChiffrage = new JScrollPane(epChiffrage);
 		spChiffrage.setBounds(5, 5, 881, 517);
