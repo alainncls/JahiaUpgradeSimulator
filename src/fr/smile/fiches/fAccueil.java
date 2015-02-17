@@ -47,19 +47,13 @@ public class fAccueil extends JFrame {
 			jahiaFolder;
 	private List<String> listVersions;
 
-	public fAccueil(String[] args) { // context jahiaFolder
+	public fAccueil(String[] args) { // jahiaFolder context
 
 		context = args.length >= 2 ? args[1] : "ROOT";
 		jahiaFolder = args.length >= 1 ? args[0] : "./";
 		if (!jahiaFolder.endsWith("/")) {
 			jahiaFolder += "/";
 		}
-		
-		/*
-		 * Quick init for test
-		 */
-		//jahiaFolder = "/home/viaug/projets/jahia-6.6.1.0/";
-		jahiaFolder = "/home/alnic/projets/jahia/";
 		
 		JahiaConfigService.getInstance().setFolder(jahiaFolder);
 		JahiaConfigService.getInstance().setContext(context);
