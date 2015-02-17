@@ -13,10 +13,11 @@ public class Simulation {
 	private String error;
 	private int reboots;
 	private Boolean clustered;
-	private float rawDuration;
+	private Float rawDuration;
+	private Float uO;
 	private int duration;
 	private int cost;
-	private final int TJM = 750;
+	private int tJM;
 
 	private List<Patch> listPatches;
 
@@ -27,9 +28,11 @@ public class Simulation {
 		this.stepsA = this.stepsP = this.reboots = 0;
 		this.error = "";
 		this.clustered = clustered;
-		this.rawDuration = 0;
+		this.rawDuration = 0f;
 		this.duration = 0;
 		this.cost = 0;
+		this.uO = 1.8f;
+		this.tJM = 750;
 		this.runSimulation();
 	}
 
@@ -42,6 +45,7 @@ public class Simulation {
 			p = pl.get(0);
 			listPatches.add(p);
 			currentVersion = p.getEndVersion();
+			calculateRawDuration(p);
 			stepsA += pl.size() - 1;
 			stepsP += p.isProblem() ? 1 : 0;
 			if (p.getReboot()) {
@@ -53,7 +57,8 @@ public class Simulation {
 					+ " unreachable\nMaximum upgrade available to "
 					+ currentVersion;
 		}
-		calculate();
+		calculateTotalDuration(uO);
+		calculateCost(tJM);
 	}
 
 	@Override
@@ -75,23 +80,48 @@ public class Simulation {
 	}
 
 	public void calculateTotalDuration(float uO) {
-		duration = (int) Math.ceil(getSteps() * rawDuration * uO);
+		duration = (int) Math.ceil(rawDuration * uO);
 	}
 
-	public void calculateCost() {
-		cost = duration * TJM;
+	public void calculateCost(int tJM) {
+		cost = duration * tJM;
 	}
 
 	public String getChiffrage() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("<div style=\"padding: 10px 10px 10px 35px; border: 1px solid #F90; background: #CFFFCC;\">");
-		builder.append("<p><ul><li>Durée estimée de la migration = "
-				+ getDuration() + " JH</li>");
-		builder.append("<p><li>Coût estimé de la migration = " + getCost()
-				+ " €</li></ul></p>");
+		builder.append("<center><h1>Estimation coût et durée de la migration</h1>");
+		builder.append("<h3>Version " + getStartVersion() + " à version " + getEndVersion() + "</h3></center>");
+		builder.append("<ul><li>Durée brute estimée de la migration = <b>" + getRawDuration() + " jours</li>");
+		builder.append("<li>Durée totale estimée de la migration = <span style = \"color: #F00C1C\">" + getDuration() + " JH</span></li>");
+		builder.append("<li>Coût estimé de la migration = <b><span style = \"color: #F00C1C\">" + getCost() + " €</span></b></li></ul>");
 		builder.append("</div>");
 
 		return builder.toString();
+	}
+	
+	public Float getRawDuration() {
+		return rawDuration;
+	}
+
+	public void setRawDuration(Float rawDuration) {
+		this.rawDuration = rawDuration;
+	}
+
+	public Float getuO() {
+		return uO;
+	}
+
+	public void setuO(Float uO) {
+		this.uO = uO;
+	}
+
+	public int gettJM() {
+		return tJM;
+	}
+
+	public void settJM(int tJM) {
+		this.tJM = tJM;
 	}
 
 	public int getCost() {

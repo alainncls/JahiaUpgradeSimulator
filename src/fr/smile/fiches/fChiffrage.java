@@ -2,17 +2,22 @@ package fr.smile.fiches;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.text.NumberFormat;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import fr.smile.main.Simulation;
 
-public class fChiffrage extends JDialog {
+public class fChiffrage extends JDialog implements PropertyChangeListener {
 
 	/**
 	 * 
@@ -22,14 +27,16 @@ public class fChiffrage extends JDialog {
 
 	private JScrollPane spChiffrage;
 	private JEditorPane epChiffrage;
-	private JButton backButton;
+	private JButton backButton, bCalculate;
+	private JLabel lUO, lTJM;
+	private JFormattedTextField ftfUO, ftfTJM;
 
 	private Simulation simulation;
 
 	public fChiffrage(Simulation simul) {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 900, 600);
-		
+
 		this.simulation = simul;
 
 		contentPanel = new JPanel();
@@ -46,20 +53,64 @@ public class fChiffrage extends JDialog {
 		});
 		contentPanel.add(backButton);
 
+		bCalculate = new JButton("Calculate");
+		bCalculate.setBounds(137, 534, 117, 25);
+		bCalculate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				propertyChange(null);
+			}
+		});
+		contentPanel.add(bCalculate);
+
+		lUO = new JLabel("Valeur de l'UO");
+		lUO.setBounds(5, 405, 117, 15);
+		contentPanel.add(lUO);
+
+		NumberFormat uOFormat = NumberFormat.getNumberInstance();
+		uOFormat.setMinimumFractionDigits(1);
+
+		ftfUO = new JFormattedTextField(uOFormat);
+		ftfUO.setBounds(125, 405, 92, 24);
+		ftfUO.setColumns(10);
+		ftfUO.setValue(simulation.getuO());
+		ftfUO.addPropertyChangeListener("value", this);
+		contentPanel.add(ftfUO);
+
+		lTJM = new JLabel("Valeur du TJM");
+		lTJM.setBounds(230, 405, 117, 15);
+		contentPanel.add(lTJM);
+
+		ftfTJM = new JFormattedTextField(NumberFormat.getCurrencyInstance());
+		ftfTJM.setBounds(344, 405, 92, 24);
+		ftfTJM.setColumns(10);
+		ftfTJM.setValue(simulation.gettJM());
+		ftfTJM.addPropertyChangeListener("value", this);
+		contentPanel.add(ftfTJM);
+
 		epChiffrage = new JEditorPane("text/html", simulation.getChiffrage());
 		epChiffrage.setEditable(false);
 		spChiffrage = new JScrollPane(epChiffrage);
-		spChiffrage.setBounds(5, 5, 881, 517);
+		spChiffrage.setBounds(5, 5, 881, 400);
 		contentPanel.add(spChiffrage);
+	}
 
+	public void propertyChange(PropertyChangeEvent e) {
+		if (e != null) {
+			Object source = e.getSource();
+			if (source == ftfUO) {
+				float UO = ((Number) ftfUO.getValue()).floatValue();
+				System.out.println("UO = " + UO);
+				simulation.calculateTotalDuration(UO);
+			} else if (source == ftfTJM) {
+				int TJM = ((Number) ftfTJM.getValue()).intValue();
+				System.out.println("TJM = " + TJM);
+				simulation.calculateCost(TJM);
+			}
+			epChiffrage.setText(simulation.getChiffrage());
+		}
 	}
 
 	public void goBack(ActionEvent evt) {
 		this.setVisible(false);
-	}
-
-	public void setInstructions(String ins) {
-		epChiffrage.setText("<html><body>"+ins+"</body></html>");
-		epChiffrage.setCaretPosition(0);
 	}
 }
