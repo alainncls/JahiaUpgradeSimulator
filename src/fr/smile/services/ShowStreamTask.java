@@ -1,40 +1,37 @@
 package fr.smile.services;
 
-import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-import javax.swing.JOptionPane;
+import org.apache.commons.io.IOUtils;
 
 public class ShowStreamTask implements Runnable {
-	
+
 	private final Set<RunnableListener> listeners = new CopyOnWriteArraySet<RunnableListener>();
-	
+
+	public static final String PATH = "./log/";
+
 	public static final Integer OK = 0;
 	public static final Integer ERROR = 1;
-	
-	public static final Integer INPUT_STREAM = 0;
-	public static final Integer OUTPUT_STREAM = 1;
-	public static final Integer ERROR_STREAM = 2;
-	
+
 	private Integer result;
-	private Integer type;
-	
-	private final InputStream is;
-	
-	public ShowStreamTask(InputStream is, Integer type) {
-		this.is = is;
-		this.type = type;
+	private Integer size;
+	private String log;
+
+	private final InputStream inputStream;
+
+	public ShowStreamTask(InputStream inputStream, String log) {
+		this.inputStream = inputStream;
+		this.log = log;
+		this.size = 0;
 		result = OK;
 	}
-	
-	private BufferedReader getBufferedReader(InputStream is) {
-        return new BufferedReader(new InputStreamReader(is));
-    }
-	
+
 	@Override
 	public void run() {
 		try {
@@ -44,32 +41,34 @@ public class ShowStreamTask implements Runnable {
 			notifyComplete();
 		}
 	}
-	
+
 	private void showStream() {
-		BufferedReader br = getBufferedReader(is);
-        String line = "";
-        try {
-            while ((line = br.readLine()) != null) {
-            	//System.out.println(line);
-            	if(type == ERROR_STREAM){
-            		JOptionPane.showMessageDialog(null, line, "Error", JOptionPane.ERROR_MESSAGE);
-                	result = ERROR;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            result = ERROR;
-        }
+		File f = new File(PATH + log);
+		f.getParentFile().mkdirs();
+		try {
+			f.createNewFile();
+			try (OutputStream outputStream = new FileOutputStream(f)) {
+				this.size = IOUtils.copy(inputStream, outputStream);
+			} catch (IOException e) {
+				System.err.println("Error while copying stream to log file : "
+						+ log);
+				System.err.println(e.getMessage());
+			}
+		} catch (IOException e) {
+			System.err.println("Error while creating log file for stream : "
+					+ log);
+			System.err.println(e.getMessage());
+		}
 	}
-	
+
 	public int getResult() {
 		return result;
 	}
-	
-	public InputStream getStream() {
-		return is;
+
+	public int getSize() {
+		return size;
 	}
-	
+
 	public final void addListener(final RunnableListener listener) {
 		listeners.add(listener);
 	}
@@ -83,7 +82,7 @@ public class ShowStreamTask implements Runnable {
 			listener.notifyComplete(this);
 		}
 	}
-	
+
 	private final void notifyStart() {
 		for (RunnableListener listener : listeners) {
 			listener.notifyStart(this);
