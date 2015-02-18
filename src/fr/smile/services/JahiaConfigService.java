@@ -2,7 +2,12 @@ package fr.smile.services;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.regex.Pattern;
+
+import fr.smile.listeners.JahiaConfigListener;
+import fr.smile.listeners.RunnableListener;
 
 public enum JahiaConfigService {
 	
@@ -11,6 +16,8 @@ public enum JahiaConfigService {
 	private String folder;
 	private String context;
 	private String version;
+	
+	private final Set<JahiaConfigListener> listeners = new CopyOnWriteArraySet<JahiaConfigListener>();
 	
 	// **** BUILDER ****
 	private JahiaConfigService() {
@@ -52,6 +59,7 @@ public enum JahiaConfigService {
 	}
 
 	public void detectJahiaVersion() {
+		String old = version;
 		try {
 			File[] files = listFilesMatching(new File(getPatchFolder()+ "/WEB-INF/lib/"),
 					"jahia-impl-(\\d\\.){4}jar");
@@ -64,6 +72,9 @@ public enum JahiaConfigService {
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			System.err.println("Fail to detect");
+		}
+		if(old!=null && version!=null && !old.equals(version)){
+			notifyVersionChange();
 		}
 	}
 
@@ -79,5 +90,19 @@ public enum JahiaConfigService {
 				return p.matcher(file.getName()).matches();
 			}
 		});
+	}
+	
+	public void addListener(final JahiaConfigListener listener) {
+		listeners.add(listener);
+	}
+
+	public void removeListener(final JahiaConfigListener listener) {
+		listeners.remove(listener);
+	}
+	
+	private void notifyVersionChange(){
+		for (JahiaConfigListener listener : listeners) {
+			listener.notifyVersionChange();
+		}
 	}
 }
