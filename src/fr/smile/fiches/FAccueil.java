@@ -23,11 +23,12 @@ import fr.smile.main.Simulation;
 import fr.smile.services.JahiaConfigService;
 import fr.smile.services.PatchService;
 
-public class fAccueil extends JFrame {
+public class FAccueil extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private JPanel contentPane, pRed, pOrange, pGreen;
-	private JLabel lProblems, lAvoid, lPredicted, lblT, lStart, lEnd, lReboots,lLicences;
+	private JLabel lProblems, lAvoid, lPredicted, lblT, lStart, lEnd, lReboots,
+			lLicences;
 
 	private JComboBox<String> cbStart, cbEnd;
 
@@ -36,22 +37,22 @@ public class fAccueil extends JFrame {
 	private ButtonGroup bGroup;
 	private JRadioButton rbClustered, rbStandalone;
 
-	private fPatches patches;
-	private fChiffrage chiffrage;
+	private FPatches patches;
+	private FChiffrage chiffrage;
 
 	private Simulation simul;
 	private String startVersion, endVersion, detectedVersion, context,
 			jahiaFolder;
 	private List<String> listVersions;
 
-	public fAccueil(String[] args) { // jahiaFolder context
+	public FAccueil(String[] args) { // jahiaFolder context
 
 		context = args.length >= 2 ? args[1] : "ROOT";
 		jahiaFolder = args.length >= 1 ? args[0] : "./";
 		if (!jahiaFolder.endsWith("/")) {
 			jahiaFolder += "/";
 		}
-		
+
 		JahiaConfigService.getInstance().setFolder(jahiaFolder);
 		JahiaConfigService.getInstance().setContext(context);
 		JahiaConfigService.getInstance().detectJahiaVersion();
@@ -97,11 +98,10 @@ public class fAccueil extends JFrame {
 		lReboots = new JLabel("");
 		lReboots.setBounds(286, 158, 150, 15);
 		contentPane.add(lReboots);
-		
+
 		lLicences = new JLabel("");
 		lLicences.setBounds(286, 188, 150, 15);
 		contentPane.add(lLicences);
-
 
 		pGreen.setVisible(false);
 		pOrange.setVisible(false);
@@ -160,7 +160,7 @@ public class fAccueil extends JFrame {
 		bSimulate.setBounds(12, 234, 117, 25);
 		bSimulate.setEnabled(false);
 		contentPane.add(bSimulate);
-		
+
 		bChiffrage = new JButton("Chiffrage");
 		bChiffrage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -208,11 +208,11 @@ public class fAccueil extends JFrame {
 		/*
 		 * Quick init for debug
 		 */
-//		 cbStart.setSelectedItem("6.5.0.0");
-//		 cbEnd.setSelectedItem("6.6.1.7");
-//		 rbStandalone.doClick();
-//		 bSimulate.doClick();
-//		 bChiffrage.doClick();
+		// cbStart.setSelectedItem("6.5.0.0");
+		// cbEnd.setSelectedItem("6.6.1.7");
+		// rbStandalone.doClick();
+		// bSimulate.doClick();
+		// bChiffrage.doClick();
 
 	}
 
@@ -250,9 +250,9 @@ public class fAccueil extends JFrame {
 			bPatches.setEnabled(true);
 			bChiffrage.setEnabled(true);
 
-			patches = new fPatches(simul);
+			patches = new FPatches(simul);
 			patches.setVisible(false);
-			chiffrage = new fChiffrage(simul);
+			chiffrage = new FChiffrage(simul);
 			chiffrage.setVisible(false);
 		}
 	}
@@ -266,7 +266,7 @@ public class fAccueil extends JFrame {
 	public void goPatches(ActionEvent evt) {
 		patches.setVisible(true);
 	}
-	
+
 	public void bChiffrageActionPerformed(ActionEvent evt) {
 		chiffrage.setVisible(true);
 	}
@@ -275,7 +275,7 @@ public class fAccueil extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					fAccueil frame = new fAccueil(args);
+					FAccueil frame = new FAccueil(args);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

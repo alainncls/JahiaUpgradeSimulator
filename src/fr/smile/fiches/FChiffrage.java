@@ -17,7 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 import fr.smile.main.Simulation;
 
-public class fChiffrage extends JDialog implements PropertyChangeListener {
+public class FChiffrage extends JDialog implements PropertyChangeListener {
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel;
 
@@ -29,7 +29,7 @@ public class fChiffrage extends JDialog implements PropertyChangeListener {
 
 	private Simulation simulation;
 
-	public fChiffrage(Simulation simul) {
+	public FChiffrage(Simulation simul) {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 900, 600);
 
@@ -96,7 +96,8 @@ public class fChiffrage extends JDialog implements PropertyChangeListener {
 			if (source == ftfUO) {
 				float UO = ((Number) ftfUO.getValue()).floatValue();
 				simulation.calculateTotalDuration(UO);
-				simulation.calculateCost(((Number) ftfTJM.getValue()).intValue());
+				simulation.calculateCost(((Number) ftfTJM.getValue())
+						.intValue());
 			} else if (source == ftfTJM) {
 				int TJM = ((Number) ftfTJM.getValue()).intValue();
 				simulation.calculateCost(TJM);

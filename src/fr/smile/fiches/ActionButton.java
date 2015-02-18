@@ -13,7 +13,8 @@ import fr.smile.services.PatchService;
 import fr.smile.tasks.DownloadTask;
 import fr.smile.tasks.PatchTask;
 
-public class ActionButton extends JButton implements RunnableListener, JahiaConfigListener {
+public class ActionButton extends JButton implements RunnableListener,
+JahiaConfigListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -48,17 +49,19 @@ public class ActionButton extends JButton implements RunnableListener, JahiaConf
 	}
 
 	public void setStatus(int status) {
-		if(status == APPLY && !patch.isFixApplier()){
+		if (status == APPLY && !patch.isFixApplier()) {
 			status = APPLY_MANUALLY;
 		}
 
 		this.status = status;
 		setEnabled(true);
-		
-		if(status == APPLY && !JahiaConfigService.getInstance().getVersion().equals(patch.getStartVersion())){
+
+		if (status == APPLY
+				&& !JahiaConfigService.getInstance().getVersion()
+				.equals(patch.getStartVersion())) {
 			setEnabled(false);
 		}
-		
+
 		switch (status) {
 		case DOWNLOAD:
 			setBackground(null);
@@ -128,8 +131,9 @@ public class ActionButton extends JButton implements RunnableListener, JahiaConf
 	}
 
 	public void doDownload() {
-		if (status != DOWNLOAD && status != ERROR_DOWNLOAD)
+		if (status != DOWNLOAD && status != ERROR_DOWNLOAD) {
 			return;
+		}
 		setStatus(WAITING);
 		DownloadService.getInstance().download(patch, this);
 	}
@@ -180,13 +184,13 @@ public class ActionButton extends JButton implements RunnableListener, JahiaConf
 	@Override
 	public void notifyVersionChange() {
 		String version = JahiaConfigService.getInstance().getVersion();
-		if(patch.getStartVersion().equals(version)&&status==APPLY){
+		if (patch.getStartVersion().equals(version) && status == APPLY) {
 			setEnabled(true);
 		}
-		if(patch.getStartVersion().compareTo(version)>0&&status==APPLY){
+		if (patch.getStartVersion().compareTo(version) > 0 && status == APPLY) {
 			setEnabled(false);
 		}
-		if(patch.getEndVersion().compareTo(version)<=0){
+		if (patch.getEndVersion().compareTo(version) <= 0) {
 			setStatus(DONE);
 		}
 	}

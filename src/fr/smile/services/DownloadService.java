@@ -36,8 +36,9 @@ public enum DownloadService {
 
 	public boolean exist(Patch patch) {
 		File file = new File(PATH + patch.getName());
-		if(file.exists()){
-			System.out.println("Found Patch in download folder : "+patch.toString());
+		if (file.exists()) {
+			System.out.println("Found Patch in download folder : "
+					+ patch.toString());
 			return true;
 		}
 		return false;

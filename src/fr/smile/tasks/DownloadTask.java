@@ -14,10 +14,10 @@ import fr.smile.main.Patch;
 public class DownloadTask implements Runnable {
 
 	private final Set<RunnableListener> listeners = new CopyOnWriteArraySet<RunnableListener>();
-	
+
 	public static final Integer OK = 0;
 	public static final Integer ERROR = 1;
-	
+
 	private Patch patch;
 	private String path;
 	private Integer result;
@@ -27,15 +27,15 @@ public class DownloadTask implements Runnable {
 		this.path = path;
 		result = OK;
 	}
-	
+
 	public int getResult() {
 		return result;
 	}
-	
+
 	public Patch getPatch() {
 		return patch;
 	}
-	
+
 	public String getPath() {
 		return path;
 	}
@@ -54,7 +54,7 @@ public class DownloadTask implements Runnable {
 		try {
 			File file = new File(path + patch.getName());
 			URL url = new URL(patch.getUrl());
-			FileUtils.copyURLToFile(url, file, 10000, 10000);			
+			FileUtils.copyURLToFile(url, file, 10000, 10000);
 		} catch (IOException e) {
 			result = ERROR;
 		}
@@ -73,7 +73,7 @@ public class DownloadTask implements Runnable {
 			listener.notifyComplete(this);
 		}
 	}
-	
+
 	private final void notifyStart() {
 		for (RunnableListener listener : listeners) {
 			listener.notifyStart(this);

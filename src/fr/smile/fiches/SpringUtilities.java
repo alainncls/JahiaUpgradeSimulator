@@ -256,7 +256,7 @@ public class SpringUtilities {
 
 		// Moving every component from specified column to the right, using
 		// previous empty space available)
-		for (int c = cols-nbColsRight; c < cols; c++) {
+		for (int c = cols - nbColsRight; c < cols; c++) {
 			for (int r = 0; r < rows; r++) {
 				SpringLayout.Constraints constraints = getConstraintsForCell(r,
 						c, parent, cols);
@@ -264,14 +264,15 @@ public class SpringUtilities {
 			}
 		}
 	}
-	
-	public static void addLineSeparator(Container parent, int cols, List<Patch> patchList) {
+
+	public static void addLineSeparator(Container parent, int cols,
+			List<Patch> patchList) {
 		int row = 0;
-		for(Patch p : patchList) {
-			if(p.needReboot()){
+		for (Patch p : patchList) {
+			if (p.needReboot()) {
 				row++;
 			}
-			if(p.needLicense()){
+			if (p.needLicense()) {
 				row++;
 			}
 			SpringLayout.Constraints c = getConstraintsForCell(row, 0, parent,
@@ -281,7 +282,7 @@ public class SpringUtilities {
 			parent.add(separator);
 			SpringLayout.Constraints c2 = ((SpringLayout) parent.getLayout())
 					.getConstraints(separator);
-			c2.setY(Spring.sum(c.getY(),c.getHeight()));
+			c2.setY(Spring.sum(c.getY(), c.getHeight()));
 			row++;
 		}
 	}
