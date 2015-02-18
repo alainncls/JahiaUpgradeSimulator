@@ -268,7 +268,10 @@ public class SpringUtilities {
 	public static void addLineSeparator(Container parent, int cols, List<Patch> patchList) {
 		int row = 0;
 		for(Patch p : patchList) {
-			if(p.getReboot()){
+			if(p.needReboot()){
+				row++;
+			}
+			if(p.needLicense()){
 				row++;
 			}
 			SpringLayout.Constraints c = getConstraintsForCell(row, 0, parent,

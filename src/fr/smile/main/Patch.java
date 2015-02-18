@@ -4,7 +4,7 @@ public class Patch {
 
 	private String startVersion, endVersion, url, instructions,
 			instructionsCluster, warning;
-	private Boolean reboot, licence;
+	private Boolean reboot, license;
 	private Float complexity;
 
 	public Patch() {
@@ -13,12 +13,12 @@ public class Patch {
 		url = null;
 		instructions = null;
 		warning = null;
-		reboot = null;
-		licence = null;
+		reboot = true;
+		license = false;
 		complexity = 0.2f;
 	}
 
-	public Boolean getReboot() {
+	public Boolean needReboot() {
 		return reboot;
 	}
 
@@ -26,12 +26,12 @@ public class Patch {
 		this.reboot = reboot;
 	}
 	
-	public Boolean getLicence() {
-		return licence;
+	public Boolean needLicense() {
+		return license;
 	}
 
-	public void setLicence(Boolean licence) {
-		this.licence = licence;
+	public void setLicense(Boolean license) {
+		this.license = license;
 	}
 
 	public String getStartVersion() {
@@ -162,8 +162,8 @@ public class Patch {
 			return this;
 		}
 		
-		public Builder licence(Boolean licence) {
-			patch.setLicence(licence);
+		public Builder license(Boolean license) {
+			patch.setLicense(license);
 			return this;
 		}
 		

@@ -25,9 +25,11 @@ public class fPatches extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel;
 	private JPanel listPanel;
-	private JButton bBack, bDownload;
-	private JCheckBox cdownload;
-	private JLabel lReboot;
+	private JButton bBack, bDownload,bInstruction;
+	private JCheckBox cdownload, cbCheck;
+	private JLabel lReboot,lLicense,lPatch;
+	private ActionButton bAction;
+
 
 	private fInstructions instructions;
 
@@ -53,10 +55,7 @@ public class fPatches extends JDialog {
 
 		int index = 0;
 		int nbCols = 0;
-		JButton bInstruction;
-		ActionButton bAction;
-		JCheckBox cbCheck;
-		JLabel lPatch;
+
 		for (final Patch p : simu.getListPatches()) {
 			index++;
 
@@ -111,7 +110,7 @@ public class fPatches extends JDialog {
 				nbCols = listPanel.getComponentCount();
 			}
 
-			if (p.getReboot()) {
+			if (p.needReboot()) {
 				int nbCompInit = listPanel.getComponentCount();
 				lReboot = new JLabel(
 						"You need to reboot your Jahia install after upgrading to "
@@ -124,10 +123,24 @@ public class fPatches extends JDialog {
 					listPanel.add(new JLabel());
 				}
 			}
+			
+			if (p.needLicense()) {
+				int nbCompInit = listPanel.getComponentCount();
+				lLicense = new JLabel(
+						"You need to get a new license in order to upgrade to "
+								+ p.getEndVersion());
+				lLicense.setBackground(Color.ORANGE);
+				lLicense.setOpaque(true);
+				listPanel.add(lLicense);
+				int added = listPanel.getComponentCount() - nbCompInit;
+				for (int i = added; i < nbCols; i++) {
+					listPanel.add(new JLabel());
+				}
+			}
 		}
 
 		SpringUtilities.makeCompactGridRight(listPanel,// parent
-				simu.getSteps() + simu.getReboots(), nbCols, // rows, cols
+				simu.getSteps() + simu.getReboots() + simu.getLicences(), nbCols, // rows, cols
 				5, 5, // initX, initY
 				5, 5, // xPad, yPad
 				nbCols - 1); // number of cols to push right
