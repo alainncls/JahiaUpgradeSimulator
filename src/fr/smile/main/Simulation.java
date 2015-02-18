@@ -13,6 +13,7 @@ public class Simulation {
 	private int stepsP;
 	private String error;
 	private int reboots;
+	private int licences;
 	private Boolean clustered;
 	private Float rawDuration;
 	private Float uO;
@@ -51,6 +52,9 @@ public class Simulation {
 			stepsP += p.isProblem() ? 1 : 0;
 			if (p.getReboot()) {
 				reboots++;
+			}
+			if (p.getLicence()) {
+				licences++;
 			}
 		}
 		if (!currentVersion.equals(endVersion)) {
@@ -156,6 +160,14 @@ public class Simulation {
 
 	public void setReboots(int reboots) {
 		this.reboots = reboots;
+	}
+	
+	public int getLicences() {
+		return licences;
+	}
+
+	public void setLicence(int licences) {
+		this.licences = licences;
 	}
 
 	public void setStartVersion(String start) {
