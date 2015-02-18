@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 import fr.smile.main.Patch;
 import fr.smile.main.Simulation;
+import fr.smile.services.JahiaConfigService;
 
 public class fPatches extends JDialog {
 
@@ -49,32 +50,18 @@ public class fPatches extends JDialog {
 		listPanel = new JPanel();
 		listPanel.setBounds(5, 5, 881, 517);
 		listPanel.setLayout(new SpringLayout());
-		
+
 		int index = 0;
 		int nbCols = 0;
+		JButton bInstruction;
+		ActionButton bAction;
+		JCheckBox cbCheck;
+		JLabel lPatch;
 		for (final Patch p : simu.getListPatches()) {
 			index++;
-			JButton bInstruction = new JButton("Instructions");
-			ActionButton bAction = new ActionButton(p);
-			JCheckBox cbCheck = new JCheckBox();
-			JLabel lPatch = new JLabel(p.toString());
-			lPatch.setSize(300, lPatch.getHeight());
 
-			bAction.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					((ActionButton)e.getSource()).doAction();
-				}
-			});
-			
-			bInstruction.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					instructions.setInstructions(p.getInstructions(simu.getClustered()));
-					instructions.setTitle("Instructions Patch " + p.toString());
-					instructions.setVisible(true);
-				}
-			});
+			lPatch = new JLabel(p.toString());
+			lPatch.setSize(300, lPatch.getHeight());
 			listPanel.add(lPatch);
 
 			if (p.isProblem()) {
@@ -82,51 +69,70 @@ public class fPatches extends JDialog {
 				bWarning.setBackground(Color.ORANGE);
 				bWarning.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						JOptionPane
-								.showMessageDialog(
-										null,
-										new JLabel(
-												"<html><body style='width: 400px; text-align: justify; text-justify: inter-word;'>"
-														+ p.getWarning()
-														+ "</body></html>"));
+						toggleWarning(p);
 					}
 				});
 				listPanel.add(bWarning);
 			} else {
 				listPanel.add(new JLabel());
 			}
-			if(p.getInstructions(simu.getClustered())!=null){
+
+			if (p.getInstructions(simu.getClustered()) != null) {
+				bInstruction = new JButton("Instructions");
+				bInstruction.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						toggleInstruction(p, simu.getClustered());
+					}
+				});
 				listPanel.add(bInstruction);
-			}else{
+			} else {
 				listPanel.add(new JLabel());
 			}
-			listPanel.add(bAction);
-			listPanel.add(cbCheck);
-			
-			if(index==1) {
+
+			if (JahiaConfigService.getInstance().getVersion() != null) {
+
+				bAction = new ActionButton(p);
+				bAction.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						((ActionButton) e.getSource()).doAction();
+					}
+				});
+				listPanel.add(bAction);
+
+				cbCheck = new JCheckBox();
+				listPanel.add(cbCheck);
+
+				checkBoxMap.put(cbCheck, bAction);
+			}
+
+			if (index == 1) {
 				nbCols = listPanel.getComponentCount();
 			}
 
 			if (p.getReboot()) {
 				int nbCompInit = listPanel.getComponentCount();
-				lReboot = new JLabel("You need to reboot your Jahia install after upgrading to "+p.getEndVersion());
+				lReboot = new JLabel(
+						"You need to reboot your Jahia install after upgrading to "
+								+ p.getEndVersion());
 				lReboot.setBackground(Color.YELLOW);
 				lReboot.setOpaque(true);
 				listPanel.add(lReboot);
-				int added = listPanel.getComponentCount()-nbCompInit;
+				int added = listPanel.getComponentCount() - nbCompInit;
 				for (int i = added; i < nbCols; i++) {
 					listPanel.add(new JLabel());
 				}
 			}
-
-			checkBoxMap.put(cbCheck, bAction);
 		}
 
 		SpringUtilities.makeCompactGridRight(listPanel,// parent
 				simu.getSteps() + simu.getReboots(), nbCols, // rows, cols
 				5, 5, // initX, initY
 				5, 5, // xPad, yPad
-				4); // number of cols to push right
+				nbCols - 1); // number of cols to push right
+		SpringUtilities.addLineSeparator(listPanel, nbCols,
+				simu.getListPatches());
 
 		JScrollPane scrollPane = new JScrollPane(listPanel,
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -143,27 +149,26 @@ public class fPatches extends JDialog {
 		});
 		contentPanel.add(bBack);
 
-		bDownload = new JButton("Download Selected");
-		bDownload.setBounds(661, 534, 180, 25);
-		bDownload.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				runDownload();
-			}
-		});
-		contentPanel.add(bDownload);
-
-		cdownload = new JCheckBox();
-		cdownload.setBounds(846, 534, 25, 25);
-		cdownload.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JCheckBox cb = (JCheckBox) e.getSource();
-				for (JCheckBox c : checkBoxMap.keySet()) {
-					c.setSelected(cb.isSelected());
+		if (JahiaConfigService.getInstance().getVersion() != null) {
+			bDownload = new JButton("Download Selected");
+			bDownload.setBounds(661, 534, 180, 25);
+			bDownload.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					runDownload();
 				}
-			}
-		});
-		contentPanel.add(cdownload);
+			});
+			contentPanel.add(bDownload);
+
+			cdownload = new JCheckBox();
+			cdownload.setBounds(846, 534, 25, 25);
+			cdownload.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent evt) {
+					toggleCheckBox(evt);
+				}
+			});
+			contentPanel.add(cdownload);
+		}
 	}
 
 	public void goBack(ActionEvent evt) {
@@ -176,5 +181,27 @@ public class fPatches extends JDialog {
 				checkBoxMap.get(c).doDownload();
 			}
 		}
+	}
+
+	private void toggleCheckBox(ActionEvent evt) {
+		JCheckBox cb = (JCheckBox) evt.getSource();
+		for (JCheckBox c : checkBoxMap.keySet()) {
+			c.setSelected(cb.isSelected());
+		}
+	}
+
+	private void toggleWarning(Patch patch) {
+		JOptionPane
+				.showMessageDialog(
+						null,
+						new JLabel(
+								"<html><body style='width: 400px; text-align: justify; text-justify: inter-word;'>"
+										+ patch.getWarning() + "</body></html>"));
+	}
+
+	private void toggleInstruction(Patch patch, Boolean isClustered) {
+		instructions.setInstructions(patch.getInstructions(isClustered));
+		instructions.setTitle("Instructions Patch " + patch.toString());
+		instructions.setVisible(true);
 	}
 }
