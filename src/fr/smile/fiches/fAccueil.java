@@ -27,7 +27,7 @@ public class fAccueil extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private JPanel contentPane, pRed, pOrange, pGreen;
-	private JLabel lProblems, lAvoid, lPredicted, lblT, lStart, lEnd, lReboots;
+	private JLabel lProblems, lAvoid, lPredicted, lblT, lStart, lEnd, lReboots,lLicences;
 
 	private JComboBox<String> cbStart, cbEnd;
 
@@ -97,6 +97,11 @@ public class fAccueil extends JFrame {
 		lReboots = new JLabel("");
 		lReboots.setBounds(286, 158, 150, 15);
 		contentPane.add(lReboots);
+		
+		lLicences = new JLabel("");
+		lLicences.setBounds(286, 188, 150, 15);
+		contentPane.add(lLicences);
+
 
 		pGreen.setVisible(false);
 		pOrange.setVisible(false);
@@ -104,6 +109,7 @@ public class fAccueil extends JFrame {
 		lPredicted.setVisible(false);
 		lAvoid.setVisible(false);
 		lReboots.setVisible(false);
+		lLicences.setVisible(false);
 		lProblems.setVisible(false);
 
 		lblT = new JLabel("Jahia Upgrade Simulator");
@@ -230,6 +236,8 @@ public class fAccueil extends JFrame {
 					+ " steps to check");
 			lReboots.setText(Integer.toString(simul.getReboots())
 					+ " reboots needed");
+			lLicences.setText(Integer.toString(simul.getLicences())
+					+ " licences needed");
 
 			pGreen.setVisible(true);
 			pOrange.setVisible(true);
@@ -238,6 +246,7 @@ public class fAccueil extends JFrame {
 			lAvoid.setVisible(true);
 			lProblems.setVisible(true);
 			lReboots.setVisible(true);
+			lLicences.setVisible(true);
 			bPatches.setEnabled(true);
 			bChiffrage.setEnabled(true);
 
