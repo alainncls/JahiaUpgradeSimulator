@@ -34,10 +34,13 @@ package fr.smile.fiches;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.util.List;
 
 import javax.swing.JSeparator;
 import javax.swing.Spring;
 import javax.swing.SpringLayout;
+
+import fr.smile.main.Patch;
 
 /**
  * A 1.4 file that provides utility methods for creating form- or grid-style
@@ -260,18 +263,23 @@ public class SpringUtilities {
 				constraints.setX(Spring.sum(constraints.getX(), x));
 			}
 		}
-
-		// Add Separators
-		for (int r = 0; r < rows; r++) {
-			SpringLayout.Constraints c = getConstraintsForCell(r, 0, parent,
+	}
+	
+	public static void addLineSeparator(Container parent, int cols, List<Patch> patchList) {
+		int row = 0;
+		for(Patch p : patchList) {
+			if(p.getReboot()){
+				row++;
+			}
+			SpringLayout.Constraints c = getConstraintsForCell(row, 0, parent,
 					cols);
 			JSeparator separator = new JSeparator(JSeparator.HORIZONTAL);
 			separator.setPreferredSize(new Dimension(parent.getWidth(), 10));
 			parent.add(separator);
 			SpringLayout.Constraints c2 = ((SpringLayout) parent.getLayout())
 					.getConstraints(separator);
-			c2.setY(Spring.sum(c.getY(),
-					Spring.sum(c.getHeight(), Spring.constant(-1))));
+			c2.setY(Spring.sum(c.getY(),c.getHeight()));
+			row++;
 		}
 	}
 }
