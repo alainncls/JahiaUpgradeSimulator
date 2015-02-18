@@ -20,7 +20,7 @@ import fr.smile.main.Patch;
 import fr.smile.main.Simulation;
 import fr.smile.services.JahiaConfigService;
 
-public class fPatches extends JDialog {
+public class FPatches extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel;
@@ -30,18 +30,18 @@ public class fPatches extends JDialog {
 	private JLabel lReboot, lLicense, lPatch;
 	private ActionButton bAction;
 
-	private fInstructions instructions;
+	private FInstructions instructions;
 
 	private Map<JCheckBox, ActionButton> checkBoxMap;
 
-	public fPatches(final Simulation simu) {
+	public FPatches(final Simulation simu) {
 
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 900, 600);
 
 		this.checkBoxMap = new HashMap<>();
 
-		instructions = new fInstructions();
+		instructions = new FInstructions();
 
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -138,10 +138,9 @@ public class fPatches extends JDialog {
 			}
 		}
 
-		SpringUtilities.makeCompactGridRight(
-				listPanel,// parent
+		SpringUtilities.makeCompactGridRight(listPanel,// parent
 				simu.getSteps() + simu.getReboots() + simu.getLicences(), // rows
-				nbCols, //cols
+				nbCols, // cols
 				5, 5, // initX, initY
 				5, 5, // xPad, yPad
 				nbCols - 1); // number of cols to push right

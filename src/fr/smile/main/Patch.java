@@ -25,7 +25,7 @@ public class Patch {
 	public void setReboot(Boolean reboot) {
 		this.reboot = reboot;
 	}
-	
+
 	public Boolean needLicense() {
 		return license;
 	}
@@ -59,7 +59,7 @@ public class Patch {
 	}
 
 	public String getInstructions() {
-		if(instructions==null){
+		if (instructions == null) {
 			return "<div style=\"padding: 10px 10px 10px 35px; border: 1px solid #F90; background: #F5533D;\">"
 					+ "<p>Error, no instruction found...</p></div>";
 		}
@@ -79,7 +79,7 @@ public class Patch {
 	}
 
 	public String getInstructionsCluster() {
-		if(instructionsCluster==null){
+		if (instructionsCluster == null) {
 			return "<div style=\"padding: 10px 10px 10px 35px; border: 1px solid #F90; background: #F5533D;\">"
 					+ "<p>Error, no instruction for clustered installation found...</p></div>";
 		}
@@ -89,7 +89,7 @@ public class Patch {
 	public void setInstructionsCluster(String instructionsCluster) {
 		this.instructionsCluster = instructionsCluster;
 	}
-	
+
 	public Float getComplexity() {
 		return complexity;
 	}
@@ -101,17 +101,18 @@ public class Patch {
 	public String getName() {
 		return url.substring(url.lastIndexOf("/") + 1);
 	}
-	
+
 	public String getInstructions(boolean cluster) {
-		if(instructionsCluster==null && instructions==null){
+		if (instructionsCluster == null && instructions == null) {
 			return null;
 		}
-		if(cluster){
-			return getInstructionsCluster() + "<br/><hr/><br/>" + getInstructions();
+		if (cluster) {
+			return getInstructionsCluster() + "<br/><hr/><br/>"
+					+ getInstructions();
 		}
 		return getInstructions();
 	}
-	
+
 	public Boolean isFixApplier() {
 		return url.endsWith(".jar");
 	}
@@ -156,17 +157,17 @@ public class Patch {
 			patch.setInstructionsCluster(instructionsCluster);
 			return this;
 		}
-		
+
 		public Builder reboot(Boolean reboot) {
 			patch.setReboot(reboot);
 			return this;
 		}
-		
+
 		public Builder license(Boolean license) {
 			patch.setLicense(license);
 			return this;
 		}
-		
+
 		public Builder complexity(Float complexity) {
 			patch.setComplexity(complexity);
 			return this;

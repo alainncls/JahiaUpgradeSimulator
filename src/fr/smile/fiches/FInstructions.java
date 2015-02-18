@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
-public class fInstructions extends JDialog {
+public class FInstructions extends JDialog {
 
 	/**
 	 * 
@@ -24,9 +24,7 @@ public class fInstructions extends JDialog {
 	private JEditorPane epInstructions;
 	private JButton backButton;
 
-	
-
-	public fInstructions() {
+	public FInstructions() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 900, 600);
 
@@ -57,7 +55,7 @@ public class fInstructions extends JDialog {
 	}
 
 	public void setInstructions(String ins) {
-		epInstructions.setText(PREFIX+ins+SUFFIX);
+		epInstructions.setText(PREFIX + ins + SUFFIX);
 		epInstructions.setCaretPosition(0);
 	}
 }
