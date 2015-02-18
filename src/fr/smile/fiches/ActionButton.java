@@ -19,11 +19,12 @@ public class ActionButton extends JButton implements RunnableListener {
 	public static final int DOWNLOAD = 0;
 	public static final int DOWNLOADING = 1;
 	public static final int APPLY = 2;
-	public static final int APPLYING = 3;
-	public static final int DONE = 4;
-	public static final int ERROR_DOWNLOAD = 5;
-	public static final int ERROR_APPLY = 6;
-	public static final int WAITING = 7;
+	public static final int APPLY_MANUALLY = 3;
+	public static final int APPLYING = 4;
+	public static final int DONE = 5;
+	public static final int ERROR_DOWNLOAD = 6;
+	public static final int ERROR_APPLY = 7;
+	public static final int WAITING = 8;
 
 	private int status;
 	private Patch patch;
@@ -45,7 +46,14 @@ public class ActionButton extends JButton implements RunnableListener {
 	}
 
 	public void setStatus(int status) {
+		if (patch.isFixApplier()) {
+			status = APPLY;
+		} else {
+			status = APPLY_MANUALLY;
+		}
+		
 		this.status = status;
+		
 		switch (status) {
 		case DOWNLOAD:
 			setBackground(null);
@@ -60,6 +68,11 @@ public class ActionButton extends JButton implements RunnableListener {
 		case APPLY:
 			setBackground(Color.GREEN);
 			setText("Apply");
+			setEnabled(true);
+			break;
+		case APPLY_MANUALLY:
+			setBackground(Color.GREEN);
+			setText("Apply Manually");
 			setEnabled(true);
 			break;
 		case APPLYING:
@@ -103,6 +116,7 @@ public class ActionButton extends JButton implements RunnableListener {
 			doDownload();
 			break;
 		case APPLY:
+		case APPLY_MANUALLY:
 		case ERROR_APPLY:
 			doApply();
 			break;
@@ -119,10 +133,12 @@ public class ActionButton extends JButton implements RunnableListener {
 	}
 
 	public void doApply() {
-		if (status != APPLY && status != ERROR_APPLY)
-			return;
-		setStatus(WAITING);
-		PatchService.getInstance().apply(patch, this);
+		if (status == APPLY || status == ERROR_APPLY) {
+			setStatus(WAITING);
+			PatchService.getInstance().apply(patch, this);
+		} else if (status == APPLY_MANUALLY) {
+			JahiaConfigService.getInstance().detectJahiaVersion();
+		}
 	}
 
 	@Override
@@ -130,19 +146,19 @@ public class ActionButton extends JButton implements RunnableListener {
 		if (runnable instanceof DownloadTask) {
 			DownloadTask task = (DownloadTask) runnable;
 			if (task.getResult() == DownloadTask.OK) {
-				System.out.println("Complete download : "+patch.toString());
+				System.out.println("Complete download : " + patch.toString());
 				setStatus(APPLY);
 			} else {
-				System.err.println("Error download : "+patch.toString());
+				System.err.println("Error download : " + patch.toString());
 				setStatus(ERROR_DOWNLOAD);
 			}
 		} else if (runnable instanceof PatchTask) {
 			PatchTask task = (PatchTask) runnable;
 			if (task.getResult() == PatchTask.OK) {
-				System.out.println("Complete patch : "+patch.toString());
+				System.out.println("Complete patch : " + patch.toString());
 				setStatus(DONE);
 			} else {
-				System.err.println("Error patch : "+patch.toString());
+				System.err.println("Error patch : " + patch.toString());
 				setStatus(ERROR_APPLY);
 			}
 		}
@@ -151,7 +167,7 @@ public class ActionButton extends JButton implements RunnableListener {
 	@Override
 	public void notifyStart(Runnable runnable) {
 		if (runnable instanceof DownloadTask) {
-			System.out.println("Begin download : "+patch.toString());
+			System.out.println("Begin download : " + patch.toString());
 			setStatus(DOWNLOADING);
 		} else if (runnable instanceof PatchTask) {
 			System.out.println("Begin patch : " + patch.toString());
