@@ -102,6 +102,10 @@ public class Patch {
 		}
 		return getInstructions();
 	}
+	
+	public Boolean isFixApplier() {
+		return url.endsWith(".jar");
+	}
 
 	public static Builder builder() {
 		return new Builder();
