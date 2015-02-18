@@ -26,7 +26,7 @@ public enum PatchService {
 	INSTANCE;
 
 	// **** ATTRIBUTES ****
-	public static final String path = "/versions.json";
+	public static final String PATH = "/versions.json";
 	private List<String> listVersion;
 	private List<Patch> listPatch;
 	private ExecutorService pool;
@@ -51,7 +51,7 @@ public enum PatchService {
 
 	// Method to read the file line by line (each line = a bloc)
 	public void readFile() throws IOException, ParseException {
-		InputStream is = getClass().getResourceAsStream(path);
+		InputStream is = getClass().getResourceAsStream(PATH);
 		StringWriter writer = new StringWriter();
 		IOUtils.copy(is, writer);
 		String json = writer.toString();
@@ -82,7 +82,8 @@ public enum PatchService {
 				instructionsCluster = (String) jsonPatch
 						.get("instructionsCluster");
 				warning = (String) jsonPatch.get("warning");
-				reboot = ((String) jsonPatch.get("reboot")).equals("1");
+				String r = (String) jsonPatch.get("reboot");
+				reboot= (r==null || r.equals("1"));
 
 				patch = Patch.builder().startVersion(version)
 						.endVersion(endVersion).url(url)
