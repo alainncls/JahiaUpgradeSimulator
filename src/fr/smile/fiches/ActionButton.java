@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import javax.swing.JButton;
 
+import fr.smile.listeners.JahiaConfigListener;
 import fr.smile.listeners.RunnableListener;
 import fr.smile.main.Patch;
 import fr.smile.services.DownloadService;
@@ -12,7 +13,7 @@ import fr.smile.services.PatchService;
 import fr.smile.tasks.DownloadTask;
 import fr.smile.tasks.PatchTask;
 
-public class ActionButton extends JButton implements RunnableListener {
+public class ActionButton extends JButton implements RunnableListener, JahiaConfigListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -39,6 +40,7 @@ public class ActionButton extends JButton implements RunnableListener {
 		} else {
 			setStatus(DOWNLOAD);
 		}
+		JahiaConfigService.getInstance().addListener(this);
 	}
 
 	public int getStatus() {
@@ -46,19 +48,21 @@ public class ActionButton extends JButton implements RunnableListener {
 	}
 
 	public void setStatus(int status) {
-		if (patch.isFixApplier()) {
-			status = APPLY;
-		} else {
+		if(status == APPLY && !patch.isFixApplier()){
 			status = APPLY_MANUALLY;
 		}
-		
+
 		this.status = status;
+		setEnabled(true);
+		
+		if(status == APPLY && !JahiaConfigService.getInstance().getVersion().equals(patch.getStartVersion())){
+			setEnabled(false);
+		}
 		
 		switch (status) {
 		case DOWNLOAD:
 			setBackground(null);
 			setText("Download");
-			setEnabled(true);
 			break;
 		case DOWNLOADING:
 			setBackground(Color.BLUE);
@@ -68,12 +72,10 @@ public class ActionButton extends JButton implements RunnableListener {
 		case APPLY:
 			setBackground(Color.GREEN);
 			setText("Apply");
-			setEnabled(true);
 			break;
 		case APPLY_MANUALLY:
 			setBackground(Color.GREEN);
 			setText("Apply Manually");
-			setEnabled(true);
 			break;
 		case APPLYING:
 			setBackground(Color.BLUE);
@@ -172,6 +174,20 @@ public class ActionButton extends JButton implements RunnableListener {
 		} else if (runnable instanceof PatchTask) {
 			System.out.println("Begin patch : " + patch.toString());
 			setStatus(APPLYING);
+		}
+	}
+
+	@Override
+	public void notifyVersionChange() {
+		String version = JahiaConfigService.getInstance().getVersion();
+		if(patch.getStartVersion().equals(version)&&status==APPLY){
+			setEnabled(true);
+		}
+		if(patch.getStartVersion().compareTo(version)>0&&status==APPLY){
+			setEnabled(false);
+		}
+		if(patch.getEndVersion().compareTo(version)<=0){
+			setStatus(DONE);
 		}
 	}
 }
