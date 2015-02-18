@@ -1,0 +1,49 @@
+Procedure to migrate from JAHIA_EE_V6.1.2_3_r43818 to JAHIA_EE_V6.1.2_4_r46320:
+<br/>
+<ol>
+	<li>Remove the  following jars from webapps/ROOT/WEB-INF/lib/</li>
+	<ol type=a>
+		<li>jahia-impl-*.jar</li>
+		<li>jahia-taglib-*.jar</li>
+		<li>jahia-gwt*.jar</li>
+		<li>jahia-api*.jar</li>
+		<li>jericho-html-*.jar</li>
+		<li>ehcache-core-*.jar</li>
+		<li>jackrabbit-core-ext-*.jar</li>
+		<li>commons-dbcp-*.jar</li>
+		<li>commons-pool-*.jar</li>
+	</ol>
+	<br/>
+
+	<li>Remove the content of the following folder:</li>
+	<ul>
+		<li>&lt;JAHIA_INSTALLATION&lt;/Work</li>
+		<li>&lt;JAHIA_INSTALLATION&lt;/temp</li>
+	</ul>
+	<br/>
+
+	<li>Manually modify the following configuration file:</li>
+	<ul>
+		<li>Jahia_properties3.txt for WEB-INF/etc/config/jahia.properties</li>
+		<li>Applicationcontext-services1.txt for WEB-INF/etc/spring/applicationcontext_services.xml</li>
+		<li>ehcache-jahia.txt for WEB-INF/classes/ehcache-jahia.xml</li>
+		<li>ehcache-jahia_cluster.txt for WEB-INF/classes/ehcache-jahia_cluster.xml</li>
+	</ul>
+	<br/>
+
+	<li>Copy the content of the output folder into your webapps/ROOT/ folder</li>
+	<br/>
+
+	<div style="padding: 10px 10px 10px 35px; border: 1px solid #F90; background: #FFDAA3;">
+		We may have changed our internal ressources bundles, if you customized them please check the output/WEB-INF/classes. If you have modified one of the files present in the folder you need to remove it from the output folder and manually report the changes. 
+	</div>
+	<br/>
+
+	<li>To benefit our recent database improvement, you need to run the sql scripts corresponding to your database in:</li>
+	<ul>
+		<li>WEB-INF/var/patches/sql/&lt;DATABASE&gt;/jahia_workflow_links_cleanup_43763.sql</li>
+	</ul>
+	<br/>
+
+	<li>Launch Jahia</li>
+</ol>
