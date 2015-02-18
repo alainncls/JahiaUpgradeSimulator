@@ -1,0 +1,66 @@
+Procedure to migrate from JAHIA_EE_V6.1.0_1_r31787 to JAHIA_EE_V6.1.1_r34653 :
+<br/>
+<ol>
+<li>Remove the  following jars from webapps\ROOT\WEB-INF\lib\</li>
+<ul>
+<li>jahia-impl-*.jar</li>
+<li>jahia-taglib-*.jar</li>
+<li>jahia-gwt*.jar</li>
+<li>jahia-api*.jar</li>
+<li>drools-*.jar (4 jars)</li>
+<li>jackrabbit-core-1.5.0.jar</li>
+<li>mvel14-1.2.10.jar</li>
+<li>jtidy-4aug2000r7-dev.jar</li>
+<li>ehcache-1.5.0.jar</li>
+<li>jsr107cache-1.0.jar</li>
+<li>backport-util-concurrent-3.1.jar</li>
+</ul>
+<br/>
+<li>and from webapps\ROOT\WEB-INF\var\shared_templates\</li>
+<ul>
+<li>web-templates-extension-*.war</li>
+<li>web-templates-*.war</li>
+<li>blog_templates-*.war</li>
+</ul>
+<br/>
+<li>Remove the following folders : </li>
+<ul>
+<li>templates/web-templates-extension</li>
+<li>templates/web_templates </li>
+<li>templates/blog_templates</li>
+</ul>
+<br/>
+<li>Remove the content of the following folders :</li>
+<ul>
+<li>&lt;JAHIA_INSTALLATION&gt;/Work folder</li>
+<li>&lt;JAHIA_INSTALLATION&gt;/temp folder</li>
+</ul>
+<br/>
+<div style="padding: 10px 10px 10px 35px; border: 1px solid #F90; background: #FFDAA3;">
+!! Due to some backend changes in how Jahia handles the cache structure, you need to remove completely the content of this folder otherwise Jahia will not be able to correctly cache the content. Make sure you do not miss this step !
+</div>
+<br/>
+<div style="padding: 10px 10px 10px 35px; border: 1px solid #F90; background: #FFDAA3;">
+An issue impacting the correct behaviour of the cache="false" and cache="off" attributes in the templates has been fixed.We strongly recommend you check in your templates if these attributes are used.
+Make sure you actually intend to have these parts NOT cached by Jahia, otherwise you should remove them.
+</div>
+<br/>
+<li>Modify the following configuration file:</li>
+<ul>
+<li>applicationcontext-services2.txt for WEB-INF\etc\spring\applicationcontext_services.xml</li>
+<li>ehcache.txt for \WEB-INF\classes\ehcache-jahia.xml AND \WEB-INF\classes\ehcache-jahia_cluster.xml</li>
+<li>jahia_properties_4.txt for WEB-INF\etc\config\Jahia.properties</li>
+<li>jahia_properties_3.txt for WEB-INF\etc\config\Jahia.properties</li>
+<li>jahia_properties_2.txt for WEB-INF\etc\config\Jahia.properties</li>
+<li>applicationcontext-manager.txt for WEB-INF\etc\spring\applicationcontext_manager.xml</li>
+<li>applicationcontext-indexationpolicy_xml.txt for WEB-INF\etc\spring\applicationcontext_indexationpolicy.xml</li>
+<li>applicationcontext-listeners_xml.txt for WEB-INF\etc\spring\applicationcontext_listeners.xml</li>
+<li>web_xml.txt for WEB-INF\web.xml</li>
+<li>workspace_xml.txt for WEB-INF\var\repository\workspaces\default\workspace.xml</li>
+</ul>
+<br/>
+
+<li>Copy the content of the output folder into your webapps\ROOT\ folder</li>
+<br/>
+<li>Launch Jahia</li>
+</ol>

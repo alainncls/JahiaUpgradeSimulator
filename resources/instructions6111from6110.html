@@ -1,0 +1,34 @@
+Procedure to migrate from Jahia_EE_V6.1.1_r34653 to JAHIA_EE_V6.1.1_1_r35016 :
+<br/>
+<ol>
+<li>Remove the  following jars from webapps\ROOT\WEB-INF\lib\</li>
+<ul>
+<li>jahia-impl-*.jar</li>
+<li>jahia-taglib-*.jar</li>
+<li>jahia-gwt*.jar</li>
+<li>jahia-api*.jar</li>
+</ul>
+<br/>
+
+<li>and from webapps\ROOT\WEB-INF\var\shared_templates\</li>
+<ul>
+<li>web-templates-*.war</li>
+<li>test-templates*.war</li>
+<li>Remove the following folders : templates/web-templates AND templates/test_templates</li>
+<li>remove the content of the &lt;JAHIA_INSTALLATION&gt;/Work folder</li>
+</ul>
+<br/>
+
+
+<li>Manually modify the following configuration file:</li>
+<ul>
+<li>Applicationcontext-services_xml.txt for WEB-INF\etc\spring\applicationcontext_services.xml</li>
+<li>Jahia_properties.txt for WEB-INF\etc\config\Jahia.properties</li>
+</ul>
+<br/>
+
+<li>Copy the content of the output folder into your webapps\ROOT\ folder</li>
+<br/>
+
+<li>Launch Jahia</li>
+</ol>
