@@ -1,5 +1,6 @@
 package fr.smile.main;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,11 +89,12 @@ public class Simulation {
 	}
 
 	public String getChiffrage() {
+		DecimalFormat df = new DecimalFormat("####.##");
 		StringBuilder builder = new StringBuilder();
 		builder.append("<div style=\"padding: 10px 10px 10px 35px; border: 1px solid #F90; background: #CFFFCC;\">");
 		builder.append("<center><h1>Estimation coût et durée de la migration</h1>");
 		builder.append("<h3>Version " + getStartVersion() + " à version " + getEndVersion() + "</h3></center>");
-		builder.append("<ul><li>Durée brute estimée de la migration = <b>" + getRawDuration() + " jours</li>");
+		builder.append("<ul><li>Durée brute estimée de la migration = <b>" + df.format(getRawDuration()) + " jours</li>");
 		builder.append("<li>Durée totale estimée de la migration = <span style = \"color: #F00C1C\">" + getDuration() + " JH</span></li>");
 		builder.append("<li>Coût estimé de la migration = <b><span style = \"color: #F00C1C\">" + getCost() + " €</span></b></li></ul>");
 		builder.append("</div>");
