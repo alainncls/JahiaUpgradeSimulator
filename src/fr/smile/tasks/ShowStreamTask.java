@@ -5,6 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -45,7 +48,9 @@ public class ShowStreamTask implements Runnable {
 	}
 
 	private void showStream() {
-		File f = new File(PATH + log);
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+		File f = new File(PATH + dateFormat.format(date) + " - " + log);
 		f.getParentFile().mkdirs();
 		try {
 			f.createNewFile();
