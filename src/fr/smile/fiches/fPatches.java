@@ -25,11 +25,10 @@ public class fPatches extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel;
 	private JPanel listPanel;
-	private JButton bBack, bDownload,bInstruction;
+	private JButton bBack, bDownload, bInstruction;
 	private JCheckBox cdownload, cbCheck;
-	private JLabel lReboot,lLicense,lPatch;
+	private JLabel lReboot, lLicense, lPatch;
 	private ActionButton bAction;
-
 
 	private fInstructions instructions;
 
@@ -123,7 +122,7 @@ public class fPatches extends JDialog {
 					listPanel.add(new JLabel());
 				}
 			}
-			
+
 			if (p.needLicense()) {
 				int nbCompInit = listPanel.getComponentCount();
 				lLicense = new JLabel(
@@ -139,8 +138,10 @@ public class fPatches extends JDialog {
 			}
 		}
 
-		SpringUtilities.makeCompactGridRight(listPanel,// parent
-				simu.getSteps() + simu.getReboots() + simu.getLicences(), nbCols, // rows, cols
+		SpringUtilities.makeCompactGridRight(
+				listPanel,// parent
+				simu.getSteps() + simu.getReboots() + simu.getLicences(), // rows
+				nbCols, //cols
 				5, 5, // initX, initY
 				5, 5, // xPad, yPad
 				nbCols - 1); // number of cols to push right
@@ -150,6 +151,7 @@ public class fPatches extends JDialog {
 		JScrollPane scrollPane = new JScrollPane(listPanel,
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(8);
 		scrollPane.setBounds(listPanel.getBounds());
 		contentPanel.add(scrollPane);
 
