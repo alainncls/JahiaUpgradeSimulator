@@ -99,11 +99,10 @@ public class fChiffrage extends JDialog implements PropertyChangeListener {
 			Object source = e.getSource();
 			if (source == ftfUO) {
 				float UO = ((Number) ftfUO.getValue()).floatValue();
-				System.out.println("UO = " + UO);
 				simulation.calculateTotalDuration(UO);
+				simulation.calculateCost(((Number) ftfTJM.getValue()).intValue());
 			} else if (source == ftfTJM) {
 				int TJM = ((Number) ftfTJM.getValue()).intValue();
-				System.out.println("TJM = " + TJM);
 				simulation.calculateCost(TJM);
 			}
 			epChiffrage.setText(simulation.getChiffrage());
