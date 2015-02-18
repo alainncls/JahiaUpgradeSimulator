@@ -18,10 +18,6 @@ import javax.swing.border.EmptyBorder;
 import fr.smile.main.Simulation;
 
 public class fChiffrage extends JDialog implements PropertyChangeListener {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel;
 

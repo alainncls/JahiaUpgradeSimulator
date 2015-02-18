@@ -202,11 +202,11 @@ public class fAccueil extends JFrame {
 		/*
 		 * Quick init for debug
 		 */
-		 cbStart.setSelectedItem("6.5.0.0");
-		 cbEnd.setSelectedItem("6.6.1.7");
-		 rbStandalone.doClick();
-		 bSimulate.doClick();
-		 bChiffrage.doClick();
+//		 cbStart.setSelectedItem("6.5.0.0");
+//		 cbEnd.setSelectedItem("6.6.1.7");
+//		 rbStandalone.doClick();
+//		 bSimulate.doClick();
+//		 bChiffrage.doClick();
 
 	}
 
