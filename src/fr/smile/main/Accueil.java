@@ -1,8 +1,10 @@
 package fr.smile.main;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import fr.smile.fiches.ActionButton;
 import fr.smile.models.Patch;
 import fr.smile.models.Simulation;
 import fr.smile.services.JahiaConfigService;
@@ -12,6 +14,7 @@ public class Accueil {
 	private Simulation simul;
 	private String startVersion, endVersion, detectedVersion;
 	private List<String> listVersions;
+	private List<ActionButton> listActionButtons;
 	private Scanner sc;
 
 	public Accueil() {
@@ -34,21 +37,21 @@ public class Accueil {
 
 	private void dispGreet() {
 		System.out
-		.println("        ____.        .__     .__           ____ ___                                      .___          \n"
-				+ "       |    |_____   |  |__  |__|_____    |    |   \\______     ____  _______ _____     __| _/  ____    \n"
-				+ "       |    |\\__  \\  |  |  \\ |  |\\__  \\   |    |   /\\____ \\   / ___\\ \\_  __ \\\\__  \\   / __ | _/ __ \\   \n"
-				+ "   /\\__|    | / __ \\_|   Y  \\|  | / __ \\_ |    |  / |  |_> > / /_/  > |  | \\/ / __ \\_/ /_/ | \\  ___/   \n"
-				+ "   \\________|(____  /|___|  /|__|(____  / |______/  |   __/  \\___  /  |__|   (____  /\\____ |  \\___  >  \n"
-				+ "                  \\/      \\/          \\/            |__|    /_____/               \\/      \\/      \\/   \n"
-				+ "                     _________.__                 .__             __                                   \n"
-				+ "                    /   _____/|__|  _____   __ __ |  |  _____   _/  |_   ____  _______                 \n"
-				+ "                    \\_____  \\ |  | /     \\ |  |  \\|  |  \\__  \\  \\   __\\ /  _ \\ \\_  __ \\                \n"
-				+ "                    /        \\|  ||  Y Y  \\|  |  /|  |__ / __ \\_ |  |  (  <_> ) |  | \\/                \n"
-				+ "                   /_______  /|__||__|_|  /|____/ |____/(____  / |__|   \\____/  |__|                   \n"
-				+ "                           \\/           \\/                   \\/                                        \n");
+				.println("        ____.        .__     .__           ____ ___                                      .___          \n"
+						+ "       |    |_____   |  |__  |__|_____    |    |   \\______     ____  _______ _____     __| _/  ____    \n"
+						+ "       |    |\\__  \\  |  |  \\ |  |\\__  \\   |    |   /\\____ \\   / ___\\ \\_  __ \\\\__  \\   / __ | _/ __ \\   \n"
+						+ "   /\\__|    | / __ \\_|   Y  \\|  | / __ \\_ |    |  / |  |_> > / /_/  > |  | \\/ / __ \\_/ /_/ | \\  ___/   \n"
+						+ "   \\________|(____  /|___|  /|__|(____  / |______/  |   __/  \\___  /  |__|   (____  /\\____ |  \\___  >  \n"
+						+ "                  \\/      \\/          \\/            |__|    /_____/               \\/      \\/      \\/   \n"
+						+ "                     _________.__                 .__             __                                   \n"
+						+ "                    /   _____/|__|  _____   __ __ |  |  _____   _/  |_   ____  _______                 \n"
+						+ "                    \\_____  \\ |  | /     \\ |  |  \\|  |  \\__  \\  \\   __\\ /  _ \\ \\_  __ \\                \n"
+						+ "                    /        \\|  ||  Y Y  \\|  |  /|  |__ / __ \\_ |  |  (  <_> ) |  | \\/                \n"
+						+ "                   /_______  /|__||__|_|  /|____/ |____/(____  / |__|   \\____/  |__|                   \n"
+						+ "                           \\/           \\/                   \\/                                        \n");
 		System.out
-		.println(""
-				+ "************************************************** VERSION 0.5 **************************************************");
+				.println(""
+						+ "************************************************** VERSION 0.5 **************************************************");
 	}
 
 	private void dispMenu() {
@@ -127,6 +130,10 @@ public class Accueil {
 			System.err.println(simul.getError());
 			dispSimulation();
 		} else {
+			listActionButtons = new ArrayList<ActionButton>();
+			for (Patch p : simul.getListPatches()) {
+				listActionButtons.add(new ActionButton(p));
+			}
 			dispMenuSimul();
 		}
 	}
@@ -137,15 +144,27 @@ public class Accueil {
 	}
 
 	private void dispPatches() {
-		int i = 1;
+		int i = 0;
+		int choice;
 		System.out.println("\n");
-		System.out.printf("%1s  %10s   %10s%n", "#", "From version",
-				"To version");
+		System.out.printf("%1s  %-15s   %-15s   %-15s%n", "#", "From version",
+				"To version", "Action");
 		for (final Patch p : simul.getListPatches()) {
-			System.out.printf("%1d  %10s   %10s%n", i, p.getStartVersion(),
-					p.getEndVersion());
+			System.out.printf("%1d  %-15s   %-15s   %-15s%n", i + 1, p
+					.getStartVersion(), p.getEndVersion(), listActionButtons
+					.get(i).getText());
 			i++;
 		}
+		System.out.print("Your choice : ");
+		choice = sc.nextInt();
+
+		listActionButtons.get(choice - 1).doAction();
+		dispPatches();
+	}
+
+	private void applyPatch(int nb) {
+		// Download / Afficher warning - wait / Apply / Reboot - License
+		// Apply next
 	}
 
 	private void dispWait() {
