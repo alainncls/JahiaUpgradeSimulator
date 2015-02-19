@@ -16,8 +16,8 @@ import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
-import fr.smile.main.Patch;
-import fr.smile.main.Simulation;
+import fr.smile.models.Patch;
+import fr.smile.models.Simulation;
 import fr.smile.services.JahiaConfigService;
 
 public class FPatches extends JDialog {

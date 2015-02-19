@@ -1,4 +1,4 @@
-package fr.smile.main;
+package fr.smile.models;
 
 public class Patch {
 

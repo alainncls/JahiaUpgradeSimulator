@@ -19,7 +19,7 @@ import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import fr.smile.main.Simulation;
+import fr.smile.models.Simulation;
 import fr.smile.services.JahiaConfigService;
 import fr.smile.services.PatchService;
 
@@ -41,21 +41,10 @@ public class FAccueil extends JFrame {
 	private FChiffrage chiffrage;
 
 	private Simulation simul;
-	private String startVersion, endVersion, detectedVersion, context,
-			jahiaFolder;
+	private String startVersion, endVersion, detectedVersion;
 	private List<String> listVersions;
 
-	public FAccueil(String[] args) { // jahiaFolder context
-
-		context = args.length >= 2 ? args[1] : "ROOT";
-		jahiaFolder = args.length >= 1 ? args[0] : "./";
-		if (!jahiaFolder.endsWith("/")) {
-			jahiaFolder += "/";
-		}
-
-		JahiaConfigService.getInstance().setFolder(jahiaFolder);
-		JahiaConfigService.getInstance().setContext(context);
-		JahiaConfigService.getInstance().detectJahiaVersion();
+	public FAccueil() { // jahiaFolder context
 
 		listVersions = PatchService.getInstance().getVersions();
 		detectedVersion = JahiaConfigService.getInstance().getVersion();
@@ -148,11 +137,13 @@ public class FAccueil extends JFrame {
 				cbEnd.setSelectedIndex(cbEnd.getItemCount() - 1);
 			}
 		});
-		if (detectedVersion != null)
+		if (detectedVersion != null) {
 			cbStart.setSelectedItem(detectedVersion);
+		}
 
 		bSimulate = new JButton("Simulate !");
 		bSimulate.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				bSimulateActionPerformed(evt);
 			}
@@ -163,6 +154,7 @@ public class FAccueil extends JFrame {
 
 		bChiffrage = new JButton("Chiffrage");
 		bChiffrage.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				bChiffrageActionPerformed(evt);
 			}
@@ -177,6 +169,7 @@ public class FAccueil extends JFrame {
 		rbClustered.setText("Clustered");
 		rbClustered.setBounds(157, 158, 96, 23);
 		rbClustered.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				enableSimulation(evt);
 			}
@@ -188,6 +181,7 @@ public class FAccueil extends JFrame {
 		rbStandalone.setText("Standalone");
 		rbStandalone.setBounds(22, 158, 117, 23);
 		rbStandalone.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				enableSimulation(evt);
 			}
@@ -198,6 +192,7 @@ public class FAccueil extends JFrame {
 		bPatches = new JButton("Go to patches >>");
 		bPatches.setBounds(279, 234, 157, 25);
 		bPatches.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				goPatches(evt);
 			}
@@ -271,11 +266,12 @@ public class FAccueil extends JFrame {
 		chiffrage.setVisible(true);
 	}
 
-	public static void main(final String[] args) {
+	public static void main() {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
-					FAccueil frame = new FAccueil(args);
+					FAccueil frame = new FAccueil();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

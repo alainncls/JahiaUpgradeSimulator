@@ -15,6 +15,7 @@ public enum JahiaConfigService {
 	private String folder;
 	private String context;
 	private String version;
+	private Boolean clustered;
 
 	private final Set<JahiaConfigListener> listeners = new CopyOnWriteArraySet<JahiaConfigListener>();
 
@@ -23,10 +24,19 @@ public enum JahiaConfigService {
 		version = null;
 		folder = "./";
 		context = "ROOT";
+		clustered = false;
 	}
 
 	public static JahiaConfigService getInstance() {
 		return INSTANCE;
+	}
+
+	public Boolean getClustered() {
+		return clustered;
+	}
+
+	public void setClustered(Boolean clustered) {
+		this.clustered = clustered;
 	}
 
 	public String getVersion() {
@@ -82,7 +92,7 @@ public enum JahiaConfigService {
 			throw new IllegalArgumentException(root + " is no directory.");
 		}
 		final Pattern p = Pattern.compile(regex); // careful: could also throw
-													// an exception!
+		// an exception!
 		return root.listFiles(new FileFilter() {
 			@Override
 			public boolean accept(File file) {

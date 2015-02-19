@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 import fr.smile.listeners.RunnableListener;
-import fr.smile.main.Patch;
+import fr.smile.models.Patch;
 import fr.smile.services.JahiaConfigService;
 
 public class PatchTask implements Runnable {
