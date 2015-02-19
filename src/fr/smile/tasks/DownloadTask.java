@@ -9,7 +9,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import org.apache.commons.io.FileUtils;
 
 import fr.smile.listeners.RunnableListener;
-import fr.smile.main.Patch;
+import fr.smile.models.Patch;
 
 public class DownloadTask implements Runnable {
 

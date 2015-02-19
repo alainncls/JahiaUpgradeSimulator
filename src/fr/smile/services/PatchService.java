@@ -18,7 +18,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import fr.smile.listeners.RunnableListener;
-import fr.smile.main.Patch;
+import fr.smile.models.Patch;
 import fr.smile.tasks.PatchTask;
 
 public enum PatchService {

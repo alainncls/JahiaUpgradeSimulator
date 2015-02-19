@@ -6,7 +6,7 @@ import javax.swing.JButton;
 
 import fr.smile.listeners.JahiaConfigListener;
 import fr.smile.listeners.RunnableListener;
-import fr.smile.main.Patch;
+import fr.smile.models.Patch;
 import fr.smile.services.DownloadService;
 import fr.smile.services.JahiaConfigService;
 import fr.smile.services.PatchService;

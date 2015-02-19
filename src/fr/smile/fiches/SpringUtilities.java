@@ -40,7 +40,7 @@ import javax.swing.JSeparator;
 import javax.swing.Spring;
 import javax.swing.SpringLayout;
 
-import fr.smile.main.Patch;
+import fr.smile.models.Patch;
 
 /**
  * A 1.4 file that provides utility methods for creating form- or grid-style

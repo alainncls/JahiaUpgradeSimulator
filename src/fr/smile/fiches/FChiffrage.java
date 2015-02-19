@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
-import fr.smile.main.Simulation;
+import fr.smile.models.Simulation;
 
 public class FChiffrage extends JDialog implements PropertyChangeListener {
 	private static final long serialVersionUID = 1L;
@@ -83,7 +83,7 @@ public class FChiffrage extends JDialog implements PropertyChangeListener {
 		ftfTJM.addPropertyChangeListener("value", this);
 		contentPanel.add(ftfTJM);
 
-		epChiffrage = new JEditorPane("text/html", simulation.getChiffrage());
+		epChiffrage = new JEditorPane("text/html", simulation.getChiffrageHtml());
 		epChiffrage.setEditable(false);
 		spChiffrage = new JScrollPane(epChiffrage);
 		spChiffrage.setBounds(5, 5, 881, 400);
@@ -102,7 +102,7 @@ public class FChiffrage extends JDialog implements PropertyChangeListener {
 				int TJM = ((Number) ftfTJM.getValue()).intValue();
 				simulation.calculateCost(TJM);
 			}
-			epChiffrage.setText(simulation.getChiffrage());
+			epChiffrage.setText(simulation.getChiffrageHtml());
 		}
 	}
 

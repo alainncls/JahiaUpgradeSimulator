@@ -1,4 +1,4 @@
-package fr.smile.main;
+package fr.smile.models;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -73,9 +73,10 @@ public class Simulation {
 		builder.append("Version Initiale : ").append(startVersion);
 		for (Patch p : listPatches) {
 			builder.append("\n").append(p.getStartVersion()).append(" to ")
-					.append(p.getEndVersion());
-			if (p.isProblem())
+			.append(p.getEndVersion());
+			if (p.isProblem()) {
 				builder.append(" !!!");
+			}
 		}
 		return builder.toString();
 	}
@@ -92,7 +93,7 @@ public class Simulation {
 		cost = duration * tJM;
 	}
 
-	public String getChiffrage() {
+	public String getChiffrageHtml() {
 		DecimalFormat df = new DecimalFormat("####.##");
 		StringBuilder builder = new StringBuilder();
 		builder.append("<div style=\"padding: 10px 10px 10px 35px; border: 1px solid #F90; background: #CFFFCC;\">");
@@ -106,6 +107,21 @@ public class Simulation {
 		builder.append("<li>Coût estimé de la migration = <b><span style = \"color: #F00C1C\">"
 				+ getCost() + " €</span></b></li></ul>");
 		builder.append("</div>");
+
+		return builder.toString();
+	}
+
+	public String getChiffrage() {
+		DecimalFormat df = new DecimalFormat("####.##");
+		StringBuilder builder = new StringBuilder();
+		builder.append("\nEstimation coût et durée de la migration\n");
+		builder.append("Version " + getStartVersion() + " à version "
+				+ getEndVersion() + "\n");
+		builder.append("Durée brute estimée de la migration = "
+				+ df.format(getRawDuration()) + " jours\n");
+		builder.append("Durée totale estimée de la migration = "
+				+ getDuration() + " JH\n");
+		builder.append("Coût estimé de la migration = " + getCost() + " €\n");
 
 		return builder.toString();
 	}
