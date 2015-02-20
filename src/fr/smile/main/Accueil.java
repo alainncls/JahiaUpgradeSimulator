@@ -153,15 +153,16 @@ public class Accueil {
 
 	private void dispChangeUO() {
 		InputCheck input = new InputCheck();
-		simul.calculateTotalDuration(input.askInputFloat("UO value : ("
-				+ simul.getuO() + ") "));
+		simul.calculateTotalDuration(input.askInputFloat(
+				"UO value : (" + simul.getuO() + ") ", simul.getuO()));
 		simul.calculateCost(simul.gettJM());
 		dispChiffrage();
 	}
 
 	private void dispChangeTJM() {
 		InputCheck input = new InputCheck();
-		simul.settJM(input.askInputInt("TJM value : (" + simul.gettJM() + "€) "));
+		simul.settJM(input.askInputInt(
+				"TJM value : (" + simul.gettJM() + "€) ", simul.gettJM()));
 		simul.calculateCost(simul.gettJM());
 		dispChiffrage();
 	}
