@@ -10,15 +10,14 @@ public class InputCheck {
 		Boolean error = false;
 		String userInp = "";
 		do {
-			System.out.print(informationText);
-			userInp = keyboard.nextLine();
+			userInp = askInputString(informationText);
 			if (!this.isType(userInp, "int")) {
 				error = true;
 				System.err.println("Error: must be a whole number.");
 			} else {
 				error = false;
 			}
-		} while (error == true);
+		} while (error);
 		return Integer.parseInt(userInp);
 	}
 
@@ -28,20 +27,11 @@ public class InputCheck {
 		Boolean error = false;
 
 		do {
-			System.out.print(informationText);
-			tempVersion = keyboard.nextLine();
-
-			if (tempVersion.equals("")) {
-				tempVersion = versionDefault;
-			}
+			tempVersion = askInputString(informationText, versionDefault);
 
 			while (!listVersions.contains(tempVersion)) {
-				System.err.println("Wrong input, version not found");
-				System.out.print(informationText);
-				tempVersion = keyboard.nextLine();
-				if (tempVersion.equals("")) {
-					tempVersion = versionDefault;
-				}
+				System.err.println("Wrong input, version not found.");
+				tempVersion = askInputString(informationText, versionDefault);
 			}
 		} while (error == true);
 
@@ -50,6 +40,23 @@ public class InputCheck {
 
 	public String warnWrongInput(String type) {
 		return "Wrong input, " + type + " expected !";
+	}
+
+	public String askInputString(String informationText) {
+		System.out.print(informationText);
+		String stringTemp = keyboard.nextLine();
+
+		return stringTemp;
+	}
+
+	public String askInputString(String informationText, String defaultValue) {
+		String stringTemp = askInputString(informationText);
+
+		if (stringTemp.equals("")) {
+			stringTemp = defaultValue;
+		}
+
+		return stringTemp;
 	}
 
 	/**
@@ -64,8 +71,7 @@ public class InputCheck {
 		Boolean error = false;
 		String userInp = "";
 		do {
-			System.out.print(informationText);
-			userInp = keyboard.nextLine();
+			userInp = askInputString(informationText);
 			if (!this.isType(userInp, "double")) {
 				System.err.println("Error: must be a number.");
 				error = true;
@@ -89,8 +95,7 @@ public class InputCheck {
 		Boolean error = false;
 		String userInp = "";
 		do {
-			System.out.print(informationText);
-			userInp = keyboard.nextLine();
+			userInp = askInputString(informationText);
 			// validate:
 			if (!this.isType(userInp, "float")) {
 				System.err.println("Error: must be a number.");

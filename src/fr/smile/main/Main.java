@@ -18,9 +18,7 @@ public class Main {
 		JahiaConfigService.getInstance().setContext(context);
 		JahiaConfigService.getInstance().detectJahiaVersion();
 
-		if (!jahiaFolder.endsWith("/")) {
-			jahiaFolder += "/";
-		}
+
 
 		if (hidden) {
 			Accueil accueil = new Accueil();
