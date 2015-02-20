@@ -210,8 +210,10 @@ public class Accueil {
 			dispWarning(p); // Display warning - wait
 		}
 
-		// TODO : Apply
-		// TODO : Reboot - License
+		if (p.needLicense() != null) {
+			dispLicense(p); // Display license
+		}
+
 		// TODO : Apply next
 	}
 
@@ -225,6 +227,13 @@ public class Accueil {
 		HtmlCleaner html = new HtmlCleaner();
 		System.err.print("WARNING : ");
 		System.out.println(html.warningCleaner(p.getWarning()));
+		dispWait();
+	}
+
+	private void dispLicense(Patch p) {
+		System.err.print("WARNING : ");
+		System.out.println("License needed to go to version "
+				+ p.getEndVersion());
 		dispWait();
 	}
 
