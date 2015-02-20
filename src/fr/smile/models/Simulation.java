@@ -73,7 +73,7 @@ public class Simulation {
 		builder.append("Version Initiale : ").append(startVersion);
 		for (Patch p : listPatches) {
 			builder.append("\n").append(p.getStartVersion()).append(" to ")
-			.append(p.getEndVersion());
+					.append(p.getEndVersion());
 			if (p.isProblem()) {
 				builder.append(" !!!");
 			}
@@ -116,7 +116,7 @@ public class Simulation {
 		StringBuilder builder = new StringBuilder();
 		builder.append("\nEstimation coût et durée de la migration\n");
 		builder.append("Version " + getStartVersion() + " à version "
-				+ getEndVersion() + "\n");
+				+ getEndVersion() + "\n\n");
 		builder.append("Durée brute estimée de la migration = "
 				+ df.format(getRawDuration()) + " jours\n");
 		builder.append("Durée totale estimée de la migration = "
