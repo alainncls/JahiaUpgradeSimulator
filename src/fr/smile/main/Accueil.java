@@ -120,6 +120,52 @@ public class Accueil {
 		} while (choice != 3);
 	}
 
+	private void dispMenuChiffrage() {
+		int choice;
+		InputCheck input = new InputCheck();
+
+		do {
+			sc = new Scanner(System.in);
+			System.out.println("\n=== COSTS MENU ===\n");
+			System.out.println("1. Change 'UO'");
+			System.out.println("2. Change 'TJM'");
+			System.out.println("3. Back");
+
+			choice = input.askInputInt("Your choice : ");
+
+			switch (choice) {
+			case 1:
+				dispChangeUO();
+				break;
+
+			case 2:
+				dispChangeTJM();
+				break;
+			case 3:
+				break;
+			default:
+				System.err.println(input
+						.warnWrongInput("integer between 1 & 3"));
+				dispMenu();
+			}
+		} while (choice != 3);
+	}
+
+	private void dispChangeUO() {
+		InputCheck input = new InputCheck();
+		simul.calculateTotalDuration(input.askInputFloat("UO value : ("
+				+ simul.getuO() + ") "));
+		simul.calculateCost(simul.gettJM());
+		dispChiffrage();
+	}
+
+	private void dispChangeTJM() {
+		InputCheck input = new InputCheck();
+		simul.settJM(input.askInputInt("TJM value : (" + simul.gettJM() + "€) "));
+		simul.calculateCost(simul.gettJM());
+		dispChiffrage();
+	}
+
 	private void dispConfiguration() {
 		InputCheck input = new InputCheck();
 		String defaultFolder = JahiaConfigService.getInstance().getFolder();
@@ -167,6 +213,7 @@ public class Accueil {
 	private void dispChiffrage() {
 		System.out.println(simul.getChiffrage());
 		dispWait();
+		dispMenuChiffrage();
 	}
 
 	private void dispPatches() {
