@@ -36,7 +36,7 @@ public class PatchTask implements Runnable {
 			applyPatch();
 		} else {
 			System.err.println("Wrong Patch, Expected start version "
-					+ JahiaConfigService.getInstance().getVersion() + " : Got "
+					+ JahiaConfigService.getInstance().getVersion() + " : got "
 					+ patch.getStartVersion());
 			result = ERROR;
 		}
@@ -69,9 +69,9 @@ public class PatchTask implements Runnable {
 
 			if (fluxErreur.getSize() != 0
 					|| !JahiaConfigService.getInstance().getVersion()
-							.equals(patch.getEndVersion())) {
+					.equals(patch.getEndVersion())) {
 				System.err
-						.println("Error while applying patch, please check logs");
+				.println("Error while applying patch, please check logs");
 				result = ERROR;
 			}
 		} catch (IOException | InterruptedException e) {
