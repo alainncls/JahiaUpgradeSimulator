@@ -121,7 +121,22 @@ public class Accueil {
 	}
 
 	private void dispConfiguration() {
-		dispWorkInProgress();
+		InputCheck input = new InputCheck();
+		String defaultFolder = JahiaConfigService.getInstance().getFolder();
+		String defaultContext = JahiaConfigService.getInstance().getContext();
+
+		JahiaConfigService.getInstance().setFolder(
+				input.askInputString("Path to Jahia : (" + defaultFolder + ")",
+						defaultFolder));
+		JahiaConfigService.getInstance().setContext(
+				input.askInputString(
+						"Jahia context : (" + defaultContext + ")",
+						defaultContext));
+		JahiaConfigService.getInstance().detectJahiaVersion();
+		detectedVersion = JahiaConfigService.getInstance().getVersion();
+		if (detectedVersion != null) {
+			startVersion = detectedVersion;
+		}
 	}
 
 	private void dispSimulation() {
@@ -160,15 +175,19 @@ public class Accueil {
 
 		i = choice = 0;
 
-		System.out.println("\n");
-		System.out.printf("%2s  %-15s   %-15s   %-15s%n", "#", "From version",
-				"To version", "Action");
+		StringBuilder tab = new StringBuilder();
+		tab.append("\n");
+		tab.append(String.format("%2s  %-15s   %-15s   %-15s%n", "#",
+				"From version", "To version", "Action"));
+
 		for (final Patch p : simul.getListPatches()) {
-			System.out.printf("%2d  %-15s   %-15s   %-15s%n", i + 1, p
+			tab.append(String.format("%2d  %-15s   %-15s   %-15s%n", i + 1, p
 					.getStartVersion(), p.getEndVersion(), listActionButtons
-					.get(i).getText());
+					.get(i).getText()));
 			i++;
 		}
+
+		System.out.println(tab.toString());
 
 		choice = input.askInputInt("Your choice : ");
 
