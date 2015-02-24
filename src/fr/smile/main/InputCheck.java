@@ -6,56 +6,17 @@ import java.util.Scanner;
 public class InputCheck {
 	private static Scanner keyboard = new Scanner(System.in);
 
-	public int askInputInt(String informationText) {
-		Boolean error = false;
-		String userInp = "";
-		do {
-			userInp = askInputString(informationText);
-			if (!this.isType(userInp, "int")) {
-				error = true;
-				System.err.println("Error: must be a whole number.");
-			} else {
-				error = false;
-			}
-		} while (error);
-		return Integer.parseInt(userInp);
-	}
-
-	public String askInputVersion(String informationText,
-			List<String> listVersions, String versionDefault) {
-		String tempVersion = "";
-		Boolean error = false;
-
-		do {
-			tempVersion = askInputString(informationText, versionDefault);
-
-			while (!listVersions.contains(tempVersion)) {
-				System.err.println("Wrong input, version not found.");
-				tempVersion = askInputString(informationText, versionDefault);
-			}
-		} while (error == true);
-
-		return tempVersion;
-	}
-
-	public String warnWrongInput(String type) {
-		return "Wrong input, " + type + " expected !";
-	}
-
-	public String askInputString(String informationText) {
+	public String askInput(String informationText) {
 		System.out.print(informationText);
 		String stringTemp = keyboard.nextLine();
-
 		return stringTemp;
 	}
 
-	public String askInputString(String informationText, String defaultValue) {
-		String stringTemp = askInputString(informationText);
-
+	public String askInput(String informationText, String defaultValue) {
+		String stringTemp = askInput(informationText);
 		if (stringTemp.equals("")) {
 			stringTemp = defaultValue;
 		}
-
 		return stringTemp;
 	}
 
@@ -68,18 +29,13 @@ public class InputCheck {
 	 * @return Returns the final value of the accepted input, as a double.
 	 */
 	public double askInputDouble(String informationText) {
-		Boolean error = false;
-		String userInp = "";
-		do {
-			userInp = askInputString(informationText);
-			if (!this.isType(userInp, "double")) {
-				System.err.println("Error: must be a number.");
-				error = true;
-			} else {
-				error = false;
-			}
+		String userInp = askInput(informationText, null, "double");
+		return Double.parseDouble(userInp);
+	}
 
-		} while (error == true);
+	public double askInputDouble(String informationText, double defaultValue) {
+		String userInp = askInput(informationText,
+				String.valueOf(defaultValue), "double");
 		return Double.parseDouble(userInp);
 	}
 
@@ -92,20 +48,59 @@ public class InputCheck {
 	 * @return Returns the final value of the accepted input, as a float.
 	 */
 	public float askInputFloat(String informationText) {
-		Boolean error = false;
-		String userInp = "";
-		do {
-			userInp = askInputString(informationText);
-			// validate:
-			if (!this.isType(userInp, "float")) {
-				System.err.println("Error: must be a number.");
-				error = true;
-			} else {
-				error = false;
-			}
-
-		} while (error == true);
+		String userInp = askInput(informationText, null, "float");
 		return Float.parseFloat(userInp);
+	}
+
+	public float askInputFloat(String informationText, float defaultValue) {
+		String userInp = askInput(informationText,
+				String.valueOf(defaultValue), "float");
+		return Float.parseFloat(userInp);
+	}
+
+	/**
+	 * A method to repeatedly ask the user for input until the input is valid.
+	 * If condition is used, input is measured against it.
+	 *
+	 * @param informationText
+	 *            The information text to prompt to the user.
+	 * @return Returns the final value of the accepted input, as an int.
+	 */
+	public int askInputInt(String informationText) {
+		String userInp = askInput(informationText, null, "int");
+		return Integer.parseInt(userInp);
+	}
+
+	public int askInputInt(String informationText, int defaultValue) {
+		String userInp = askInput(informationText,
+				String.valueOf(defaultValue), "int");
+		return Integer.parseInt(userInp);
+	}
+
+	private String askInput(String informationText, String defaultValue,
+			String type) {
+
+		String userInp = askInput(informationText, defaultValue);
+		while (!isType(userInp, type)) {
+			System.err.println("Error: must be a type " + type);
+			userInp = askInput(informationText, defaultValue);
+		}
+		return userInp;
+	}
+
+	public String askInputVersion(String informationText,
+			List<String> listVersions, String versionDefault) {
+
+		String tempVersion = askInput(informationText, versionDefault);
+		while (!listVersions.contains(tempVersion)) {
+			System.err.println("Wrong input, version not found.");
+			tempVersion = askInput(informationText, versionDefault);
+		}
+		return tempVersion;
+	}
+
+	public String warnWrongInput(String type) {
+		return "Wrong input, " + type + " expected !";
 	}
 
 	/**
@@ -118,7 +113,7 @@ public class InputCheck {
 	 * @return Boolean True if can be transformed to requested type. False
 	 *         otherwise.
 	 */
-	public Boolean isType(String testStr, String type) {
+	private Boolean isType(String testStr, String type) {
 		try {
 			if (type.equalsIgnoreCase("float")) {
 				Float.parseFloat(testStr);
@@ -131,7 +126,5 @@ public class InputCheck {
 		} catch (Exception e) {
 			return false;
 		}
-
 	}
-
 }
