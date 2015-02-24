@@ -2,30 +2,16 @@ package fr.smile.tasks;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
 
-import fr.smile.listeners.RunnableListener;
 import fr.smile.models.Patch;
 import fr.smile.services.JahiaConfigService;
 
-public class PatchTask implements Runnable {
+public class PatchTask extends ListenedRunnable {
 
-	private final Set<RunnableListener> listeners = new CopyOnWriteArraySet<RunnableListener>();
-
-	public static final Integer OK = 0;
-	public static final Integer ERROR = 1;
-
-	private int result;
 	private Patch patch;
 
 	public PatchTask(Patch patch) {
 		this.patch = patch;
-		result = OK;
-	}
-
-	public int getResult() {
-		return result;
 	}
 
 	@Override
@@ -76,26 +62,6 @@ public class PatchTask implements Runnable {
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 			result = ERROR;
-		}
-	}
-
-	public final void addListener(final RunnableListener listener) {
-		listeners.add(listener);
-	}
-
-	public final void removeListener(final RunnableListener listener) {
-		listeners.remove(listener);
-	}
-
-	private final void notifyComplete() {
-		for (RunnableListener listener : listeners) {
-			listener.notifyComplete(this);
-		}
-	}
-
-	private final void notifyStart() {
-		for (RunnableListener listener : listeners) {
-			listener.notifyStart(this);
 		}
 	}
 }
