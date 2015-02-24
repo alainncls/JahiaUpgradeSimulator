@@ -19,16 +19,17 @@ import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import fr.smile.models.Simulation;
 import fr.smile.services.JahiaConfigService;
 import fr.smile.services.PatchService;
 
 public class FAccueil extends JFrame {
-	private static final long serialVersionUID = 1L;
-
 	private JPanel contentPane, pRed, pOrange, pGreen;
 	private JLabel lProblems, lAvoid, lPredicted, lblT, lStart, lEnd, lReboots,
-			lLicences;
+	lLicences;
 
 	private JComboBox<String> cbStart, cbEnd;
 
@@ -40,9 +41,11 @@ public class FAccueil extends JFrame {
 	private FPatches patches;
 	private FChiffrage chiffrage;
 
-	private Simulation simul;
+	private transient Simulation simul;
 	private String startVersion, endVersion, detectedVersion;
-	private List<String> listVersions;
+	private transient List<String> listVersions;
+
+	private static final Logger LOG = LogManager.getLogger();
 
 	public FAccueil() { // jahiaFolder context
 
@@ -145,7 +148,9 @@ public class FAccueil extends JFrame {
 		bSimulate.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-				bSimulateActionPerformed(evt);
+				bSimulateActionPerformed(
+
+						);
 			}
 		});
 		bSimulate.setBounds(12, 234, 117, 25);
@@ -156,7 +161,7 @@ public class FAccueil extends JFrame {
 		bChiffrage.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-				bChiffrageActionPerformed(evt);
+				bChiffrageActionPerformed();
 			}
 		});
 		bChiffrage.setBounds(130, 234, 117, 25);
@@ -171,7 +176,7 @@ public class FAccueil extends JFrame {
 		rbClustered.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-				enableSimulation(evt);
+				enableSimulation();
 			}
 		});
 		bGroup.add(rbClustered);
@@ -183,7 +188,7 @@ public class FAccueil extends JFrame {
 		rbStandalone.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-				enableSimulation(evt);
+				enableSimulation();
 			}
 		});
 		bGroup.add(rbStandalone);
@@ -194,24 +199,14 @@ public class FAccueil extends JFrame {
 		bPatches.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-				goPatches(evt);
+				goPatches();
 			}
 		});
 		bPatches.setEnabled(false);
 		contentPane.add(bPatches);
-
-		/*
-		 * Quick init for debug
-		 */
-		// cbStart.setSelectedItem("6.5.0.0");
-		// cbEnd.setSelectedItem("6.6.1.7");
-		// rbStandalone.doClick();
-		// bSimulate.doClick();
-		// bChiffrage.doClick();
-
 	}
 
-	private void bSimulateActionPerformed(ActionEvent evt) {
+	private void bSimulateActionPerformed() {
 		startVersion = cbStart.getSelectedItem().toString();
 		endVersion = cbEnd.getSelectedItem().toString();
 
@@ -252,17 +247,17 @@ public class FAccueil extends JFrame {
 		}
 	}
 
-	private void enableSimulation(ActionEvent evt) {
+	private void enableSimulation() {
 		if (!bSimulate.isEnabled()) {
 			bSimulate.setEnabled(true);
 		}
 	}
 
-	public void goPatches(ActionEvent evt) {
+	public void goPatches() {
 		patches.setVisible(true);
 	}
 
-	public void bChiffrageActionPerformed(ActionEvent evt) {
+	public void bChiffrageActionPerformed() {
 		chiffrage.setVisible(true);
 	}
 
@@ -274,7 +269,7 @@ public class FAccueil extends JFrame {
 					FAccueil frame = new FAccueil();
 					frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					LOG.fatal(e);
 				}
 			}
 		});

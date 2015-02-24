@@ -12,6 +12,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -30,18 +32,20 @@ public enum PatchService {
 	private List<String> listVersion;
 	private List<Patch> listPatch;
 	private ExecutorService pool;
+	private Logger logger = LogManager.getLogger();
 
 	// **** BUILDER ****
 	private PatchService() {
+
 		pool = Executors.newSingleThreadExecutor();
 		listVersion = new ArrayList<>();
 		listPatch = new ArrayList<>();
 		try {
 			readFile(); // Reading the file line by line
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 	}
 
@@ -83,9 +87,9 @@ public enum PatchService {
 						.get("instructionsCluster");
 				warning = (String) jsonPatch.get("warning");
 				String r = (String) jsonPatch.get("reboot");
-				reboot = (r == null || r.equals("1"));
+				reboot = r == null || r.equals("1");
 				String l = (String) jsonPatch.get("license");
-				license = (l != null && l.equals("1"));
+				license = l != null && l.equals("1");
 
 				patch = Patch.builder().startVersion(version)
 						.endVersion(endVersion).url(url)
