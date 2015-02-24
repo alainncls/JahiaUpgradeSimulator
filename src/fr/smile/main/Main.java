@@ -19,7 +19,7 @@ public class Main {
 		JahiaConfigService.getInstance().detectJahiaVersion();
 
 		if (hidden) {
-			new Accueil();
+			Accueil.main();
 		} else {
 			FAccueil.main();
 		}

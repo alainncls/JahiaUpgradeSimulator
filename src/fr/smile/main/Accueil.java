@@ -31,8 +31,6 @@ public class Accueil {
 
 		endVersion = listVersions.get(listVersions.size() - 1);
 
-		dispGreet();
-		dispMenu();
 	}
 
 	private void dispGreet() {
@@ -287,5 +285,11 @@ public class Accueil {
 	private void dispWorkInProgress() {
 		System.err.println("Work in progress...");
 		dispWait();
+	}
+
+	public static void main() {
+		Accueil accueil = new Accueil();
+		accueil.dispGreet();
+		accueil.dispMenu();
 	}
 }
