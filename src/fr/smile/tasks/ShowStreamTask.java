@@ -12,12 +12,15 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import fr.smile.listeners.RunnableListener;
 
 public class ShowStreamTask implements Runnable {
 
 	private final Set<RunnableListener> listeners = new CopyOnWriteArraySet<RunnableListener>();
+	private static final Logger LOG = LogManager.getLogger();
 
 	public static final String PATH = "./log/";
 
@@ -59,12 +62,12 @@ public class ShowStreamTask implements Runnable {
 			} catch (IOException e) {
 				System.err.println("Error while copying stream to log file : "
 						+ log);
-				System.err.println(e.getMessage());
+				LOG.error(e);
 			}
 		} catch (IOException e) {
 			System.err.println("Error while creating log file for stream : "
 					+ log);
-			System.err.println(e.getMessage());
+			LOG.error(e);
 		}
 	}
 

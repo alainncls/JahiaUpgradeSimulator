@@ -18,10 +18,8 @@ public class Main {
 		JahiaConfigService.getInstance().setContext(context);
 		JahiaConfigService.getInstance().detectJahiaVersion();
 
-
-
 		if (hidden) {
-			Accueil accueil = new Accueil();
+			new Accueil();
 		} else {
 			FAccueil.main();
 		}
