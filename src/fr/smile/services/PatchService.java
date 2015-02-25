@@ -12,8 +12,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -32,7 +30,6 @@ public enum PatchService {
 	private List<String> listVersion;
 	private List<Patch> listPatch;
 	private ExecutorService pool;
-	private Logger logger = LogManager.getLogger();
 
 	// **** BUILDER ****
 	private PatchService() {
@@ -43,9 +40,9 @@ public enum PatchService {
 		try {
 			readFile(); // Reading the file line by line
 		} catch (IOException e) {
-			logger.error(e);
+			System.out.println(e.getMessage());
 		} catch (ParseException e) {
-			logger.error(e);
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -117,7 +114,7 @@ public enum PatchService {
 					&& p.getEndVersion().compareTo(endVersion) <= 0) {
 				if (patches.isEmpty()
 						|| patches.get(0).getEndVersion()
-								.compareTo(p.getEndVersion()) < 0) {
+						.compareTo(p.getEndVersion()) < 0) {
 					patches.add(0, p);
 				} else {
 					patches.add(p);
