@@ -5,9 +5,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import fr.smile.listeners.RunnableListener;
 import fr.smile.models.Patch;
 import fr.smile.tasks.DownloadTask;
@@ -17,7 +14,7 @@ public enum DownloadService {
 	INSTANCE;
 
 	private ExecutorService pool;
-	private static Logger logger = LogManager.getLogger();
+	// private static Logger logger = LogManager.getLogger();
 
 	public static final String PATH = "./patches/";
 
@@ -54,7 +51,7 @@ public enum DownloadService {
 			pool.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
-			logger.fatal(e);
+			// logger.fatal(e);
 		}
 	}
 }
