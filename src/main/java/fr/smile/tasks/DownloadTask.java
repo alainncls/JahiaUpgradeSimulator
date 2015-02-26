@@ -6,6 +6,7 @@ import java.net.URL;
 
 import org.apache.commons.io.FileUtils;
 
+import fr.smile.listened.ListenedRunnable;
 import fr.smile.models.Patch;
 
 public class DownloadTask extends ListenedRunnable {

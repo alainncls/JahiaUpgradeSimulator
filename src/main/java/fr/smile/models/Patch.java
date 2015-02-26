@@ -186,4 +186,25 @@ public class Patch {
 	public boolean isProblem() {
 		return warning != null;
 	}
+
+	public boolean isFollowedBy(Patch patch) {
+		return patch.startVersion.equals(this.endVersion);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Patch other = (Patch) obj;
+		return other.startVersion.equals(this.startVersion)
+				&& other.endVersion.equals(this.endVersion);
+	}
+
 }

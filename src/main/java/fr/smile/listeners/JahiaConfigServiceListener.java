@@ -1,6 +1,6 @@
 package fr.smile.listeners;
 
-public interface JahiaConfigListener {
+public interface JahiaConfigServiceListener {
 	void notifyVersionChange();
 
 }

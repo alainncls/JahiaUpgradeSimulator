@@ -2,24 +2,26 @@ package fr.smile.services;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.regex.Pattern;
 
-import fr.smile.listeners.JahiaConfigListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public enum JahiaConfigService {
+import fr.smile.listened.Listened;
+import fr.smile.listeners.JahiaConfigServiceListener;
 
-	INSTANCE;
+public class JahiaConfigService extends Listened<JahiaConfigServiceListener> {
 
 	private String folder;
 	private String context;
 	private String version;
 	private Boolean clustered;
 
-	private final Set<JahiaConfigListener> listeners = new CopyOnWriteArraySet<JahiaConfigListener>();
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(JahiaConfigService.class);
 
-	// **** BUILDER ****
+	private static JahiaConfigService instance;
+
 	private JahiaConfigService() {
 		version = null;
 		folder = "./";
@@ -27,8 +29,11 @@ public enum JahiaConfigService {
 		clustered = false;
 	}
 
-	public static JahiaConfigService getInstance() {
-		return INSTANCE;
+	public static synchronized JahiaConfigService getInstance() {
+		if (instance == null) {
+			instance = new JahiaConfigService();
+		}
+		return instance;
 	}
 
 	public Boolean getClustered() {
@@ -77,13 +82,13 @@ public enum JahiaConfigService {
 					+ "/WEB-INF/lib/"), "jahia-impl-(\\d\\.){4}jar");
 			if (files.length > 0) {
 				version = files[0].getName().substring(11, 18);
-				System.out.println("Detected Version : " + version);
+				LOGGER.info("Detected Version : " + version);
 			} else {
-				System.err.println("WARNING : Version not found");
+				LOGGER.warn("WARNING : Version not found");
 			}
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
-			System.err.println("Fail to detect");
+			LOGGER.error(e.getMessage());
+			LOGGER.error("Fail to detect");
 		}
 		if (old != null && version != null && !old.equals(version)) {
 			notifyVersionChange();
@@ -104,16 +109,8 @@ public enum JahiaConfigService {
 		});
 	}
 
-	public void addListener(final JahiaConfigListener listener) {
-		listeners.add(listener);
-	}
-
-	public void removeListener(final JahiaConfigListener listener) {
-		listeners.remove(listener);
-	}
-
 	private void notifyVersionChange() {
-		for (JahiaConfigListener listener : listeners) {
+		for (JahiaConfigServiceListener listener : listeners) {
 			listener.notifyVersionChange();
 		}
 	}

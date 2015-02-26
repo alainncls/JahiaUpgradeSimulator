@@ -1,7 +1,9 @@
 package fr.smile.listeners;
 
 public interface RunnableListener {
-	void notifyComplete(final Runnable runnable);
 
-	void notifyStart(final Runnable runnable);
+	void notifyRunnableStart(final Runnable runnable);
+
+	void notifyRunnableComplete(final Runnable runnable, final int result);
+
 }

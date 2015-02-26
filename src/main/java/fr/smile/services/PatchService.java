@@ -16,24 +16,29 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import fr.smile.listened.Listened;
+import fr.smile.listeners.PatchServiceListener;
 import fr.smile.listeners.RunnableListener;
 import fr.smile.models.Patch;
+import fr.smile.tasks.DownloadTask;
 import fr.smile.tasks.PatchTask;
 
-public enum PatchService {
+public class PatchService extends Listened<PatchServiceListener> implements
+		RunnableListener {
 
-	INSTANCE;
-
-	// **** ATTRIBUTES ****
 	public static final String PATH = "/versions.json";
 	private List<String> listVersion;
 	private List<Patch> listPatch;
 	private ExecutorService pool;
 
-	// private Logger logger = LogManager.getLogger();
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(PatchService.class);
 
-	// **** BUILDER ****
+	private static PatchService instance;
+
 	private PatchService() {
 
 		pool = Executors.newSingleThreadExecutor();
@@ -41,25 +46,22 @@ public enum PatchService {
 		listPatch = new ArrayList<>();
 		try {
 			readFile(); // Reading the file line by line
-		} catch (IOException e) {
-			// logger.error(e);
-		} catch (ParseException e) {
-			// logger.error(e);
+		} catch (IOException | ParseException e) {
+			LOGGER.error(e.getMessage());
 		}
 	}
 
-	public static PatchService getInstance() {
-		return INSTANCE;
+	public static synchronized PatchService getInstance() {
+		if (instance == null) {
+			instance = new PatchService();
+		}
+		return instance;
 	}
 
 	// Method to read the file line by line (each line = a bloc)
 	public void readFile() throws IOException, ParseException {
-		// File file = new File(PATH);
-		// InputStream is = new FileInputStream(file);
+
 		InputStream is = getClass().getResourceAsStream(PATH);
-		if (is == null) {
-			System.out.println("plop");
-		}
 
 		StringWriter writer = new StringWriter();
 		IOUtils.copy(is, writer);
@@ -132,9 +134,27 @@ public enum PatchService {
 		return patches;
 	}
 
-	public void apply(Patch patch, RunnableListener listener) {
+	public void apply(Patch patch) {
 		PatchTask task = new PatchTask(patch);
-		task.addListener(listener);
+		task.addListener(this);
 		pool.execute(task);
+	}
+
+	@Override
+	public void notifyRunnableStart(Runnable runnable) {
+		Patch p = ((DownloadTask) runnable).getPatch();
+		LOGGER.info("PatchTask launched (" + p.toString() + ")");
+		for (PatchServiceListener listener : listeners) {
+			listener.notifyPatchStart(p);
+		}
+	}
+
+	@Override
+	public void notifyRunnableComplete(Runnable runnable, int result) {
+		Patch p = ((DownloadTask) runnable).getPatch();
+		LOGGER.info("PatchTask ended  (" + p.toString() + ") : " + result);
+		for (PatchServiceListener listener : listeners) {
+			listener.notifyPatchComplete(p, result);
+		}
 	}
 }
