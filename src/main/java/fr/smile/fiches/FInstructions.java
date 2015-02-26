@@ -10,12 +10,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+@SuppressWarnings("serial")
 public class FInstructions extends JDialog {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private static final String PREFIX = "<html><body>";
 	private static final String SUFFIX = "</body></html>";
 	private final JPanel contentPanel;
@@ -36,8 +33,9 @@ public class FInstructions extends JDialog {
 		backButton = new JButton("<< Back");
 		backButton.setBounds(15, 534, 117, 25);
 		backButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				goBack(arg0);
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				goBack();
 			}
 		});
 		contentPanel.add(backButton);
@@ -50,7 +48,7 @@ public class FInstructions extends JDialog {
 
 	}
 
-	public void goBack(ActionEvent evt) {
+	public void goBack() {
 		this.setVisible(false);
 	}
 
