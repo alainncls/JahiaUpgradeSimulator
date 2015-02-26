@@ -23,7 +23,5 @@ public class Main {
 		} else {
 			FAccueil.main();
 		}
-
 	}
-
 }
