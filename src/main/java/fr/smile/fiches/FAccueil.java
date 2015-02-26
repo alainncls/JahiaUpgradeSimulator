@@ -24,6 +24,10 @@ import fr.smile.services.JahiaConfigService;
 import fr.smile.services.PatchService;
 
 public class FAccueil extends JFrame {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 8632765578729653574L;
 	private JPanel contentPane, pRed, pOrange, pGreen;
 	private JLabel lProblems, lAvoid, lPredicted, lblT, lStart, lEnd, lReboots,
 			lLicences;

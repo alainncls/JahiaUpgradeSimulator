@@ -14,7 +14,6 @@ import org.apache.commons.io.IOUtils;
 public class ShowStreamTask extends ListenedRunnable {
 
 	// private static final Logger LOG = LogManager.getLogger();
-
 	public static final String PATH = "./log/";
 
 	private Integer size;
