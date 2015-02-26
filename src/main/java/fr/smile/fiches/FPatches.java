@@ -20,9 +20,9 @@ import fr.smile.models.Patch;
 import fr.smile.models.Simulation;
 import fr.smile.services.JahiaConfigService;
 
+@SuppressWarnings("serial")
 public class FPatches extends JDialog {
 
-	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel;
 	private JPanel listPanel;
 	private JButton bBack, bDownload, bInstruction;
@@ -66,6 +66,7 @@ public class FPatches extends JDialog {
 				JButton bWarning = new JButton("Warning !");
 				bWarning.setBackground(Color.ORANGE);
 				bWarning.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent e) {
 						toggleWarning(p);
 					}
@@ -157,8 +158,9 @@ public class FPatches extends JDialog {
 		bBack = new JButton("<< Back");
 		bBack.setBounds(538, 534, 117, 25);
 		bBack.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent evt) {
-				goBack(evt);
+				goBack();
 			}
 		});
 		contentPanel.add(bBack);
@@ -167,6 +169,7 @@ public class FPatches extends JDialog {
 			bDownload = new JButton("Download Selected");
 			bDownload.setBounds(661, 534, 180, 25);
 			bDownload.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent evt) {
 					runDownload();
 				}
@@ -185,7 +188,7 @@ public class FPatches extends JDialog {
 		}
 	}
 
-	public void goBack(ActionEvent evt) {
+	public void goBack() {
 		this.setVisible(false);
 	}
 
@@ -206,11 +209,11 @@ public class FPatches extends JDialog {
 
 	private void toggleWarning(Patch patch) {
 		JOptionPane
-				.showMessageDialog(
-						null,
-						new JLabel(
-								"<html><body style='width: 400px; text-align: justify; text-justify: inter-word;'>"
-										+ patch.getWarning() + "</body></html>"));
+		.showMessageDialog(
+				null,
+				new JLabel(
+						"<html><body style='width: 400px; text-align: justify; text-justify: inter-word;'>"
+								+ patch.getWarning() + "</body></html>"));
 	}
 
 	private void toggleInstruction(Patch patch, Boolean isClustered) {

@@ -4,8 +4,13 @@ import java.awt.Color;
 
 import javax.swing.JButton;
 
-import fr.smile.listeners.JahiaConfigListener;
-import fr.smile.listeners.RunnableListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import fr.smile.listeners.DownloadServiceListener;
+import fr.smile.listeners.JahiaConfigServiceListener;
+import fr.smile.listeners.PatchServiceListener;
+import fr.smile.main.Main;
 import fr.smile.models.Patch;
 import fr.smile.services.DownloadService;
 import fr.smile.services.JahiaConfigService;
@@ -13,10 +18,11 @@ import fr.smile.services.PatchService;
 import fr.smile.tasks.DownloadTask;
 import fr.smile.tasks.PatchTask;
 
-public class ActionButton extends JButton implements RunnableListener,
-JahiaConfigListener {
+@SuppressWarnings("serial")
+public class ActionButton extends JButton implements DownloadServiceListener,
+PatchServiceListener, JahiaConfigServiceListener {
 
-	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
 	public static final int DOWNLOAD = 0;
 	public static final int DOWNLOADING = 1;
@@ -42,6 +48,8 @@ JahiaConfigListener {
 			setStatus(DOWNLOAD);
 		}
 		JahiaConfigService.getInstance().addListener(this);
+		DownloadService.getInstance().addListener(this);
+		PatchService.getInstance().addListener(this);
 	}
 
 	public int getStatus() {
@@ -69,7 +77,6 @@ JahiaConfigListener {
 		case DOWNLOADING:
 			setBackground(Color.BLUE);
 			setText("Downloading...");
-			setEnabled(false);
 			break;
 		case APPLY:
 			setBackground(Color.GREEN);
@@ -82,23 +89,19 @@ JahiaConfigListener {
 		case APPLYING:
 			setBackground(Color.BLUE);
 			setText("Running...");
-			setEnabled(false);
 			break;
 		case DONE:
 			setBackground(Color.GREEN);
 			setText("Done !");
-			setEnabled(false);
 			break;
 		case ERROR_DOWNLOAD:
 		case ERROR_APPLY:
 			setBackground(Color.RED);
 			setText("Error, try again");
-			setEnabled(true);
 			break;
 		case WAITING:
 			setBackground(Color.YELLOW);
 			setText("Waiting..");
-			setEnabled(false);
 			break;
 		default:
 			break;
@@ -134,49 +137,15 @@ JahiaConfigListener {
 			return;
 		}
 		setStatus(WAITING);
-		DownloadService.getInstance().download(patch, this);
+		DownloadService.getInstance().download(patch);
 	}
 
 	public void doApply() {
 		if (status == APPLY || status == ERROR_APPLY) {
 			setStatus(WAITING);
-			PatchService.getInstance().apply(patch, this);
+			PatchService.getInstance().apply(patch);
 		} else if (status == APPLY_MANUALLY) {
 			JahiaConfigService.getInstance().detectJahiaVersion();
-		}
-	}
-
-	@Override
-	public void notifyComplete(Runnable runnable) {
-		if (runnable instanceof DownloadTask) {
-			DownloadTask task = (DownloadTask) runnable;
-			if (task.getResult() == DownloadTask.OK) {
-				System.out.println("Complete download : " + patch.toString());
-				setStatus(APPLY);
-			} else {
-				System.err.println("Error download : " + patch.toString());
-				setStatus(ERROR_DOWNLOAD);
-			}
-		} else if (runnable instanceof PatchTask) {
-			PatchTask task = (PatchTask) runnable;
-			if (task.getResult() == PatchTask.OK) {
-				System.out.println("Complete patch : " + patch.toString());
-				setStatus(DONE);
-			} else {
-				System.err.println("Error patch : " + patch.toString());
-				setStatus(ERROR_APPLY);
-			}
-		}
-	}
-
-	@Override
-	public void notifyStart(Runnable runnable) {
-		if (runnable instanceof DownloadTask) {
-			System.out.println("Begin download : " + patch.toString());
-			setStatus(DOWNLOADING);
-		} else if (runnable instanceof PatchTask) {
-			System.out.println("Begin patch : " + patch.toString());
-			setStatus(APPLYING);
 		}
 	}
 
@@ -191,6 +160,50 @@ JahiaConfigListener {
 		}
 		if (patch.getEndVersion().compareTo(version) <= 0) {
 			setStatus(DONE);
+		}
+	}
+
+	@Override
+	public void notifyPatchStart(Patch patch) {
+		if (this.patch.equals(patch)) {
+			LOGGER.info("Begin apply patch (" + patch.toString() + ")");
+			setStatus(APPLYING);
+		}
+	}
+
+	@Override
+	public void notifyPatchComplete(Patch patch, int result) {
+		if (this.patch.equals(patch)) {
+			if (result == PatchTask.OK) {
+				LOGGER.info("Complete apply patch (" + patch.toString() + ")");
+				setStatus(DONE);
+			} else {
+				LOGGER.error("Error applying patch (" + patch.toString() + ")");
+				setStatus(ERROR_APPLY);
+			}
+		} else if (result == PatchService.OK && patch.isFollowedBy(this.patch)) {
+			setEnabled(true);
+		}
+	}
+
+	@Override
+	public void notifyDownloadStart(Patch patch) {
+		if (this.patch.equals(patch)) {
+			LOGGER.info("Begin download patch (" + patch.toString() + ")");
+			setStatus(DOWNLOADING);
+		}
+	}
+
+	@Override
+	public void notifyDownloadComplete(Patch patch, int result) {
+		if (this.patch.equals(patch)) {
+			if (result == DownloadTask.OK) {
+				LOGGER.info("Complete download patch: " + patch.toString());
+				setStatus(APPLY);
+			} else {
+				LOGGER.error("Error download patch: " + patch.toString());
+				setStatus(ERROR_DOWNLOAD);
+			}
 		}
 	}
 }

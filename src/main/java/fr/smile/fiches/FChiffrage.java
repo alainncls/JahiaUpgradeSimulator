@@ -17,8 +17,9 @@ import javax.swing.border.EmptyBorder;
 
 import fr.smile.models.Simulation;
 
+@SuppressWarnings("serial")
 public class FChiffrage extends JDialog implements PropertyChangeListener {
-	private static final long serialVersionUID = 1L;
+
 	private final JPanel contentPanel;
 
 	private JScrollPane spChiffrage;
@@ -43,8 +44,9 @@ public class FChiffrage extends JDialog implements PropertyChangeListener {
 		backButton = new JButton("<< Back");
 		backButton.setBounds(15, 534, 117, 25);
 		backButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				goBack(arg0);
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				goBack();
 			}
 		});
 		contentPanel.add(backButton);
@@ -52,7 +54,8 @@ public class FChiffrage extends JDialog implements PropertyChangeListener {
 		bCalculate = new JButton("Calculate");
 		bCalculate.setBounds(137, 534, 117, 25);
 		bCalculate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
 				propertyChange(null);
 			}
 		});
@@ -83,13 +86,15 @@ public class FChiffrage extends JDialog implements PropertyChangeListener {
 		ftfTJM.addPropertyChangeListener("value", this);
 		contentPanel.add(ftfTJM);
 
-		epChiffrage = new JEditorPane("text/html", simulation.getChiffrageHtml());
+		epChiffrage = new JEditorPane("text/html",
+				simulation.getChiffrageHtml());
 		epChiffrage.setEditable(false);
 		spChiffrage = new JScrollPane(epChiffrage);
 		spChiffrage.setBounds(5, 5, 881, 400);
 		contentPanel.add(spChiffrage);
 	}
 
+	@Override
 	public void propertyChange(PropertyChangeEvent e) {
 		if (e != null) {
 			Object source = e.getSource();
@@ -106,7 +111,7 @@ public class FChiffrage extends JDialog implements PropertyChangeListener {
 		}
 	}
 
-	public void goBack(ActionEvent evt) {
+	public void goBack() {
 		this.setVisible(false);
 	}
 }
