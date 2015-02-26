@@ -10,12 +10,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class ShowStreamTask extends ListenedRunnable {
 
-	private static final Logger LOG = LogManager.getLogger();
+	// private static final Logger LOG = LogManager.getLogger();
 
 	public static final String PATH = "./log/";
 
@@ -52,12 +50,12 @@ public class ShowStreamTask extends ListenedRunnable {
 			} catch (IOException e) {
 				System.err.println("Error while copying stream to log file : "
 						+ log);
-				LOG.error(e);
+				// LOG.error(e);
 			}
 		} catch (IOException e) {
 			System.err.println("Error while creating log file for stream : "
 					+ log);
-			LOG.error(e);
+			// LOG.error(e);
 		}
 	}
 

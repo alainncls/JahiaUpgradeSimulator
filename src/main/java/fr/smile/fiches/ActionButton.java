@@ -14,7 +14,7 @@ import fr.smile.tasks.DownloadTask;
 import fr.smile.tasks.PatchTask;
 
 public class ActionButton extends JButton implements RunnableListener,
-		JahiaConfigListener {
+JahiaConfigListener {
 
 	private static final long serialVersionUID = 1L;
 

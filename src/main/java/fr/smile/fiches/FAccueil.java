@@ -19,9 +19,6 @@ import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import fr.smile.models.Simulation;
 import fr.smile.services.JahiaConfigService;
 import fr.smile.services.PatchService;
@@ -29,7 +26,7 @@ import fr.smile.services.PatchService;
 public class FAccueil extends JFrame {
 	private JPanel contentPane, pRed, pOrange, pGreen;
 	private JLabel lProblems, lAvoid, lPredicted, lblT, lStart, lEnd, lReboots,
-	lLicences;
+			lLicences;
 
 	private JComboBox<String> cbStart, cbEnd;
 
@@ -45,7 +42,7 @@ public class FAccueil extends JFrame {
 	private String startVersion, endVersion, detectedVersion;
 	private transient List<String> listVersions;
 
-	private static final Logger LOG = LogManager.getLogger();
+	// private static final Logger LOG = LogManager.getLogger();
 
 	public FAccueil() { // jahiaFolder context
 
@@ -150,7 +147,7 @@ public class FAccueil extends JFrame {
 			public void actionPerformed(ActionEvent evt) {
 				bSimulateActionPerformed(
 
-						);
+				);
 			}
 		});
 		bSimulate.setBounds(12, 234, 117, 25);
@@ -269,7 +266,7 @@ public class FAccueil extends JFrame {
 					FAccueil frame = new FAccueil();
 					frame.setVisible(true);
 				} catch (Exception e) {
-					LOG.fatal(e);
+					// LOG.fatal(e);
 				}
 			}
 		});
