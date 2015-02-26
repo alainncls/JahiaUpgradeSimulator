@@ -15,8 +15,6 @@ import fr.smile.models.Patch;
 import fr.smile.services.DownloadService;
 import fr.smile.services.JahiaConfigService;
 import fr.smile.services.PatchService;
-import fr.smile.tasks.DownloadTask;
-import fr.smile.tasks.PatchTask;
 
 @SuppressWarnings("serial")
 public class ActionButton extends JButton implements DownloadServiceListener,
@@ -174,7 +172,7 @@ PatchServiceListener, JahiaConfigServiceListener {
 	@Override
 	public void notifyPatchComplete(Patch patch, int result) {
 		if (this.patch.equals(patch)) {
-			if (result == PatchTask.OK) {
+			if (result == PatchService.OK) {
 				LOGGER.info("Complete apply patch (" + patch.toString() + ")");
 				setStatus(DONE);
 			} else {
@@ -197,7 +195,7 @@ PatchServiceListener, JahiaConfigServiceListener {
 	@Override
 	public void notifyDownloadComplete(Patch patch, int result) {
 		if (this.patch.equals(patch)) {
-			if (result == DownloadTask.OK) {
+			if (result == DownloadService.OK) {
 				LOGGER.info("Complete download patch: " + patch.toString());
 				setStatus(APPLY);
 			} else {

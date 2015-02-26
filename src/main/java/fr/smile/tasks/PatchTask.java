@@ -3,15 +3,26 @@ package fr.smile.tasks;
 import java.io.File;
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import fr.smile.listened.ListenedRunnable;
 import fr.smile.models.Patch;
 import fr.smile.services.JahiaConfigService;
 
 public class PatchTask extends ListenedRunnable {
 
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(PatchTask.class);
+
 	private Patch patch;
 
 	public PatchTask(Patch patch) {
 		this.patch = patch;
+	}
+
+	public Patch getPatch() {
+		return patch;
 	}
 
 	@Override
@@ -21,7 +32,7 @@ public class PatchTask extends ListenedRunnable {
 		if (patch.getStartVersion().equals(version)) {
 			applyPatch();
 		} else {
-			System.err.println("Wrong Patch, Expected start version " + version
+			LOGGER.error("Wrong Patch, Expected start version " + version
 					+ " : got " + patch.getStartVersion());
 			result = ERROR;
 		}
@@ -54,13 +65,12 @@ public class PatchTask extends ListenedRunnable {
 
 			if (fluxErreur.getSize() != 0
 					|| !JahiaConfigService.getInstance().getVersion()
-							.equals(patch.getEndVersion())) {
-				System.err
-						.println("Error while applying patch, please check logs");
+					.equals(patch.getEndVersion())) {
+				LOGGER.error("Error while applying patch, please check logs");
 				result = ERROR;
 			}
 		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
+			LOGGER.error(e.getMessage());
 			result = ERROR;
 		}
 	}
