@@ -19,6 +19,9 @@ import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.smile.models.Simulation;
 import fr.smile.services.JahiaConfigService;
 import fr.smile.services.PatchService;
@@ -46,7 +49,8 @@ public class FAccueil extends JFrame {
 	private String startVersion, endVersion, detectedVersion;
 	private transient List<String> listVersions;
 
-	// private static final Logger LOG = LogManager.getLogger();
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(FAccueil.class);
 
 	public FAccueil() { // jahiaFolder context
 
@@ -270,7 +274,7 @@ public class FAccueil extends JFrame {
 					FAccueil frame = new FAccueil();
 					frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					LOGGER.error(e.getMessage());
 				}
 			}
 		});
