@@ -2,8 +2,6 @@ package fr.smile.services;
 
 //**** IMPORTS ****
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -28,7 +26,7 @@ public enum PatchService {
 	INSTANCE;
 
 	// **** ATTRIBUTES ****
-	public static final String PATH = "versions.json";
+	public static final String PATH = "/versions.json";
 	private List<String> listVersion;
 	private List<Patch> listPatch;
 	private ExecutorService pool;
@@ -56,9 +54,9 @@ public enum PatchService {
 
 	// Method to read the file line by line (each line = a bloc)
 	public void readFile() throws IOException, ParseException {
-		File file = new File(PATH);
-		InputStream is = new FileInputStream(file);
-		// InputStream is = getClass().getResourceAsStream(PATH);
+		// File file = new File(PATH);
+		// InputStream is = new FileInputStream(file);
+		InputStream is = getClass().getResourceAsStream(PATH);
 		if (is == null) {
 			System.out.println("plop");
 		}
