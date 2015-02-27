@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import fr.smile.listeners.DownloadServiceListener;
 import fr.smile.listeners.JahiaConfigServiceListener;
 import fr.smile.listeners.PatchServiceListener;
-import fr.smile.main.Main;
 import fr.smile.models.Patch;
 import fr.smile.services.DownloadService;
 import fr.smile.services.JahiaConfigService;
@@ -18,9 +17,10 @@ import fr.smile.services.PatchService;
 
 @SuppressWarnings("serial")
 public class ActionButton extends JButton implements DownloadServiceListener,
-PatchServiceListener, JahiaConfigServiceListener {
+		PatchServiceListener, JahiaConfigServiceListener {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(ActionButton.class);
 
 	public static final int DOWNLOAD = 0;
 	public static final int DOWNLOADING = 1;
