@@ -55,7 +55,7 @@ public class PatchTask extends ListenedRunnable {
 			process.waitFor();
 
 			if (fluxErreur.getSize() != 0) {
-				LOGGER.error("Error while applying patch, please check logs");
+				LOGGER.error("Error while applying patch, please check logs.");
 				result = ERROR;
 			}
 		} catch (IOException | InterruptedException e) {
