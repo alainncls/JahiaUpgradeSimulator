@@ -23,7 +23,6 @@ import fr.smile.listened.Listened;
 import fr.smile.listeners.PatchServiceListener;
 import fr.smile.listeners.RunnableListener;
 import fr.smile.models.Patch;
-import fr.smile.tasks.DownloadTask;
 import fr.smile.tasks.PatchTask;
 
 public class PatchService extends Listened<PatchServiceListener> implements
@@ -135,14 +134,15 @@ public class PatchService extends Listened<PatchServiceListener> implements
 	}
 
 	public void apply(Patch patch) {
-		PatchTask task = new PatchTask(patch);
+		PatchTask task = new PatchTask(patch, JahiaConfigService.getInstance()
+				.getPatchFolder());
 		task.addListener(this);
 		pool.execute(task);
 	}
 
 	@Override
 	public void notifyRunnableStart(Runnable runnable) {
-		Patch p = ((DownloadTask) runnable).getPatch();
+		Patch p = ((PatchTask) runnable).getPatch();
 		LOGGER.info("PatchTask launched (" + p.toString() + ")");
 		for (PatchServiceListener listener : listeners) {
 			listener.notifyPatchStart(p);
@@ -151,7 +151,15 @@ public class PatchService extends Listened<PatchServiceListener> implements
 
 	@Override
 	public void notifyRunnableComplete(Runnable runnable, int result) {
-		Patch p = ((DownloadTask) runnable).getPatch();
+		Patch p = ((PatchTask) runnable).getPatch();
+		if (result == PatchTask.OK) {
+			JahiaConfigService.getInstance().detectJahiaVersion();
+			if (!JahiaConfigService.getInstance().getVersion()
+					.equals(p.getEndVersion())) {
+				LOGGER.error("Error while applying patch, please check logs");
+				result = ERROR;
+			}
+		}
 		LOGGER.info("PatchTask ended  (" + p.toString() + ") : " + result);
 		for (PatchServiceListener listener : listeners) {
 			listener.notifyPatchComplete(p, result);
