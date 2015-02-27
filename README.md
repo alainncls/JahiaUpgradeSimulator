@@ -38,7 +38,7 @@ How to install & launch
 - Use Maven as following :
 ```shell
 cd path_to_archive
-maven clean package
+mvn clean package
 cd target
 ```
 - Execute the generated JAR :
