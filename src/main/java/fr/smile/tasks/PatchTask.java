@@ -16,9 +16,11 @@ public class PatchTask extends ListenedRunnable {
 			.getLogger(PatchTask.class);
 
 	private Patch patch;
+	private String jahiaPatchFolder;
 
-	public PatchTask(Patch patch) {
+	public PatchTask(Patch patch, String jahiaPatchFolder) {
 		this.patch = patch;
+		this.jahiaPatchFolder = jahiaPatchFolder;
 	}
 
 	public Patch getPatch() {
@@ -61,12 +63,8 @@ public class PatchTask extends ListenedRunnable {
 
 			process.waitFor();
 
-			JahiaConfigService.getInstance().detectJahiaVersion();
-
-			if (fluxErreur.getSize() != 0
-					|| !JahiaConfigService.getInstance().getVersion()
-							.equals(patch.getEndVersion())) {
-				LOGGER.error("Error while applying patch, please check logs");
+			if (fluxErreur.getSize() != 0) {
+				LOGGER.error("Error while applying patch, please check logs.");
 				result = ERROR;
 			}
 		} catch (IOException | InterruptedException e) {
