@@ -13,7 +13,7 @@ import fr.smile.models.Patch;
 
 public class DownloadTask extends ListenedRunnable {
 	private static final Logger LOGGER = LoggerFactory
-			.getLogger(ShowStreamTask.class);
+			.getLogger(DownloadTask.class);
 
 	private Patch patch;
 	private String path;
@@ -48,7 +48,7 @@ public class DownloadTask extends ListenedRunnable {
 			FileUtils.copyURLToFile(url, file, 10000, 10000);
 		} catch (IOException e) {
 			result = ERROR;
-			LOGGER.error(e.getMessage());
+			LOGGER.error("Download error", e);
 		}
 	}
 }

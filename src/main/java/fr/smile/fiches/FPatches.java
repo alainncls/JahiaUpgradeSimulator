@@ -32,7 +32,7 @@ public class FPatches extends JDialog {
 
 	private FInstructions instructions;
 
-	private Map<JCheckBox, ActionButton> checkBoxMap;
+	private transient Map<JCheckBox, ActionButton> checkBoxMap;
 
 	public FPatches(final Simulation simu) {
 
@@ -209,11 +209,11 @@ public class FPatches extends JDialog {
 
 	private void toggleWarning(Patch patch) {
 		JOptionPane
-		.showMessageDialog(
-				null,
-				new JLabel(
-						"<html><body style='width: 400px; text-align: justify; text-justify: inter-word;'>"
-								+ patch.getWarning() + "</body></html>"));
+				.showMessageDialog(
+						null,
+						new JLabel(
+								"<html><body style='width: 400px; text-align: justify; text-justify: inter-word;'>"
+										+ patch.getWarning() + "</body></html>"));
 	}
 
 	private void toggleInstruction(Patch patch, Boolean isClustered) {

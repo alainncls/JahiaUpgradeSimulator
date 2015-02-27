@@ -14,6 +14,10 @@ public class Main {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
+	private Main() {
+
+	}
+
 	public static void main(final String[] args) {
 		hidden = args.length >= 3 ? true : false;
 		context = args.length >= 2 ? args[1] : "ROOT";

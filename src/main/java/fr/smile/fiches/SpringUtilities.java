@@ -52,6 +52,10 @@ import fr.smile.models.Patch;
  */
 public class SpringUtilities {
 
+	private SpringUtilities() {
+
+	}
+
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(SpringUtilities.class);
 
@@ -89,8 +93,9 @@ public class SpringUtilities {
 		try {
 			layout = (SpringLayout) parent.getLayout();
 		} catch (ClassCastException exc) {
-			LOGGER.error("The first argument to makeCompactGrid must use SpringLayout."
-					+ exc.getMessage());
+			LOGGER.error(
+					"The first argument to makeCompactGrid must use SpringLayout.",
+					exc);
 			return;
 		}
 

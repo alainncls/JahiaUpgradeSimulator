@@ -17,7 +17,7 @@ import fr.smile.services.PatchService;
 
 @SuppressWarnings("serial")
 public class ActionButton extends JButton implements DownloadServiceListener,
-		PatchServiceListener, JahiaConfigServiceListener {
+PatchServiceListener, JahiaConfigServiceListener {
 
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(ActionButton.class);
@@ -33,7 +33,7 @@ public class ActionButton extends JButton implements DownloadServiceListener,
 	public static final int WAITING = 8;
 
 	private int status;
-	private Patch patch;
+	private transient Patch patch;
 
 	public ActionButton(Patch patch) {
 		this.patch = patch;
@@ -56,10 +56,10 @@ public class ActionButton extends JButton implements DownloadServiceListener,
 
 	public void setStatus(int status) {
 		if (status == APPLY && !patch.isFixApplier()) {
-			status = APPLY_MANUALLY;
+			this.status = APPLY_MANUALLY;
+		} else {
+			this.status = status;
 		}
-
-		this.status = status;
 		setEnabled(true);
 
 		String version = JahiaConfigService.getInstance().getVersion();

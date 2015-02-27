@@ -42,8 +42,10 @@ public class Simulation {
 		String currentVersion = startVersion;
 		List<Patch> pl;
 		Patch p;
-		while (!(pl = PatchService.getInstance().getPatches(currentVersion,
-				endVersion)).isEmpty()) {
+
+		pl = PatchService.getInstance().getPatches(currentVersion, endVersion);
+
+		while (!pl.isEmpty()) {
 			p = pl.get(0);
 			listPatches.add(p);
 			currentVersion = p.getEndVersion();
@@ -56,6 +58,8 @@ public class Simulation {
 			if (p.needLicense()) {
 				licenses++;
 			}
+			pl = PatchService.getInstance().getPatches(currentVersion,
+					endVersion);
 		}
 		if (!currentVersion.equals(endVersion)) {
 			error = "Version " + endVersion
@@ -73,7 +77,7 @@ public class Simulation {
 		builder.append("Version Initiale : ").append(startVersion);
 		for (Patch p : listPatches) {
 			builder.append("\n").append(p.getStartVersion()).append(" to ")
-			.append(p.getEndVersion());
+					.append(p.getEndVersion());
 			if (p.isProblem()) {
 				builder.append(" !!!");
 			}

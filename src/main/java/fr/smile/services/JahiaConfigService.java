@@ -58,9 +58,10 @@ public class JahiaConfigService extends Listened<JahiaConfigServiceListener> {
 
 	public void setFolder(String folder) {
 		if (!folder.endsWith("/")) {
-			folder += "/";
+			this.folder = folder + "/";
+		} else {
+			this.folder = folder;
 		}
-		this.folder = folder;
 	}
 
 	public String getContext() {
@@ -87,7 +88,7 @@ public class JahiaConfigService extends Listened<JahiaConfigServiceListener> {
 				LOGGER.warn("WARNING : Version not found");
 			}
 		} catch (Exception e) {
-			LOGGER.error("Fail to detect" + e.getMessage());
+			LOGGER.error("Fail to detect", e);
 		}
 		if (old != null && version != null && !old.equals(version)) {
 			notifyVersionChange();
