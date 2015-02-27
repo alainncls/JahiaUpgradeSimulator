@@ -5,11 +5,15 @@ import java.io.IOException;
 import java.net.URL;
 
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import fr.smile.listened.ListenedRunnable;
 import fr.smile.models.Patch;
 
 public class DownloadTask extends ListenedRunnable {
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(ShowStreamTask.class);
 
 	private Patch patch;
 	private String path;
@@ -44,6 +48,7 @@ public class DownloadTask extends ListenedRunnable {
 			FileUtils.copyURLToFile(url, file, 10000, 10000);
 		} catch (IOException e) {
 			result = ERROR;
+			LOGGER.error(e.getMessage());
 		}
 	}
 }

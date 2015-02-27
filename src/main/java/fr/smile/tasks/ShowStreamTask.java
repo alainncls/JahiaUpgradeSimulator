@@ -52,12 +52,12 @@ public class ShowStreamTask extends ListenedRunnable {
 			try (OutputStream outputStream = new FileOutputStream(f)) {
 				this.size = IOUtils.copy(inputStream, outputStream);
 			} catch (IOException e) {
-				LOGGER.error("Error while copying stream to log file : " + log);
-				LOGGER.error(e.getMessage());
+				LOGGER.error("Error while copying stream to log file : " + log
+						+ e.getMessage());
 			}
 		} catch (IOException e) {
-			LOGGER.error("Error while creating log file for stream : " + log);
-			LOGGER.error(e.getMessage());
+			LOGGER.error("Error while creating log file for stream : " + log
+					+ e.getMessage());
 		}
 	}
 
