@@ -87,8 +87,7 @@ public class JahiaConfigService extends Listened<JahiaConfigServiceListener> {
 				LOGGER.warn("WARNING : Version not found");
 			}
 		} catch (Exception e) {
-			LOGGER.error(e.getMessage());
-			LOGGER.error("Fail to detect");
+			LOGGER.error("Fail to detect" + e.getMessage());
 		}
 		if (old != null && version != null && !old.equals(version)) {
 			notifyVersionChange();

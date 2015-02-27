@@ -68,8 +68,8 @@ public class PatchTask extends ListenedRunnable {
 				result = ERROR;
 			}
 		} catch (IOException | InterruptedException e) {
-			LOGGER.error(e.getMessage());
 			result = ERROR;
+			LOGGER.error(e.getMessage());
 		}
 	}
 }
