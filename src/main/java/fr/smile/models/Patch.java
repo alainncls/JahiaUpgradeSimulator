@@ -3,7 +3,7 @@ package fr.smile.models;
 public class Patch {
 
 	private String startVersion, endVersion, url, instructions,
-			instructionsCluster, warning;
+	instructionsCluster, warning;
 	private Boolean reboot, license;
 	private Float complexity;
 
@@ -189,6 +189,29 @@ public class Patch {
 
 	public boolean isFollowedBy(Patch patch) {
 		return patch.startVersion.equals(this.endVersion);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ (complexity == null ? 0 : complexity.hashCode());
+		result = prime * result
+				+ (endVersion == null ? 0 : endVersion.hashCode());
+		result = prime * result
+				+ (instructions == null ? 0 : instructions.hashCode());
+		result = prime
+				* result
+				+ (instructionsCluster == null ? 0 : instructionsCluster
+						.hashCode());
+		result = prime * result + (license == null ? 0 : license.hashCode());
+		result = prime * result + (reboot == null ? 0 : reboot.hashCode());
+		result = prime * result
+				+ (startVersion == null ? 0 : startVersion.hashCode());
+		result = prime * result + (url == null ? 0 : url.hashCode());
+		result = prime * result + (warning == null ? 0 : warning.hashCode());
+		return result;
 	}
 
 	@Override
