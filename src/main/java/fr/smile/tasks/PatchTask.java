@@ -16,11 +16,9 @@ public class PatchTask extends ListenedRunnable {
 			.getLogger(PatchTask.class);
 
 	private Patch patch;
-	private String jahiaPatchFolder;
 
-	public PatchTask(Patch patch, String jahiaPatchFolder) {
+	public PatchTask(Patch patch) {
 		this.patch = patch;
-		this.jahiaPatchFolder = jahiaPatchFolder;
 	}
 
 	public Patch getPatch() {
@@ -69,7 +67,7 @@ public class PatchTask extends ListenedRunnable {
 			}
 		} catch (IOException | InterruptedException e) {
 			result = ERROR;
-			LOGGER.error(e.getMessage());
+			LOGGER.error("", e);
 		}
 	}
 }

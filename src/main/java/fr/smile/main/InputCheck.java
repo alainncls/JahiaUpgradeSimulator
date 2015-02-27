@@ -3,8 +3,13 @@ package fr.smile.main;
 import java.util.List;
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class InputCheck {
 	private static Scanner keyboard = new Scanner(System.in);
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(InputCheck.class);
 
 	public String askInput(String informationText) {
 		System.out.print(informationText);
@@ -14,7 +19,7 @@ public class InputCheck {
 
 	public String askInput(String informationText, String defaultValue) {
 		String stringTemp = askInput(informationText);
-		if (stringTemp.equals("")) {
+		if ("".equals(stringTemp)) {
 			stringTemp = defaultValue;
 		}
 		return stringTemp;
@@ -115,15 +120,16 @@ public class InputCheck {
 	 */
 	private Boolean isType(String testStr, String type) {
 		try {
-			if (type.equalsIgnoreCase("float")) {
+			if ("float".equalsIgnoreCase(type)) {
 				Float.parseFloat(testStr);
-			} else if (type.equalsIgnoreCase("int")) {
+			} else if ("int".equalsIgnoreCase(type)) {
 				Integer.parseInt(testStr);
-			} else if (type.equalsIgnoreCase("double")) {
+			} else if ("double".equalsIgnoreCase(type)) {
 				Double.parseDouble(testStr);
 			}
 			return true;
 		} catch (Exception e) {
+			LOGGER.error("", e);
 			return false;
 		}
 	}

@@ -25,10 +25,10 @@ public class FChiffrage extends JDialog implements PropertyChangeListener {
 	private JScrollPane spChiffrage;
 	private JEditorPane epChiffrage;
 	private JButton backButton, bCalculate;
-	private JLabel lUO, lTJM;
-	private JFormattedTextField ftfUO, ftfTJM;
+	private JLabel luO, ltJm;
+	private JFormattedTextField ftfuO, ftftJm;
 
-	private Simulation simulation;
+	private transient Simulation simulation;
 
 	public FChiffrage(Simulation simul) {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -61,30 +61,30 @@ public class FChiffrage extends JDialog implements PropertyChangeListener {
 		});
 		contentPanel.add(bCalculate);
 
-		lUO = new JLabel("Valeur de l'UO");
-		lUO.setBounds(5, 405, 117, 15);
-		contentPanel.add(lUO);
+		luO = new JLabel("Valeur de l'uO");
+		luO.setBounds(5, 405, 117, 15);
+		contentPanel.add(luO);
 
 		NumberFormat uOFormat = NumberFormat.getNumberInstance();
 		uOFormat.setMinimumFractionDigits(1);
 
-		ftfUO = new JFormattedTextField(uOFormat);
-		ftfUO.setBounds(125, 405, 92, 24);
-		ftfUO.setColumns(10);
-		ftfUO.setValue(simulation.getuO());
-		ftfUO.addPropertyChangeListener("value", this);
-		contentPanel.add(ftfUO);
+		ftfuO = new JFormattedTextField(uOFormat);
+		ftfuO.setBounds(125, 405, 92, 24);
+		ftfuO.setColumns(10);
+		ftfuO.setValue(simulation.getuO());
+		ftfuO.addPropertyChangeListener("value", this);
+		contentPanel.add(ftfuO);
 
-		lTJM = new JLabel("Valeur du TJM");
-		lTJM.setBounds(230, 405, 117, 15);
-		contentPanel.add(lTJM);
+		ltJm = new JLabel("Valeur du tJm");
+		ltJm.setBounds(230, 405, 117, 15);
+		contentPanel.add(ltJm);
 
-		ftfTJM = new JFormattedTextField(NumberFormat.getCurrencyInstance());
-		ftfTJM.setBounds(344, 405, 92, 24);
-		ftfTJM.setColumns(10);
-		ftfTJM.setValue(simulation.gettJM());
-		ftfTJM.addPropertyChangeListener("value", this);
-		contentPanel.add(ftfTJM);
+		ftftJm = new JFormattedTextField(NumberFormat.getCurrencyInstance());
+		ftftJm.setBounds(344, 405, 92, 24);
+		ftftJm.setColumns(10);
+		ftftJm.setValue(simulation.gettJM());
+		ftftJm.addPropertyChangeListener("value", this);
+		contentPanel.add(ftftJm);
 
 		epChiffrage = new JEditorPane("text/html",
 				simulation.getChiffrageHtml());
@@ -98,14 +98,14 @@ public class FChiffrage extends JDialog implements PropertyChangeListener {
 	public void propertyChange(PropertyChangeEvent e) {
 		if (e != null) {
 			Object source = e.getSource();
-			if (source == ftfUO) {
-				float UO = ((Number) ftfUO.getValue()).floatValue();
-				simulation.calculateTotalDuration(UO);
-				simulation.calculateCost(((Number) ftfTJM.getValue())
+			if (source == ftfuO) {
+				float uO = ((Number) ftfuO.getValue()).floatValue();
+				simulation.calculateTotalDuration(uO);
+				simulation.calculateCost(((Number) ftftJm.getValue())
 						.intValue());
-			} else if (source == ftfTJM) {
-				int TJM = ((Number) ftfTJM.getValue()).intValue();
-				simulation.calculateCost(TJM);
+			} else if (source == ftftJm) {
+				int tJm = ((Number) ftftJm.getValue()).intValue();
+				simulation.calculateCost(tJm);
 			}
 			epChiffrage.setText(simulation.getChiffrageHtml());
 		}

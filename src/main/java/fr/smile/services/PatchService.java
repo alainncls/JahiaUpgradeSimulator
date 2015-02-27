@@ -46,7 +46,7 @@ public class PatchService extends Listened<PatchServiceListener> implements
 		try {
 			readFile(); // Reading the file line by line
 		} catch (IOException | ParseException e) {
-			LOGGER.error(e.getMessage());
+			LOGGER.error("", e);
 		}
 	}
 
@@ -93,9 +93,9 @@ public class PatchService extends Listened<PatchServiceListener> implements
 						.get("instructionsCluster");
 				warning = (String) jsonPatch.get("warning");
 				String r = (String) jsonPatch.get("reboot");
-				reboot = r == null || r.equals("1");
+				reboot = r == null || "1".equals(r);
 				String l = (String) jsonPatch.get("license");
-				license = l != null && l.equals("1");
+				license = l != null && "1".equals(l);
 
 				patch = Patch.builder().startVersion(version)
 						.endVersion(endVersion).url(url)
@@ -134,8 +134,7 @@ public class PatchService extends Listened<PatchServiceListener> implements
 	}
 
 	public void apply(Patch patch) {
-		PatchTask task = new PatchTask(patch, JahiaConfigService.getInstance()
-				.getPatchFolder());
+		PatchTask task = new PatchTask(patch);
 		task.addListener(this);
 		pool.execute(task);
 	}
@@ -151,18 +150,21 @@ public class PatchService extends Listened<PatchServiceListener> implements
 
 	@Override
 	public void notifyRunnableComplete(Runnable runnable, int result) {
+		// NO IDEA WHAT IM DOING
+		// DELETE 'RES' IF PROBLEMS
+		int res = OK;
 		Patch p = ((PatchTask) runnable).getPatch();
 		if (result == PatchTask.OK) {
 			JahiaConfigService.getInstance().detectJahiaVersion();
 			if (!JahiaConfigService.getInstance().getVersion()
 					.equals(p.getEndVersion())) {
 				LOGGER.error("Error while applying patch, please check logs");
-				result = ERROR;
+				res = ERROR;
 			}
 		}
-		LOGGER.info("PatchTask ended  (" + p.toString() + ") : " + result);
+		LOGGER.info("PatchTask ended  (" + p.toString() + ") : " + result + res);
 		for (PatchServiceListener listener : listeners) {
-			listener.notifyPatchComplete(p, result);
+			listener.notifyPatchComplete(p, result + res);
 		}
 	}
 }
