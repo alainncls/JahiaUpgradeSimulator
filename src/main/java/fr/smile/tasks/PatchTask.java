@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import fr.smile.listened.ListenedRunnable;
 import fr.smile.models.Patch;
+import fr.smile.services.JahiaConfigService;
 
 public class PatchTask extends ListenedRunnable {
 
@@ -15,11 +16,9 @@ public class PatchTask extends ListenedRunnable {
 			.getLogger(PatchTask.class);
 
 	private Patch patch;
-	private String jahiaPatchFolder;
 
-	public PatchTask(Patch patch, String jahiaPatchFolder) {
+	public PatchTask(Patch patch) {
 		this.patch = patch;
-		this.jahiaPatchFolder = jahiaPatchFolder;
 	}
 
 	public Patch getPatch() {
@@ -29,7 +28,14 @@ public class PatchTask extends ListenedRunnable {
 	@Override
 	public void run() {
 		notifyStart();
-		applyPatch();
+		String version = JahiaConfigService.getInstance().getVersion();
+		if (patch.getStartVersion().equals(version)) {
+			applyPatch();
+		} else {
+			LOGGER.error("Wrong Patch, Expected start version " + version
+					+ " : got " + patch.getStartVersion());
+			result = ERROR;
+		}
 		notifyComplete();
 	}
 
@@ -41,7 +47,8 @@ public class PatchTask extends ListenedRunnable {
 			pb = new ProcessBuilder("java", "-jar",
 					System.getProperty("user.dir") + "/patches/"
 							+ patch.getName(), "-y");
-			pb.directory(new File(jahiaPatchFolder));
+			pb.directory(new File(JahiaConfigService.getInstance()
+					.getPatchFolder()));
 			process = pb.start();
 
 			fluxSortie = new ShowStreamTask(process.getInputStream(),
@@ -54,7 +61,11 @@ public class PatchTask extends ListenedRunnable {
 
 			process.waitFor();
 
-			if (fluxErreur.getSize() != 0) {
+			JahiaConfigService.getInstance().detectJahiaVersion();
+
+			if (fluxErreur.getSize() != 0
+					|| !JahiaConfigService.getInstance().getVersion()
+							.equals(patch.getEndVersion())) {
 				LOGGER.error("Error while applying patch, please check logs");
 				result = ERROR;
 			}
