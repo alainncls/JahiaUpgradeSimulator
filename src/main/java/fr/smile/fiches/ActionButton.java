@@ -55,19 +55,9 @@ PatchServiceListener, JahiaConfigServiceListener {
 	}
 
 	public void setStatus(int status) {
-		if (status == APPLY && !patch.isFixApplier()) {
-			this.status = APPLY_MANUALLY;
-		} else {
-			this.status = status;
-		}
-		setEnabled(true);
+		int stat = detectStatus(status);
 
-		String version = JahiaConfigService.getInstance().getVersion();
-		if (status == APPLY && !patch.getStartVersion().equals(version)) {
-			setEnabled(false);
-		}
-
-		switch (status) {
+		switch (stat) {
 		case DOWNLOAD:
 			setBackground(null);
 			setText("Download");
@@ -104,6 +94,24 @@ PatchServiceListener, JahiaConfigServiceListener {
 		default:
 			break;
 		}
+	}
+
+	public int detectStatus(int status) {
+		int stat = 0;
+
+		if (status == APPLY && !patch.isFixApplier()) {
+			this.status = APPLY_MANUALLY;
+		} else {
+			this.status = status;
+		}
+		setEnabled(true);
+
+		String version = JahiaConfigService.getInstance().getVersion();
+		if (status == APPLY && !patch.getStartVersion().equals(version)) {
+			setEnabled(false);
+		}
+
+		return stat;
 	}
 
 	public Patch getPatch() {
