@@ -1,4 +1,4 @@
-# JahiaUpgradeSimulator v0.7
+# JahiaUpgradeSimulator v0.8
 ### Released 03/02/2015
 
 Prerequisites
