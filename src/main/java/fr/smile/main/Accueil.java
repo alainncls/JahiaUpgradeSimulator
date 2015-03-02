@@ -16,6 +16,8 @@ public class Accueil {
     private List<String> listVersions;
     private List<ActionButton> listActionButtons;
     private Scanner sc;
+    private final String CHOICE = "Your choice : ";
+    private final String BETWEEN = "integer between 1 & 3";
 
     public Accueil() {
         simul = null;
@@ -35,21 +37,21 @@ public class Accueil {
 
     private void dispGreet() {
         System.out// NOSONAR
-                .println("        ____.        .__     .__           ____ ___                                      .___          \n"
-                        + "       |    |_____   |  |__  |__|_____    |    |   \\______     ____  _______ _____     __| _/  ____    \n"
-                        + "       |    |\\__  \\  |  |  \\ |  |\\__  \\   |    |   /\\____ \\   / ___\\ \\_  __ \\\\__  \\   / __ | _/ __ \\   \n"
-                        + "   /\\__|    | / __ \\_|   Y  \\|  | / __ \\_ |    |  / |  |_> > / /_/  > |  | \\/ / __ \\_/ /_/ | \\  ___/   \n"
-                        + "   \\________|(____  /|___|  /|__|(____  / |______/  |   __/  \\___  /  |__|   (____  /\\____ |  \\___  >  \n"
-                        + "                  \\/      \\/          \\/            |__|    /_____/               \\/      \\/      \\/   \n"
-                        + "                     _________.__                 .__             __                                   \n"
-                        + "                    /   _____/|__|  _____   __ __ |  |  _____   _/  |_   ____  _______                 \n"
-                        + "                    \\_____  \\ |  | /     \\ |  |  \\|  |  \\__  \\  \\   __\\ /  _ \\ \\_  __ \\                \n"
-                        + "                    /        \\|  ||  Y Y  \\|  |  /|  |__ / __ \\_ |  |  (  <_> ) |  | \\/                \n"
-                        + "                   /_______  /|__||__|_|  /|____/ |____/(____  / |__|   \\____/  |__|                   \n"
-                        + "                           \\/           \\/                   \\/                                        \n");
+        .println("        ____.        .__     .__           ____ ___                                      .___          \n"
+                + "       |    |_____   |  |__  |__|_____    |    |   \\______     ____  _______ _____     __| _/  ____    \n"
+                + "       |    |\\__  \\  |  |  \\ |  |\\__  \\   |    |   /\\____ \\   / ___\\ \\_  __ \\\\__  \\   / __ | _/ __ \\   \n"
+                + "   /\\__|    | / __ \\_|   Y  \\|  | / __ \\_ |    |  / |  |_> > / /_/  > |  | \\/ / __ \\_/ /_/ | \\  ___/   \n"
+                + "   \\________|(____  /|___|  /|__|(____  / |______/  |   __/  \\___  /  |__|   (____  /\\____ |  \\___  >  \n"
+                + "                  \\/      \\/          \\/            |__|    /_____/               \\/      \\/      \\/   \n"
+                + "                     _________.__                 .__             __                                   \n"
+                + "                    /   _____/|__|  _____   __ __ |  |  _____   _/  |_   ____  _______                 \n"
+                + "                    \\_____  \\ |  | /     \\ |  |  \\|  |  \\__  \\  \\   __\\ /  _ \\ \\_  __ \\                \n"
+                + "                    /        \\|  ||  Y Y  \\|  |  /|  |__ / __ \\_ |  |  (  <_> ) |  | \\/                \n"
+                + "                   /_______  /|__||__|_|  /|____/ |____/(____  / |__|   \\____/  |__|                   \n"
+                + "                           \\/           \\/                   \\/                                        \n");
         System.out// NOSONAR
-                .println(""
-                        + "************************************************** VERSION 0.6 **************************************************");
+        .println(""
+                + "************************************************** VERSION 0.6 **************************************************");
     }
 
     private void dispMenu() {
@@ -64,7 +66,7 @@ public class Accueil {
             System.out.println("2. Simulate");// NOSONAR
             System.out.println("3. Exit");// NOSONAR
 
-            choice = input.askInputInt("Your choice : ");
+            choice = input.askInputInt(CHOICE);
 
             switch (choice) {
             case 1:
@@ -81,7 +83,7 @@ public class Accueil {
 
             default:
                 System.err.println(input// NOSONAR
-                        .warnWrongInput("integer between 1 & 3"));
+                        .warnWrongInput(BETWEEN));
                 dispMenu();
             }
         } while (choice != 3);
@@ -98,7 +100,7 @@ public class Accueil {
             System.out.println("2. Calculate costs");// NOSONAR
             System.out.println("3. Back");// NOSONAR
 
-            choice = input.askInputInt("Your choice : ");
+            choice = input.askInputInt(CHOICE);
 
             switch (choice) {
             case 1:
@@ -112,7 +114,7 @@ public class Accueil {
                 break;
             default:
                 System.err.println(input// NOSONAR
-                        .warnWrongInput("integer between 1 & 3"));
+                        .warnWrongInput(BETWEEN));
                 dispMenu();
             }
         } while (choice != 3);
@@ -129,7 +131,7 @@ public class Accueil {
             System.out.println("2. Change 'TJM'");// NOSONAR
             System.out.println("3. Back");// NOSONAR
 
-            choice = input.askInputInt("Your choice : ");
+            choice = input.askInputInt(CHOICE);
 
             switch (choice) {
             case 1:
@@ -143,7 +145,7 @@ public class Accueil {
                 break;
             default:
                 System.err.println(input// NOSONAR
-                        .warnWrongInput("integer between 1 & 3"));
+                        .warnWrongInput(BETWEEN));
                 dispMenu();
             }
         } while (choice != 3);
@@ -234,7 +236,7 @@ public class Accueil {
 
         System.out.println(tab.toString());// NOSONAR
 
-        choice = input.askInputInt("Your choice : ");
+        choice = input.askInputInt(CHOICE);
 
         if (choice <= i && choice > 0) {
             applyPatch(choice - 1);
