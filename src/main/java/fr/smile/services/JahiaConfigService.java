@@ -62,6 +62,7 @@ public class JahiaConfigService extends Listened<JahiaConfigServiceListener> {
         } else {
             this.folder = folder;
         }
+        this.detectJahiaVersion();
     }
 
     public String getContext() {
@@ -90,7 +91,7 @@ public class JahiaConfigService extends Listened<JahiaConfigServiceListener> {
         } catch (Exception e) {
             LOGGER.error("Fail to detect", e);
         }
-        if (old != null && version != null && !old.equals(version)) {
+        if (version != null && !version.equals(old)) {
             notifyVersionChange();
         }
     }
@@ -111,7 +112,7 @@ public class JahiaConfigService extends Listened<JahiaConfigServiceListener> {
 
     private void notifyVersionChange() {
         for (JahiaConfigServiceListener listener : listeners) {
-            listener.notifyVersionChange();
+            listener.notifyVersionChange(version);
         }
     }
 }

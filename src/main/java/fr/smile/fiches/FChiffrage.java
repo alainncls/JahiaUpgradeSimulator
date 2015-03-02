@@ -43,6 +43,7 @@ public class FChiffrage extends JDialog implements PropertyChangeListener {
 
         BackButton button = new BackButton();
         backButton = button.getBackButton(this);
+        backButton.setBounds(15, 534, 117, 25);
         contentPanel.add(backButton);
 
         bCalculate = new JButton("Calculate");

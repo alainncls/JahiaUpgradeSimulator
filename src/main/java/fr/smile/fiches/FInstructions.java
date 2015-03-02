@@ -29,6 +29,7 @@ public class FInstructions extends JDialog {
 
         BackButton button = new BackButton();
         backButton = button.getBackButton(this);
+        backButton.setBounds(15, 534, 117, 25);
         contentPanel.add(backButton);
 
         epInstructions = new JEditorPane("text/html", "");
