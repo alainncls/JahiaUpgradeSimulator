@@ -223,7 +223,7 @@ public class Accueil {
         i = choice = 0;
 
         StringBuilder tab = new StringBuilder();
-        tab.append("\n");
+        System.out.println(" \n");// NOSONAR
         tab.append(String.format("%2s  %-15s   %-15s   %-15s%n", "#",
                 "From version", "To version", "Action"));
 
