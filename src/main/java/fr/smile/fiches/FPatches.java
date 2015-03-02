@@ -25,7 +25,7 @@ public class FPatches extends JDialog {
 
 	private final JPanel contentPanel;
 	private JPanel listPanel;
-	private JButton bBack, bDownload, bInstruction;
+	private JButton backButton, bDownload, bInstruction;
 	private JCheckBox cdownload, cbCheck;
 	private JLabel lReboot, lLicense, lPatch;
 	private ActionButton bAction;
@@ -110,33 +110,9 @@ public class FPatches extends JDialog {
 				nbCols = listPanel.getComponentCount();
 			}
 
-			if (p.needReboot()) {
-				int nbCompInit = listPanel.getComponentCount();
-				lReboot = new JLabel(
-						"You need to reboot your Jahia install after upgrading to "
-								+ p.getEndVersion());
-				lReboot.setBackground(Color.YELLOW);
-				lReboot.setOpaque(true);
-				listPanel.add(lReboot);
-				int added = listPanel.getComponentCount() - nbCompInit;
-				for (int i = added; i < nbCols; i++) {
-					listPanel.add(new JLabel());
-				}
-			}
+			reboot(p, nbCols);
+			licence(p, nbCols);
 
-			if (p.needLicense()) {
-				int nbCompInit = listPanel.getComponentCount();
-				lLicense = new JLabel(
-						"You need to get a new license in order to upgrade to "
-								+ p.getEndVersion());
-				lLicense.setBackground(Color.ORANGE);
-				lLicense.setOpaque(true);
-				listPanel.add(lLicense);
-				int added = listPanel.getComponentCount() - nbCompInit;
-				for (int i = added; i < nbCols; i++) {
-					listPanel.add(new JLabel());
-				}
-			}
 		}
 
 		SpringUtilities.makeCompactGridRight(listPanel,// parent
@@ -155,16 +131,14 @@ public class FPatches extends JDialog {
 		scrollPane.setBounds(listPanel.getBounds());
 		contentPanel.add(scrollPane);
 
-		bBack = new JButton("<< Back");
-		bBack.setBounds(538, 534, 117, 25);
-		bBack.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				goBack();
-			}
-		});
-		contentPanel.add(bBack);
+		BackButton button = new BackButton();
+		backButton = button.getBackButton(this);
+		contentPanel.add(backButton);
 
+		actionsToPerform();
+	}
+
+	private void actionsToPerform() {
 		if (JahiaConfigService.getInstance().getVersion() != null) {
 			bDownload = new JButton("Download Selected");
 			bDownload.setBounds(661, 534, 180, 25);
@@ -188,8 +162,36 @@ public class FPatches extends JDialog {
 		}
 	}
 
-	public void goBack() {
-		this.setVisible(false);
+	private void reboot(Patch p, int nbCols) {
+		if (p.needReboot()) {
+			int nbCompInit = listPanel.getComponentCount();
+			lReboot = new JLabel(
+					"You need to reboot your Jahia install after upgrading to "
+							+ p.getEndVersion());
+			lReboot.setBackground(Color.YELLOW);
+			lReboot.setOpaque(true);
+			listPanel.add(lReboot);
+			int added = listPanel.getComponentCount() - nbCompInit;
+			for (int i = added; i < nbCols; i++) {
+				listPanel.add(new JLabel());
+			}
+		}
+	}
+
+	private void licence(Patch p, int nbCols) {
+		if (p.needLicense()) {
+			int nbCompInit = listPanel.getComponentCount();
+			lLicense = new JLabel(
+					"You need to get a new license in order to upgrade to "
+							+ p.getEndVersion());
+			lLicense.setBackground(Color.ORANGE);
+			lLicense.setOpaque(true);
+			listPanel.add(lLicense);
+			int added = listPanel.getComponentCount() - nbCompInit;
+			for (int i = added; i < nbCols; i++) {
+				listPanel.add(new JLabel());
+			}
+		}
 	}
 
 	private void runDownload() {
@@ -209,11 +211,11 @@ public class FPatches extends JDialog {
 
 	private void toggleWarning(Patch patch) {
 		JOptionPane
-				.showMessageDialog(
-						null,
-						new JLabel(
-								"<html><body style='width: 400px; text-align: justify; text-justify: inter-word;'>"
-										+ patch.getWarning() + "</body></html>"));
+		.showMessageDialog(
+				null,
+				new JLabel(
+						"<html><body style='width: 400px; text-align: justify; text-justify: inter-word;'>"
+								+ patch.getWarning() + "</body></html>"));
 	}
 
 	private void toggleInstruction(Patch patch, Boolean isClustered) {
