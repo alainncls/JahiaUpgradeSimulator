@@ -12,106 +12,106 @@ import fr.smile.listeners.JahiaConfigServiceListener;
 
 public class JahiaConfigService extends Listened<JahiaConfigServiceListener> {
 
-	private String folder;
-	private String context;
-	private String version;
-	private Boolean clustered;
+    private String folder;
+    private String context;
+    private String version;
+    private Boolean clustered;
 
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(JahiaConfigService.class);
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(JahiaConfigService.class);
 
-	private static JahiaConfigService instance;
+    private static JahiaConfigService instance;
 
-	private JahiaConfigService() {
-		version = null;
-		folder = "./";
-		context = "ROOT";
-		clustered = false;
-	}
+    private JahiaConfigService() {
+        version = null;
+        folder = "./";
+        context = "ROOT";
+        clustered = false;
+    }
 
-	public static synchronized JahiaConfigService getInstance() {
-		if (instance == null) {
-			instance = new JahiaConfigService();
-		}
-		return instance;
-	}
+    public static synchronized JahiaConfigService getInstance() {
+        if (instance == null) {
+            instance = new JahiaConfigService();
+        }
+        return instance;
+    }
 
-	public Boolean getClustered() {
-		return clustered;
-	}
+    public Boolean getClustered() {
+        return clustered;
+    }
 
-	public void setClustered(Boolean clustered) {
-		this.clustered = clustered;
-	}
+    public void setClustered(Boolean clustered) {
+        this.clustered = clustered;
+    }
 
-	public String getVersion() {
-		return version;
-	}
+    public String getVersion() {
+        return version;
+    }
 
-	public void setVersion(String version) {
-		this.version = version;
-	}
+    public void setVersion(String version) {
+        this.version = version;
+    }
 
-	public String getFolder() {
-		return folder;
-	}
+    public String getFolder() {
+        return folder;
+    }
 
-	public void setFolder(String folder) {
-		if (!folder.endsWith("/")) {
-			this.folder = folder + "/";
-		} else {
-			this.folder = folder;
-		}
-	}
+    public void setFolder(String folder) {
+        if (!folder.endsWith("/")) {
+            this.folder = folder + "/";
+        } else {
+            this.folder = folder;
+        }
+    }
 
-	public String getContext() {
-		return context;
-	}
+    public String getContext() {
+        return context;
+    }
 
-	public void setContext(String context) {
-		this.context = context;
-	}
+    public void setContext(String context) {
+        this.context = context;
+    }
 
-	public String getPatchFolder() {
-		return folder + "tomcat/webapps/" + context;
-	}
+    public String getPatchFolder() {
+        return folder + "tomcat/webapps/" + context;
+    }
 
-	public void detectJahiaVersion() {
-		String old = version;
-		try {
-			File[] files = listFilesMatching(new File(getPatchFolder()
-					+ "/WEB-INF/lib/"), "jahia-impl-(\\d\\.){4}jar");
-			if (files.length > 0) {
-				version = files[0].getName().substring(11, 18);
-				LOGGER.info("Detected Version : " + version);
-			} else {
-				LOGGER.warn("WARNING : Version not found");
-			}
-		} catch (Exception e) {
-			LOGGER.error("Fail to detect", e);
-		}
-		if (old != null && version != null && !old.equals(version)) {
-			notifyVersionChange();
-		}
-	}
+    public void detectJahiaVersion() {
+        String old = version;
+        try {
+            File[] files = listFilesMatching(new File(getPatchFolder()
+                    + "/WEB-INF/lib/"), "jahia-impl-(\\d\\.){4}jar");
+            if (files.length > 0) {
+                version = files[0].getName().substring(11, 18);
+                LOGGER.info("Detected Version : " + version);
+            } else {
+                LOGGER.warn("WARNING : Version not found");
+            }
+        } catch (Exception e) {
+            LOGGER.error("Fail to detect", e);
+        }
+        if (old != null && version != null && !old.equals(version)) {
+            notifyVersionChange();
+        }
+    }
 
-	private File[] listFilesMatching(File root, String regex) {
-		if (!root.isDirectory()) {
-			throw new IllegalArgumentException(root + " is no directory.");
-		}
-		final Pattern p = Pattern.compile(regex); // careful: could also throw
-		// an exception!
-		return root.listFiles(new FileFilter() {
-			@Override
-			public boolean accept(File file) {
-				return p.matcher(file.getName()).matches();
-			}
-		});
-	}
+    private File[] listFilesMatching(File root, String regex) {
+        if (!root.isDirectory()) {
+            throw new IllegalArgumentException(root + " is no directory.");
+        }
+        final Pattern p = Pattern.compile(regex); // careful: could also throw
+        // an exception!
+        return root.listFiles(new FileFilter() {
+            @Override
+            public boolean accept(File file) {
+                return p.matcher(file.getName()).matches();
+            }
+        });
+    }
 
-	private void notifyVersionChange() {
-		for (JahiaConfigServiceListener listener : listeners) {
-			listener.notifyVersionChange();
-		}
-	}
+    private void notifyVersionChange() {
+        for (JahiaConfigServiceListener listener : listeners) {
+            listener.notifyVersionChange();
+        }
+    }
 }

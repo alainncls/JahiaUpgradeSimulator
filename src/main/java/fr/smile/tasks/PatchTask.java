@@ -12,62 +12,62 @@ import fr.smile.services.JahiaConfigService;
 
 public class PatchTask extends ListenedRunnable {
 
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(PatchTask.class);
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(PatchTask.class);
 
-	private Patch patch;
+    private Patch patch;
 
-	public PatchTask(Patch patch) {
-		this.patch = patch;
-	}
+    public PatchTask(Patch patch) {
+        this.patch = patch;
+    }
 
-	public Patch getPatch() {
-		return patch;
-	}
+    public Patch getPatch() {
+        return patch;
+    }
 
-	@Override
-	public void run() {
-		notifyStart();
-		String version = JahiaConfigService.getInstance().getVersion();
-		if (patch.getStartVersion().equals(version)) {
-			applyPatch();
-		} else {
-			LOGGER.error("Wrong Patch, Expected start version " + version
-					+ " : got " + patch.getStartVersion());
-			result = ERROR;
-		}
-		notifyComplete();
-	}
+    @Override
+    public void run() {
+        notifyStart();
+        String version = JahiaConfigService.getInstance().getVersion();
+        if (patch.getStartVersion().equals(version)) {
+            applyPatch();
+        } else {
+            LOGGER.error("Wrong Patch, Expected start version " + version
+                    + " : got " + patch.getStartVersion());
+            result = ERROR;
+        }
+        notifyComplete();
+    }
 
-	private void applyPatch() {
-		Process process;
-		ProcessBuilder pb;
-		ShowStreamTask fluxSortie, fluxErreur;
-		try {
-			pb = new ProcessBuilder("java", "-jar",
-					System.getProperty("user.dir") + "/patches/"
-							+ patch.getName(), "-y");
-			pb.directory(new File(JahiaConfigService.getInstance()
-					.getPatchFolder()));
-			process = pb.start();
+    private void applyPatch() {
+        Process process;
+        ProcessBuilder pb;
+        ShowStreamTask fluxSortie, fluxErreur;
+        try {
+            pb = new ProcessBuilder("java", "-jar",
+                    System.getProperty("user.dir") + "/patches/"
+                            + patch.getName(), "-y");
+            pb.directory(new File(JahiaConfigService.getInstance()
+                    .getPatchFolder()));
+            process = pb.start();
 
-			fluxSortie = new ShowStreamTask(process.getInputStream(),
-					this.patch.toString() + ".output.log");
-			fluxErreur = new ShowStreamTask(process.getErrorStream(),
-					this.patch.toString() + ".error.log");
+            fluxSortie = new ShowStreamTask(process.getInputStream(),
+                    this.patch.toString() + ".output.log");
+            fluxErreur = new ShowStreamTask(process.getErrorStream(),
+                    this.patch.toString() + ".error.log");
 
-			new Thread(fluxSortie).start();
-			new Thread(fluxErreur).start();
+            new Thread(fluxSortie).start();
+            new Thread(fluxErreur).start();
 
-			process.waitFor();
+            process.waitFor();
 
-			if (fluxErreur.getSize() != 0) {
-				LOGGER.error("Error while applying patch, please check logs.");
-				result = ERROR;
-			}
-		} catch (IOException | InterruptedException e) {
-			result = ERROR;
-			LOGGER.error("", e);
-		}
-	}
+            if (fluxErreur.getSize() != 0) {
+                LOGGER.error("Error while applying patch, please check logs.");
+                result = ERROR;
+            }
+        } catch (IOException | InterruptedException e) {
+            result = ERROR;
+            LOGGER.error("", e);
+        }
+    }
 }
