@@ -35,21 +35,21 @@ public class Accueil {
 
 	private void dispGreet() {
 		System.out// NOSONAR
-		.println("        ____.        .__     .__           ____ ___                                      .___          \n"
-				+ "       |    |_____   |  |__  |__|_____    |    |   \\______     ____  _______ _____     __| _/  ____    \n"
-				+ "       |    |\\__  \\  |  |  \\ |  |\\__  \\   |    |   /\\____ \\   / ___\\ \\_  __ \\\\__  \\   / __ | _/ __ \\   \n"
-				+ "   /\\__|    | / __ \\_|   Y  \\|  | / __ \\_ |    |  / |  |_> > / /_/  > |  | \\/ / __ \\_/ /_/ | \\  ___/   \n"
-				+ "   \\________|(____  /|___|  /|__|(____  / |______/  |   __/  \\___  /  |__|   (____  /\\____ |  \\___  >  \n"
-				+ "                  \\/      \\/          \\/            |__|    /_____/               \\/      \\/      \\/   \n"
-				+ "                     _________.__                 .__             __                                   \n"
-				+ "                    /   _____/|__|  _____   __ __ |  |  _____   _/  |_   ____  _______                 \n"
-				+ "                    \\_____  \\ |  | /     \\ |  |  \\|  |  \\__  \\  \\   __\\ /  _ \\ \\_  __ \\                \n"
-				+ "                    /        \\|  ||  Y Y  \\|  |  /|  |__ / __ \\_ |  |  (  <_> ) |  | \\/                \n"
-				+ "                   /_______  /|__||__|_|  /|____/ |____/(____  / |__|   \\____/  |__|                   \n"
-				+ "                           \\/           \\/                   \\/                                        \n");
-		System.out
-		.println(""
-				+ "************************************************** VERSION 0.6 **************************************************");// NOSONAR
+				.println("        ____.        .__     .__           ____ ___                                      .___          \n"
+						+ "       |    |_____   |  |__  |__|_____    |    |   \\______     ____  _______ _____     __| _/  ____    \n"
+						+ "       |    |\\__  \\  |  |  \\ |  |\\__  \\   |    |   /\\____ \\   / ___\\ \\_  __ \\\\__  \\   / __ | _/ __ \\   \n"
+						+ "   /\\__|    | / __ \\_|   Y  \\|  | / __ \\_ |    |  / |  |_> > / /_/  > |  | \\/ / __ \\_/ /_/ | \\  ___/   \n"
+						+ "   \\________|(____  /|___|  /|__|(____  / |______/  |   __/  \\___  /  |__|   (____  /\\____ |  \\___  >  \n"
+						+ "                  \\/      \\/          \\/            |__|    /_____/               \\/      \\/      \\/   \n"
+						+ "                     _________.__                 .__             __                                   \n"
+						+ "                    /   _____/|__|  _____   __ __ |  |  _____   _/  |_   ____  _______                 \n"
+						+ "                    \\_____  \\ |  | /     \\ |  |  \\|  |  \\__  \\  \\   __\\ /  _ \\ \\_  __ \\                \n"
+						+ "                    /        \\|  ||  Y Y  \\|  |  /|  |__ / __ \\_ |  |  (  <_> ) |  | \\/                \n"
+						+ "                   /_______  /|__||__|_|  /|____/ |____/(____  / |__|   \\____/  |__|                   \n"
+						+ "                           \\/           \\/                   \\/                                        \n");
+		System.out// NOSONAR
+				.println(""
+						+ "************************************************** VERSION 0.6 **************************************************");
 	}
 
 	private void dispMenu() {
@@ -59,10 +59,10 @@ public class Accueil {
 		do {
 			sc = new Scanner(System.in);
 
-			System.out.println("\n=== MAIN MENU ===\n");
-			System.out.println("1. Configuration Jahia");
-			System.out.println("2. Simulate");
-			System.out.println("3. Exit");
+			System.out.println("\n=== MAIN MENU ===\n");// NOSONAR
+			System.out.println("1. Configuration Jahia");// NOSONAR
+			System.out.println("2. Simulate");// NOSONAR
+			System.out.println("3. Exit");// NOSONAR
 
 			choice = input.askInputInt("Your choice : ");
 
@@ -76,12 +76,12 @@ public class Accueil {
 				break;
 
 			case 3:
-				System.out.println("Bye !");
+				System.out.println("Bye !");// NOSONAR
 				break;
 
 			default:
 				System.err.println(input
-						.warnWrongInput("integer between 1 & 3"));
+						.warnWrongInput("integer between 1 & 3"));// NOSONAR
 				dispMenu();
 			}
 		} while (choice != 3);
@@ -93,10 +93,10 @@ public class Accueil {
 
 		do {
 			sc = new Scanner(System.in);
-			System.out.println("\n=== SIMULATION MENU ===\n");
-			System.out.println("1. Show patches");
-			System.out.println("2. Calculate costs");
-			System.out.println("3. Back");
+			System.out.println("\n=== SIMULATION MENU ===\n");// NOSONAR
+			System.out.println("1. Show patches");// NOSONAR
+			System.out.println("2. Calculate costs");// NOSONAR
+			System.out.println("3. Back");// NOSONAR
 
 			choice = input.askInputInt("Your choice : ");
 
@@ -111,7 +111,7 @@ public class Accueil {
 			case 3:
 				break;
 			default:
-				System.err.println(input
+				System.err.println(input// NOSONAR
 						.warnWrongInput("integer between 1 & 3"));
 				dispMenu();
 			}
@@ -124,10 +124,10 @@ public class Accueil {
 
 		do {
 			sc = new Scanner(System.in);
-			System.out.println("\n=== COSTS MENU ===\n");
-			System.out.println("1. Change 'UO'");
-			System.out.println("2. Change 'TJM'");
-			System.out.println("3. Back");
+			System.out.println("\n=== COSTS MENU ===\n");// NOSONAR
+			System.out.println("1. Change 'UO'");// NOSONAR
+			System.out.println("2. Change 'TJM'");// NOSONAR
+			System.out.println("3. Back");// NOSONAR
 
 			choice = input.askInputInt("Your choice : ");
 
@@ -143,7 +143,7 @@ public class Accueil {
 				break;
 			default:
 				System.err.println(input
-						.warnWrongInput("integer between 1 & 3"));
+						.warnWrongInput("integer between 1 & 3"));// NOSONAR
 				dispMenu();
 			}
 		} while (choice != 3);
@@ -209,7 +209,7 @@ public class Accueil {
 	}
 
 	private void dispChiffrage() {
-		System.out.println(simul.getChiffrage());
+		System.out.println(simul.getChiffrage());// NOSONAR
 		dispWait();
 		dispMenuChiffrage();
 	}
@@ -232,7 +232,7 @@ public class Accueil {
 			i++;
 		}
 
-		System.out.println(tab.toString());
+		System.out.println(tab.toString());// NOSONAR
 
 		choice = input.askInputInt("Your choice : ");
 
@@ -240,7 +240,7 @@ public class Accueil {
 			applyPatch(choice - 1);
 		} else {
 			System.err.println(input.warnWrongInput("integer between 1 & "
-					+ listActionButtons.size()));
+					+ listActionButtons.size()));// NOSONAR
 		}
 
 		dispPatches();
@@ -263,21 +263,21 @@ public class Accueil {
 	}
 
 	private void dispWait() {
-		System.out.println("Press any key to continue ...");
+		System.out.println("Press any key to continue ...");// NOSONAR
 		sc = new Scanner(System.in);
 		sc.nextLine();
 	}
 
 	private void dispWarning(Patch p) {
 		HtmlCleaner html = new HtmlCleaner();
-		System.err.print("WARNING : ");
-		System.out.println(html.warningCleaner(p.getWarning()));
+		System.err.print("WARNING : ");// NOSONAR
+		System.out.println(html.warningCleaner(p.getWarning()));// NOSONAR
 		dispWait();
 	}
 
 	private void dispLicense(Patch p) {
-		System.err.print("WARNING : ");
-		System.out.println("License needed to go to version "
+		System.err.print("WARNING : ");// NOSONAR
+		System.out.println("License needed to go to version "// NOSONAR
 				+ p.getEndVersion());
 		dispWait();
 	}

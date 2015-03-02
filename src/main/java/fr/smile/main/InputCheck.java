@@ -12,7 +12,7 @@ public class InputCheck {
 			.getLogger(InputCheck.class);
 
 	public String askInput(String informationText) {
-		System.out.print(informationText);
+		System.out.print(informationText);// NOSONAR
 		String stringTemp = keyboard.nextLine();
 		return stringTemp;
 	}
@@ -87,7 +87,7 @@ public class InputCheck {
 
 		String userInp = askInput(informationText, defaultValue);
 		while (!isType(userInp, type)) {
-			System.err.println("Error: must be a type " + type);
+			System.err.println("Error: must be a type " + type);// NOSONAR
 			userInp = askInput(informationText, defaultValue);
 		}
 		return userInp;
@@ -98,7 +98,7 @@ public class InputCheck {
 
 		String tempVersion = askInput(informationText, versionDefault);
 		while (!listVersions.contains(tempVersion)) {
-			System.err.println("Wrong input, version not found.");
+			System.err.println("Wrong input, version not found.");// NOSONAR
 			tempVersion = askInput(informationText, versionDefault);
 		}
 		return tempVersion;
