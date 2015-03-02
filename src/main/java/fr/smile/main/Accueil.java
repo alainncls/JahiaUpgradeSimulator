@@ -80,8 +80,8 @@ public class Accueil {
 				break;
 
 			default:
-				System.err.println(input
-						.warnWrongInput("integer between 1 & 3"));// NOSONAR
+				System.err.println(input// NOSONAR
+						.warnWrongInput("integer between 1 & 3"));
 				dispMenu();
 			}
 		} while (choice != 3);
@@ -142,8 +142,8 @@ public class Accueil {
 			case 3:
 				break;
 			default:
-				System.err.println(input
-						.warnWrongInput("integer between 1 & 3"));// NOSONAR
+				System.err.println(input// NOSONAR
+						.warnWrongInput("integer between 1 & 3"));
 				dispMenu();
 			}
 		} while (choice != 3);
@@ -186,7 +186,7 @@ public class Accueil {
 	private void dispSimulation() {
 		InputCheck input = new InputCheck();
 
-		System.out.println("\n--- SIMULATION INPUT ---");
+		System.out.println("\n--- SIMULATION INPUT ---");// NOSONAR
 
 		startVersion = input.askInputVersion("Start version (" + startVersion
 				+ ") : ", listVersions, startVersion);
@@ -197,7 +197,7 @@ public class Accueil {
 				.getInstance().getClustered());
 
 		if (simul.getError() != "") {
-			System.err.println(simul.getError());
+			System.err.println(simul.getError());// NOSONAR
 			dispSimulation();
 		} else {
 			listActionButtons = new ArrayList<ActionButton>();
@@ -239,8 +239,8 @@ public class Accueil {
 		if (choice <= i && choice > 0) {
 			applyPatch(choice - 1);
 		} else {
-			System.err.println(input.warnWrongInput("integer between 1 & "
-					+ listActionButtons.size()));// NOSONAR
+			System.err.println(input.warnWrongInput("integer between 1 & "// NOSONAR
+					+ listActionButtons.size()));
 		}
 
 		dispPatches();
