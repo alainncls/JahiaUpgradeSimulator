@@ -76,7 +76,7 @@ public class Simulation {
 
         builder.append("Version Initiale : ").append(startVersion);
         for (Patch p : listPatches) {
-            builder.append("\n").append(p.getStartVersion()).append(" to ")
+            builder.append("\n" + p.getStartVersion()).append(" to ")
                     .append(p.getEndVersion());
             if (p.isProblem()) {
                 builder.append(" !!!");

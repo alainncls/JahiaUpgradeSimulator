@@ -26,7 +26,7 @@ import fr.smile.models.Patch;
 import fr.smile.tasks.PatchTask;
 
 public class PatchService extends Listened<PatchServiceListener> implements
-        RunnableListener {
+RunnableListener {
 
     public static final String PATH = "/versions.json";
     private List<String> listVersion;
@@ -133,7 +133,7 @@ public class PatchService extends Listened<PatchServiceListener> implements
                     && p.getEndVersion().compareTo(endVersion) <= 0) {
                 if (patches.isEmpty()
                         || patches.get(0).getEndVersion()
-                                .compareTo(p.getEndVersion()) < 0) {
+                        .compareTo(p.getEndVersion()) < 0) {
                     patches.add(0, p);
                 } else {
                     patches.add(p);
@@ -172,7 +172,8 @@ public class PatchService extends Listened<PatchServiceListener> implements
                 res = ERROR;
             }
         }
-        LOGGER.info("PatchTask ended  (" + p.toString() + ") : " + result + res);
+        LOGGER.info("PatchTask ended  (" + p.toString() + ") : "
+                + (result + res));
         for (PatchServiceListener listener : listeners) {
             listener.notifyPatchComplete(p, result + res);
         }
