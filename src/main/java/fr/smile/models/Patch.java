@@ -3,7 +3,7 @@ package fr.smile.models;
 public class Patch {
 
     private String startVersion, endVersion, url, instructions,
-            instructionsCluster, warning;
+    instructionsCluster, warning;
     private Boolean reboot, license;
     private Float complexity;
 
@@ -229,5 +229,4 @@ public class Patch {
         return other.startVersion.equals(this.startVersion)
                 && other.endVersion.equals(this.endVersion);
     }
-
 }
