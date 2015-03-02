@@ -17,54 +17,54 @@ import fr.smile.listened.ListenedRunnable;
 
 public class ShowStreamTask extends ListenedRunnable {
 
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(ShowStreamTask.class);
-	public static final String PATH = "./log/";
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(ShowStreamTask.class);
+    public static final String PATH = "./log/";
 
-	private Integer size;
-	private String log;
+    private Integer size;
+    private String log;
 
-	private final InputStream inputStream;
+    private final InputStream inputStream;
 
-	public ShowStreamTask(InputStream inputStream, String log) {
-		this.inputStream = inputStream;
-		this.log = log;
-		this.size = 0;
-	}
+    public ShowStreamTask(InputStream inputStream, String log) {
+        this.inputStream = inputStream;
+        this.log = log;
+        this.size = 0;
+    }
 
-	@Override
-	public void run() {
-		try {
-			notifyStart();
-			showStream();
-		} finally {
-			notifyComplete();
-		}
-	}
+    @Override
+    public void run() {
+        try {
+            notifyStart();
+            showStream();
+        } finally {
+            notifyComplete();
+        }
+    }
 
-	private void showStream() {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date date = new Date();
-		File f = new File(PATH + dateFormat.format(date) + " - " + log);
-		f.getParentFile().mkdirs();
-		try {
-			f.createNewFile();
-			size(f);
-		} catch (IOException e) {
-			LOGGER.error("Error while creating log file for stream : " + log, e);
-		}
-	}
+    private void showStream() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        File f = new File(PATH + dateFormat.format(date) + " - " + log);
+        f.getParentFile().mkdirs();
+        try {
+            f.createNewFile();
+            size(f);
+        } catch (IOException e) {
+            LOGGER.error("Error while creating log file for stream : " + log, e);
+        }
+    }
 
-	private void size(File f) {
-		try (OutputStream outputStream = new FileOutputStream(f)) {
-			this.size = IOUtils.copy(inputStream, outputStream);
-		} catch (IOException e) {
-			LOGGER.error("Error while copying stream to log file : " + log, e);
-		}
-	}
+    private void size(File f) {
+        try (OutputStream outputStream = new FileOutputStream(f)) {
+            this.size = IOUtils.copy(inputStream, outputStream);
+        } catch (IOException e) {
+            LOGGER.error("Error while copying stream to log file : " + log, e);
+        }
+    }
 
-	public int getSize() {
-		return size;
-	}
+    public int getSize() {
+        return size;
+    }
 
 }

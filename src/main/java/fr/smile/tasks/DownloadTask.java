@@ -12,43 +12,43 @@ import fr.smile.listened.ListenedRunnable;
 import fr.smile.models.Patch;
 
 public class DownloadTask extends ListenedRunnable {
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(DownloadTask.class);
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DownloadTask.class);
 
-	private Patch patch;
-	private String path;
+    private Patch patch;
+    private String path;
 
-	public DownloadTask(Patch patch, String path) {
-		this.patch = patch;
-		this.path = path;
-	}
+    public DownloadTask(Patch patch, String path) {
+        this.patch = patch;
+        this.path = path;
+    }
 
-	public Patch getPatch() {
-		return patch;
-	}
+    public Patch getPatch() {
+        return patch;
+    }
 
-	public String getPath() {
-		return path;
-	}
+    public String getPath() {
+        return path;
+    }
 
-	@Override
-	public void run() {
-		try {
-			this.notifyStart();
-			download();
-		} finally {
-			this.notifyComplete();
-		}
-	}
+    @Override
+    public void run() {
+        try {
+            this.notifyStart();
+            download();
+        } finally {
+            this.notifyComplete();
+        }
+    }
 
-	private void download() {
-		try {
-			File file = new File(path + patch.getName());
-			URL url = new URL(patch.getUrl());
-			FileUtils.copyURLToFile(url, file, 10000, 10000);
-		} catch (IOException e) {
-			result = ERROR;
-			LOGGER.error("Download error", e);
-		}
-	}
+    private void download() {
+        try {
+            File file = new File(path + patch.getName());
+            URL url = new URL(patch.getUrl());
+            FileUtils.copyURLToFile(url, file, 10000, 10000);
+        } catch (IOException e) {
+            result = ERROR;
+            LOGGER.error("Download error", e);
+        }
+    }
 }
