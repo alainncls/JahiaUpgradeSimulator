@@ -22,26 +22,28 @@ import javax.swing.border.EmptyBorder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.smile.listeners.JahiaConfigServiceListener;
 import fr.smile.models.Simulation;
 import fr.smile.services.JahiaConfigService;
 import fr.smile.services.PatchService;
 
 @SuppressWarnings("serial")
-public class FAccueil extends JFrame {
+public class FAccueil extends JFrame implements JahiaConfigServiceListener {
 
     private JPanel contentPane, pRed, pOrange, pGreen;
     private JLabel lProblems, lAvoid, lPredicted, lblT, lStart, lEnd, lReboots,
-            lLicences;
+    lLicences;
 
     private JComboBox<String> cbStart, cbEnd;
 
-    private JButton bSimulate, bPatches, bChiffrage;
+    private JButton bSimulate, bPatches, bChiffrage, bConfig;
 
     private ButtonGroup bGroup;
     private JRadioButton rbClustered, rbStandalone;
 
     private FPatches patches;
     private FChiffrage chiffrage;
+    private FConfig config;
 
     private transient Simulation simul;
     private String startVersion, endVersion, detectedVersion;
@@ -54,6 +56,7 @@ public class FAccueil extends JFrame {
 
         listVersions = PatchService.getInstance().getVersions();
         detectedVersion = JahiaConfigService.getInstance().getVersion();
+        JahiaConfigService.getInstance().addListener(this);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
@@ -153,7 +156,7 @@ public class FAccueil extends JFrame {
             public void actionPerformed(ActionEvent evt) {
                 bSimulateActionPerformed(
 
-                );
+                        );
             }
         });
         bSimulate.setBounds(12, 234, 117, 25);
@@ -207,6 +210,18 @@ public class FAccueil extends JFrame {
         });
         bPatches.setEnabled(false);
         contentPane.add(bPatches);
+
+        bConfig = new JButton("Change config");
+        bConfig.setBounds(48, 125, 157, 25);
+        bConfig.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                goConfig();
+            }
+        });
+        contentPane.add(bConfig);
+        config = new FConfig();
+        config.setVisible(false);
     }
 
     private void bSimulateActionPerformed() {
@@ -235,11 +250,13 @@ public class FAccueil extends JFrame {
             pGreen.setVisible(true);
             pOrange.setVisible(true);
             pRed.setVisible(true);
+
             lPredicted.setVisible(true);
             lAvoid.setVisible(true);
             lProblems.setVisible(true);
             lReboots.setVisible(true);
             lLicences.setVisible(true);
+
             bPatches.setEnabled(true);
             bChiffrage.setEnabled(true);
 
@@ -260,6 +277,13 @@ public class FAccueil extends JFrame {
         patches.setVisible(true);
     }
 
+    public void goConfig() {
+        if (config == null) {
+            LOGGER.error("CONFIG EST NULL");
+        }
+        config.setVisible(true);
+    }
+
     public void bChiffrageActionPerformed() {
         chiffrage.setVisible(true);
     }
@@ -276,5 +300,12 @@ public class FAccueil extends JFrame {
                 }
             }
         });
+    }
+
+    @Override
+    public void notifyVersionChange(String version) {
+        cbStart.setSelectedItem(version);
+        bPatches.setEnabled(false);
+        bChiffrage.setEnabled(false);
     }
 }

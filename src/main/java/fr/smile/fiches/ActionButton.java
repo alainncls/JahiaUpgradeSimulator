@@ -17,7 +17,7 @@ import fr.smile.services.PatchService;
 
 @SuppressWarnings("serial")
 public class ActionButton extends JButton implements DownloadServiceListener,
-        PatchServiceListener, JahiaConfigServiceListener {
+PatchServiceListener, JahiaConfigServiceListener {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ActionButton.class);
@@ -156,8 +156,7 @@ public class ActionButton extends JButton implements DownloadServiceListener,
     }
 
     @Override
-    public void notifyVersionChange() {
-        String version = JahiaConfigService.getInstance().getVersion();
+    public void notifyVersionChange(String version) {
         if (patch.getStartVersion().equals(version) && status == APPLY) {
             setEnabled(true);
         }
@@ -212,4 +211,5 @@ public class ActionButton extends JButton implements DownloadServiceListener,
             }
         }
     }
+
 }
