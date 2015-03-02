@@ -56,17 +56,20 @@ Changelog
 * Téléchargement des patchs via navigateur
 * Estimation des étapes
 * Détection de la version de jhaia installée
+
 09/02/2015 - v0.2 : [ GRAPHIQUE ] Prise en compte des reboots + Téléchargement des patchs directement dans l'application
 ----
 * Amélioration UI fiche patchs + Affichage des instructions
 * Téléchargements directs
 * MAJ du JSON : warning, instructions, reboot
 * ActionButton pour gérer le cycle d'application d'un patch
+
 17/02/2015 - v0.3 : [ GRAPHIQUE ] Chiffrage des migrations
 ----
 * Définition d'une formule pour le chiffrage
 * Download et Apply sont multithreadés
 * Fichiers de logs
+
 18/02/2015 - v0.4 : [ GRAPHIQUE ] Prise en compte des changements de licence
 ----
 * Vérification des changements de licence nécessaires
@@ -75,19 +78,23 @@ Changelog
 * Détection de patchs exécutables automatiquement ou à la main
 * ActionButton activé selon la version de Jahia installée
 * ActionButton caché si pas de version de Jahia détectée
+
 19/02/2015 - v0.5 : [ CONSOLE ] Saisie d'une simulation + chiffrage
 ----
 * Optimisation du code
 * Passage en mode console
 * MAJ du JSON
+
 26/02/2015 - v0.6 : [ MAVEN ] Mavenization + Mise en place d'un système de logs
 ----
 * Conversion du projet en Maven
 * Passage de Sonar sur le projet
 * Utilisation d'un logger (slf4j)
+
 02/03/2015 - v0.7 : [ SONAR ] Qualité du code : Technical debt = 0
 ----
 * Application des règles de qualité de code Sonar
+
 02/03/2015 - v0.8 : [ GRAPHIQUE ] Ajout d'une page de changement de configuration
 ----
 * Page de changement de configuration del'installation de Jahia en graphique
