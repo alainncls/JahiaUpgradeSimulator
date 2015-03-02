@@ -1,8 +1,5 @@
 package fr.smile.fiches;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
@@ -30,14 +27,8 @@ public class FInstructions extends JDialog {
 		setContentPane(contentPanel);
 		contentPanel.setLayout(null);
 
-		backButton = new JButton("<< Back");
-		backButton.setBounds(15, 534, 117, 25);
-		backButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				goBack();
-			}
-		});
+		BackButton button = new BackButton();
+		backButton = button.getBackButton(this);
 		contentPanel.add(backButton);
 
 		epInstructions = new JEditorPane("text/html", "");
@@ -46,10 +37,6 @@ public class FInstructions extends JDialog {
 		spInstructions.setBounds(5, 5, 881, 517);
 		contentPanel.add(spInstructions);
 
-	}
-
-	public void goBack() {
-		this.setVisible(false);
 	}
 
 	public void setInstructions(String ins) {

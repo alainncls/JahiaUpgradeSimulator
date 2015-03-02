@@ -41,14 +41,8 @@ public class FChiffrage extends JDialog implements PropertyChangeListener {
 		setContentPane(contentPanel);
 		contentPanel.setLayout(null);
 
-		backButton = new JButton("<< Back");
-		backButton.setBounds(15, 534, 117, 25);
-		backButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				goBack();
-			}
-		});
+		BackButton button = new BackButton();
+		backButton = button.getBackButton(this);
 		contentPanel.add(backButton);
 
 		bCalculate = new JButton("Calculate");
@@ -109,9 +103,5 @@ public class FChiffrage extends JDialog implements PropertyChangeListener {
 			}
 			epChiffrage.setText(simulation.getChiffrageHtml());
 		}
-	}
-
-	public void goBack() {
-		this.setVisible(false);
 	}
 }
