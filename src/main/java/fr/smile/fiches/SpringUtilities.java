@@ -139,9 +139,9 @@ public class SpringUtilities {
 		pCons.setConstraint(SpringLayout.EAST, x);
 	}
 
-	public static void makeCompactGridRight(Container parent,
-			int rows, // NOSONAR
-			int cols, int initialX, int initialY, int xPad, int yPad,
+	public static void makeCompactGridRight(/* NOSONAR */
+			Container parent,
+			int rows, int cols, int initialX, int initialY, int xPad, int yPad,
 			int nbColsRight) {
 
 		makeCompactGrid(parent, rows, cols, initialX, initialY, xPad, yPad);
