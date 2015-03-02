@@ -45,7 +45,7 @@ public class PatchService extends Listened<PatchServiceListener> implements
 		listPatch = new ArrayList<>();
 		try {
 			readFile(); // Reading the file line by line
-		} catch (IOException | ParseException e) {
+		} catch (IOException e) {
 			LOGGER.error("", e);
 		}
 	}
@@ -58,7 +58,7 @@ public class PatchService extends Listened<PatchServiceListener> implements
 	}
 
 	// Method to read the file line by line (each line = a bloc)
-	public void readFile() throws IOException, ParseException {
+	public void readFile() throws IOException {
 
 		InputStream is = getClass().getResourceAsStream(PATH);
 
@@ -68,8 +68,7 @@ public class PatchService extends Listened<PatchServiceListener> implements
 		is.close();
 		writer.close();
 
-		JSONParser parser = new JSONParser();
-		JSONArray a = (JSONArray) parser.parse(json);
+		JSONArray a = jsonParser(json);
 
 		String version, endVersion, url, instructions, instructionsCluster, warning;
 		Boolean reboot, license;
@@ -106,6 +105,17 @@ public class PatchService extends Listened<PatchServiceListener> implements
 				listPatch.add(patch);
 			}
 		}
+	}
+
+	private JSONArray jsonParser(String json) {
+		JSONParser parser = new JSONParser();
+		JSONArray a = null;
+		try {
+			a = (JSONArray) parser.parse(json);
+		} catch (ParseException e) {
+			LOGGER.error("", e);
+		}
+		return a;
 	}
 
 	public List<String> getVersions() {
