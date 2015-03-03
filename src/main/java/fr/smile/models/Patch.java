@@ -222,11 +222,11 @@ public class Patch {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
+        if (obj instanceof Patch) {
+            Patch other = (Patch) obj;
+            return other.startVersion.equals(this.startVersion)
+                    && other.endVersion.equals(this.endVersion);
         }
-        Patch other = (Patch) obj;
-        return other.startVersion.equals(this.startVersion)
-                && other.endVersion.equals(this.endVersion);
+        return false;
     }
 }

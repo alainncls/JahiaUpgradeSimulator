@@ -56,8 +56,9 @@ public class PatchTask extends ListenedRunnable {
             fluxErreur = new ShowStreamTask(process.getErrorStream(),
                     this.patch.toString() + ".error.log");
 
-            new Thread(fluxSortie).start();
-            new Thread(fluxErreur).start();
+            new Thread(fluxSortie, "OutpoutThread - " + patch.toString())
+                    .start();
+            new Thread(fluxErreur, "ErrorThread - " + patch.toString()).start();
 
             process.waitFor();
 

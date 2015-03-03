@@ -32,7 +32,7 @@ public class FAccueil extends JFrame implements JahiaConfigServiceListener {
 
     private JPanel contentPane, pRed, pOrange, pGreen;
     private JLabel lProblems, lAvoid, lPredicted, lblT, lStart, lEnd, lReboots,
-    lLicences;
+            lLicences;
 
     private JComboBox<String> cbStart, cbEnd;
 
@@ -156,7 +156,7 @@ public class FAccueil extends JFrame implements JahiaConfigServiceListener {
             public void actionPerformed(ActionEvent evt) {
                 bSimulateActionPerformed(
 
-                        );
+                );
             }
         });
         bSimulate.setBounds(12, 234, 117, 25);
@@ -231,7 +231,7 @@ public class FAccueil extends JFrame implements JahiaConfigServiceListener {
         simul = new Simulation(startVersion, endVersion,
                 rbClustered.isSelected());
 
-        if (simul.getError() != "") {
+        if (!simul.getError().equals("")) {
             JOptionPane.showMessageDialog(null, simul.getError(), "Error",
                     JOptionPane.ERROR_MESSAGE);
         } else {
