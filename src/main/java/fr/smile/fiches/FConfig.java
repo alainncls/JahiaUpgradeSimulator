@@ -95,6 +95,9 @@ public class FConfig extends JDialog {
     public void saveConfig() {
         JahiaConfigService.getInstance().setFolder(tfPath.getText());
         JahiaConfigService.getInstance().setContext(tfContext.getText());
+        if (JahiaConfigService.getInstance().getVersion() == null) {
+
+        }
     }
 
     public Path getPathToJahia() {

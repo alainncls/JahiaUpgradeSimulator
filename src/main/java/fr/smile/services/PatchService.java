@@ -162,7 +162,7 @@ RunnableListener {
     public void notifyRunnableComplete(Runnable runnable, int result) {
         // NO IDEA WHAT IM DOING
         // DELETE 'RES' IF PROBLEMS
-        int res = OK;
+        int res = result;
         Patch p = ((PatchTask) runnable).getPatch();
         if (result == PatchTask.OK) {
             JahiaConfigService.getInstance().detectJahiaVersion();
@@ -172,10 +172,9 @@ RunnableListener {
                 res = ERROR;
             }
         }
-        LOGGER.info("PatchTask ended  (" + p.toString() + ") : "
-                + (result + res));
+        LOGGER.info("PatchTask ended  (" + p.toString() + ") : " + res);
         for (PatchServiceListener listener : listeners) {
-            listener.notifyPatchComplete(p, result + res);
+            listener.notifyPatchComplete(p, res);
         }
     }
 }
