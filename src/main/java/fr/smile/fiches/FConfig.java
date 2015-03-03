@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -86,7 +87,6 @@ public class FConfig extends JDialog {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 saveConfig();
-                backButton.goBack();
             }
         });
         contentPanel.add(bSave);
@@ -96,14 +96,17 @@ public class FConfig extends JDialog {
         JahiaConfigService.getInstance().setFolder(tfPath.getText());
         JahiaConfigService.getInstance().setContext(tfContext.getText());
         if (JahiaConfigService.getInstance().getVersion() == null) {
-
+            JOptionPane.showMessageDialog(this,
+                    "Not a path to a Jahia installation");
+        } else {
+            backButton.goBack();
         }
     }
 
     public Path getPathToJahia() {
+        File jahia = new File(JahiaConfigService.getInstance().getFolder());
         chooser = new JFileChooser();
-        chooser.setCurrentDirectory(new File(JahiaConfigService.getInstance()
-                .getFolder()));
+        chooser.setCurrentDirectory(jahia);
         chooser.setDialogTitle("Choose Jahia directory");
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
@@ -112,12 +115,11 @@ public class FConfig extends JDialog {
 
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             LOGGER.info("Selected path : " + chooser.getSelectedFile());
-        } else {
-            LOGGER.info("No Selection");
+            Path path = chooser.getSelectedFile().toPath();
+            tfPath.setText(path.toString());
+            return path;
         }
-
-        Path path = chooser.getSelectedFile().toPath();
-        tfPath.setText(path.toString());
-        return path;
+        LOGGER.info("No Selection");
+        return jahia.toPath();
     }
 }

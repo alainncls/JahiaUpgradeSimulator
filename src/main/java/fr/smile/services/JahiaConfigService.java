@@ -90,11 +90,11 @@ public class JahiaConfigService extends Listened<JahiaConfigServiceListener> {
             }
         } catch (Exception e) {
             LOGGER.error("Fail to detect", e);
+            version = null;
         }
         if (version != null && !version.equals(old)) {
             notifyVersionChange();
-        }
-        if (old != null && !old.equals(version)) {
+        } else if (old != null && !old.equals(version)) {
             notifyVersionChange();
         }
     }
