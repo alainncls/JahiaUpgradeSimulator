@@ -6,23 +6,23 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
-public class BackButton {
-    public BackButton() {
+@SuppressWarnings("serial")
+public class BackButton extends JButton {
 
-    }
+    private JDialog dialog;
 
-    public JButton getBackButton(final JDialog dialog) {
-        JButton backButton = new JButton("<< Back");
-        backButton.addActionListener(new ActionListener() {
+    public BackButton(JDialog dialog) {
+        this.dialog = dialog;
+        this.setText("<< Back");
+        this.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                goBack(dialog);
+                goBack();
             }
         });
-        return backButton;
     }
 
-    public void goBack(JDialog dialog) {
+    public void goBack() {
         dialog.setVisible(false);
     }
 }

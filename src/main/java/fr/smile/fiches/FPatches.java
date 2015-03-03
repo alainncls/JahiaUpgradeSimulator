@@ -131,8 +131,7 @@ public class FPatches extends JDialog {
         scrollPane.setBounds(listPanel.getBounds());
         contentPanel.add(scrollPane);
 
-        BackButton button = new BackButton();
-        backButton = button.getBackButton(this);
+        backButton = new BackButton(this);
         contentPanel.add(backButton);
 
         actionsToPerform();
@@ -211,11 +210,11 @@ public class FPatches extends JDialog {
 
     private void toggleWarning(Patch patch) {
         JOptionPane
-                .showMessageDialog(
-                        null,
-                        new JLabel(
-                                "<html><body style='width: 400px; text-align: justify; text-justify: inter-word;'>"
-                                        + patch.getWarning() + "</body></html>"));
+        .showMessageDialog(
+                null,
+                new JLabel(
+                        "<html><body style='width: 400px; text-align: justify; text-justify: inter-word;'>"
+                                + patch.getWarning() + "</body></html>"));
     }
 
     private void toggleInstruction(Patch patch, Boolean isClustered) {
