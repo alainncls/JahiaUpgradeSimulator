@@ -41,8 +41,7 @@ public class FChiffrage extends JDialog implements PropertyChangeListener {
         setContentPane(contentPanel);
         contentPanel.setLayout(null);
 
-        BackButton button = new BackButton();
-        backButton = button.getBackButton(this);
+        backButton = new BackButton(this);
         backButton.setBounds(15, 534, 117, 25);
         contentPanel.add(backButton);
 

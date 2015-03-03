@@ -27,7 +27,8 @@ public class FConfig extends JDialog {
 
     private final JPanel contentPanel;
 
-    private JButton backButton, bSave, bPath;
+    private JButton bSave, bPath;
+    private BackButton backButton;
     private JLabel lTitle, lPath, lContext;
     private JTextField tfPath, tfContext;
     private JFileChooser chooser;
@@ -47,8 +48,7 @@ public class FConfig extends JDialog {
         lTitle.setFont(new Font("Dialog", Font.BOLD, 16));
         contentPanel.add(lTitle);
 
-        BackButton button = new BackButton();
-        backButton = button.getBackButton(this);
+        backButton = new BackButton(this);
         backButton.setBounds(325, 243, 120, 25);
         contentPanel.add(backButton);
 
@@ -86,6 +86,7 @@ public class FConfig extends JDialog {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 saveConfig();
+                backButton.goBack();
             }
         });
         contentPanel.add(bSave);
