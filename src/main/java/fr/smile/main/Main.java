@@ -25,7 +25,6 @@ public class Main {
 
         JahiaConfigService.getInstance().setFolder(jahiaFolder);
         JahiaConfigService.getInstance().setContext(context);
-        JahiaConfigService.getInstance().detectJahiaVersion();
 
         if (hidden) {
             LOGGER.info("Console mode activated !");
