@@ -94,6 +94,9 @@ public class JahiaConfigService extends Listened<JahiaConfigServiceListener> {
         if (version != null && !version.equals(old)) {
             notifyVersionChange();
         }
+        if (old != null && !old.equals(version)) {
+            notifyVersionChange();
+        }
     }
 
     private File[] listFilesMatching(File root, String regex) {
